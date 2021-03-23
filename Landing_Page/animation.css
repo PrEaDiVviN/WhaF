@@ -1,0 +1,285 @@
+.hamburger_up {
+	position: relative;
+	top: 0;
+	width: 400px;
+	height: 253px;
+	border-radius: 53% 47% 51% 49% / 69% 73% 27% 31%;
+	background-color: rgb(243,148,55);
+	border: 7px solid rgba(103,55,13,100%);
+}
+
+.hamburger_shade {
+	z-index: 1;
+	position: absolute;
+	left: 37px;
+	background-color: rgb(247,168,70);
+	border-radius: 49% 51% 55% 45% / 50% 79% 21% 50% ;
+	width: 360px;
+	height: 220px;
+}
+
+.seed {
+	background-color: rgb(251,238,135);
+	z-index: 2;
+	position: absolute;
+}
+
+.seed.seed-1 {
+	width: 15px;
+	height: 8px;
+	border-radius: 32% 68% 50% 50% / 50% 35% 65% 50%;
+	left: 100px;
+	top: 30px;
+}
+
+.seed.seed-2 {
+	width: 15px;
+	height: 7px;
+	border-radius: 21% 79% 71% 29% / 50% 35% 65% 50%;
+	left: 150px;
+	top: 35px;
+}
+
+.seed.seed-3 {
+	width: 17px;
+	height: 8px;
+	border-radius: 65% 35% 24% 76% / 0% 48% 52% 100%;
+	left: 140px;
+	top: 15px;
+}
+
+.seed.seed-4 {
+	width: 16px;
+	height: 7px;
+	border-radius: 61% 39% 72% 28% / 0% 100% 0% 100%;
+	left: 170px;
+	top: 18px;
+}
+
+.seed.seed-5 {
+	width: 15px;
+	height: 7px;
+	border-radius: 48% 52% 76% 24% / 48% 58% 42% 52%;
+	left: 197px;
+	top: 21px;
+}
+
+.seed.seed-6 {
+	width: 13px;
+	height: 12px;
+	border-radius: 9% 91% 0% 100% / 35% 72% 28% 65%;
+	left: 230px;
+	top: 24px;
+}
+
+
+.seed.seed-7 {
+	width: 17px;
+	height: 6px;
+	border-radius: 9% 91% 57% 43% / 35% 83% 17% 65%;
+	left: 210px;
+	top: 38px;
+}
+
+.seed.seed-8 {
+	width: 17px;
+	height: 6px;
+	border-radius: 9% 91% 77% 23% / 35% 100% 0% 65%;
+	left: 185px;
+	top: 45px;
+}
+
+.seed.seed-9 {
+	width: 10px;
+	height: 15px;
+	border-radius: 80% 20% 100% 0% / 61% 27% 73% 39%;
+	left: 127px;
+	top: 28px;
+}
+
+
+.eyes {
+	background-color: rgba(103,55,13);
+	z-index: 2;
+	width: 45px;
+	height: 45px;
+	position: absolute;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+}
+
+.eyes.eye-left {
+	left: 90px;
+	top: 70px;
+}
+
+.eyes.eye-right {
+	left: 210px;
+	top: 70px;
+}
+
+.dot-white {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	background-color: white;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	z-index: 3;
+}
+
+.dot-white.dot-left {
+	left: 95px;
+	top: 80px;
+}
+
+.dot-white.dot-right {
+	left: 215px;
+	top: 80px;
+}
+
+.smile {
+position: absolute;
+left: 130px;
+top: 100px;
+width: 80px;
+height: 80px;
+border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+box-shadow: 0px 25px 0 0 rgb(103,55,13); 
+}
+ 
+.flush {
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	width: 50px;
+	height: 25px;
+	position: absolute;
+	background-color: rgb(236,100,71);
+}
+
+.flush.flush-left {
+	top: 125px;
+	left: 90px;
+}
+
+.flush.flush-right {
+	top: 125px;
+	left: 208px;
+}
+
+.burger_down {
+	position: relative;
+	top: 150px;
+	width: 400px;
+	height: 150px;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	background-color: rgb(243,148,55);
+	border: 7px solid rgba(103,55,13,100%);
+}
+
+.light {
+	top: 10px;
+	left: 40px;
+	width: 300px;
+	height: 130px;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	background-color: rgb(247,168,70);
+	position: absolute;
+}
+
+.salad-green {
+	z-index: 1;
+	position: absolute;
+	width: 400px;
+	height: 150px;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	background-color: rgb(142,187,73);
+}
+
+.salad {
+	position: relative;
+	top: 150px;
+	width: 400px;
+	height: 150px;
+	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+	background-color: rgb(142,187,73);
+	border: 7px solid rgba(103,55,13,100%);
+}
+
+.salad-detail {
+	border: 7px solid rgba(103,55,13,100%);
+	position: absolute;
+	transform: rotate(20deg);
+	top: 100px;
+	width: 50px;
+	height: 30px;
+	border-radius: 25% 75% 70% 30% / 0% 0% 100% 100% ;
+	background-color: rgb(142,187,73);
+}
+
+.salad-detail.salad-position-1 {
+	transform: rotate(20deg);
+	top: 100px;
+}
+
+.salad-detail.salad-position-2 {
+	transform: rotate(0deg);
+	left: 50px;
+	top: 121px;
+}
+
+.salad-detail.salad-position-3 {
+	transform: rotate(-5deg);
+	left: 110px;
+	top: 135px;
+}
+
+.salad-detail.salad-position-4 {
+	transform: rotate(-19deg);
+	left: 170px;
+	top: 133px;
+}
+
+.salad-detail.salad-position-5 {
+	transform: rotate(-25deg);
+	left: 230px;
+	top: 130px;
+}
+
+.salad-detail.salad-position-6 {
+	transform: rotate(-20deg);
+	left: 300px;
+	top: 120px;
+}
+ 
+.salad-detail.salad-position-7 {
+	transform: rotate(-35deg);
+	left: 350px;
+	top: 100px;
+	border-radius: 25% 75% 23% 77% / 0% 0% 100% 100%;
+}
+
+/*
+.animation {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	animation-name: example;
+	animation-duration: 5s;
+	position: relative;
+	animation-delay: 1s;
+/*	animation-iteration-count: 2;
+	/*animation-iteration-count: infinite;
+	animation-fill-mode: forwards;
+	/*animation-direction: alternate-reverse;
+	animation-timing-function: ease-in;
+}
+
+@keyframes example {
+	/*from {background-color: red;}
+	to {background-color: yellow;}
+	
+	0% {background-color: red; left:0px; right: 0px;}
+	25% {background-color: yellow; left:200px; top:0px;}
+	50% {background-color: blue; left:200px; top: 200px;}
+	75% {background-color: purple; left:0px; top:200px;}
+	100% {background-color: green; left: 0px; top:0px;}
+}
+*/
