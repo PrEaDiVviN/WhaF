@@ -1,0 +1,70 @@
+adaugare reteta (cu cont):
+	- ingrediente
+	- durata preparare
+	- durata finalizare
+	- poza 
+	- tag-uri (caracteristici ale retetei)
+	- instructiuni (numerotate)
+	- poze instructiuni (maximul de la numerotare)
+	- stilul formular 
+
+cautare (orice utilizator cu sau fara cont): 
+	- reteta dupa nume
+	- reteta dupa ingrediente
+		+ ingrediente suplimentare nedorite
+		+ dificultate 
+		+ durata preparare/finalizare
+		+ dupa tag-uri
+	- ordonare dupa: (si inainte si dupa afisarea rezultatelor)
+		- popularitate (dupa nr. poze uploadate)
+		- durata preparare/finalizare
+		- dificultate
+		- random order
+		- cele mai recente (dupa data publicare)
+		- a-z (alfabetica)
+	* preferintele ultimei cautari salvate in browser (fara cont)
+	* preferintele tuturor cautari in baza de date (cu cont) -> istoric
+	 cautari
+
+categorii (aperitive, aluaturi etc.)
+
+clasamente (orice utilizator cu sau fara cont) -> HTML, CSV, JSON:
+	- cele mai populare retele
+	- cele mai populare ingrediente
+	- cele mai evitate ingrediente
+	* lista categorii dupa hover
+
+pagina contul meu:
+	- setari (nume utilizator, mail, parola, poza, informatii)
+	- istoric cautari
+	- retete facute (poze uploadate)
+	- retete adaugate
+	* delete o reteta adaugata (admin/user)
+
+pagina utilizator:
+	- template retete facute + retete adaugate + informatii utilizator
+	 (nume, prenume etc.)
+	- poze cu retele incercate/adaugate -> hover peste ele -> nume si 
+	 link catre postare
+
+pagina postare (reteta):
+	- ceva template (vedem noi)
+
+postare reteta:
+
+pagina setari cont:
+
+pagina welcome:
+	- afisate x retete cele mai recente -> doar poza si cand dam hover
+	 apare si numele retetei
+
+postare (reteta):
+	- uplod poza (marcare a fost preparat) (cu cont)
+
+* dupa ce utilizatorul se logheaza -> in profilul lui -> optiunea noua -> 
+istoric
+
+link-uri: 
+	https://divainbucatarie.ro/
+	https://retete.unica.ro/categorie/articole/
+	https://csblackdevil.com/forums/membersshop/members/bank/
