@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Sign in/up page </title>
+
+    <meta charset = "UTF-8">
+
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel = "stylesheet" type = "text/css" href = "sign-in-sign-up.css">
+</head>
+
+<body>
+    <header>
+        <div>    
+            <div class = "logo-row">
+                <img src = "Logo final.png" alt = "Logo" class = "logo">
+            </div>
+
+            <form> 
+                <div class = "box"> <strong>
+                    <h1> Sign In </h1>
+                
+                    <label for = "username"> Username: </label>
+    
+                    <input type = "text" id = "username" name = "username">
+                    <br> <br>
+    
+                    <label for = "passwd"> Password: </label>
+    
+                    <input type = "password" id = "passwd" name = "passwd" minlength = "7" required>
+                    <br> <br>
+    
+                    <input type = "submit" value = "Login">
+                </strong> </div>
+            </form>
+        </div>
+    </header>
+    <br>
+
+    <div>  
+        <form> <img src = "Recipes.jpg" alt = "Image" class = "image">
+            <div class = "box"> <strong>
+                <h1> Sign Up </h1>
+                
+                <label for = "mail"> Email: </label>
+
+                <input type = "email" id = "mail" name = "mail">
+                <br> <br>
+
+                <label for = "username"> Username: </label>
+
+                <input type = "text" id = "username" name = "username">
+                <br> <br>
+
+                <label for = "passwd"> Password: </label>
+
+                <input type = "password" id = "passwd" name = "passwd" minlength = "7" required>
+                <br> <br>
+
+                <label for = "passw"> Confirm password: </label>
+
+                <input type = "password" id = "passw" name = "passw" minlength = "7" required>
+                <br> <br>
+
+                <label for = "photo"> Profile photo: </label>
+
+                <input type = "file" id = "photo" name = "photo" multiple = "true" accept = "image/png, image.jpg">
+                <br> <br>
+
+                <label for = "data"> Date of birth: </label>
+
+                <input type = "date" id = "data" name = "data">
+                <br> <br>
+
+                <input type = "submit" value = "Register">
+            </strong> </div>
+        </form>
+    </div>
+    
+    <div class = "footer"> 
+        <a href = "#" class = "fa fa-facebook"> </a>
+        <a href = "#" class = "fa fa-twitter"> </a>
+        <a href = "#" class = "fa fa-instagram"> </a>
+    </div>
+</body>
+</html>
