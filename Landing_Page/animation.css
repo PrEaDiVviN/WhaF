@@ -1,12 +1,24 @@
 .hamburger_up {
+	z-index: 12;
+	left: 500px;
 	position: relative;
-	top: 0;
-	width: 400px;
-	height: 253px;
+	top: -200px;
+	width: 280px;
+	height: 180px;
 	border-radius: 53% 47% 51% 49% / 69% 73% 27% 31%;
 	background-color: rgb(243,148,55);
 	border: 7px solid rgba(103,55,13,100%);
+	animation-name: burger_up_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	animation-delay: 3.25s;
 }
+
+@keyframes burger_up_keyframe {
+	from {top : -250px;}
+	to {top: 300px;}
+}
+
 
 .hamburger_shade {
 	z-index: 1;
@@ -14,8 +26,8 @@
 	left: 37px;
 	background-color: rgb(247,168,70);
 	border-radius: 49% 51% 55% 45% / 50% 79% 21% 50% ;
-	width: 360px;
-	height: 220px;
+	width: 240px;
+	height: 150px;
 }
 
 .seed {
@@ -101,185 +113,350 @@
 .eyes {
 	background-color: rgba(103,55,13);
 	z-index: 2;
-	width: 45px;
-	height: 45px;
+	width: 25px;
+	height: 25px;
 	position: absolute;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 }
 
 .eyes.eye-left {
-	left: 90px;
-	top: 70px;
+	left: 50px;
+	top: 50px;
 }
 
 .eyes.eye-right {
-	left: 210px;
-	top: 70px;
+	left: 140px;
+	top: 50px;
 }
 
 .dot-white {
 	position: absolute;
-	width: 15px;
-	height: 15px;
+	width: 7px;
+	height: 7px;
 	background-color: white;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 	z-index: 3;
 }
 
 .dot-white.dot-left {
-	left: 95px;
-	top: 80px;
+	left: 55px;
+	top: 60px;
 }
 
 .dot-white.dot-right {
-	left: 215px;
-	top: 80px;
+	left: 145px;
+	top: 60px;
 }
 
 .smile {
 position: absolute;
-left: 130px;
-top: 100px;
-width: 80px;
-height: 80px;
+left: 90px;
+top: 80px;
+width: 40px;
+height: 40px;
 border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-box-shadow: 0px 25px 0 0 rgb(103,55,13); 
+box-shadow: 0px 15px 0 0 rgb(103,55,13); 
 }
  
 .flush {
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
-	width: 50px;
-	height: 25px;
+	width: 35px;
+	height: 15px;
 	position: absolute;
 	background-color: rgb(236,100,71);
 }
 
 .flush.flush-left {
-	top: 125px;
-	left: 90px;
+	top: 90px;
+	left: 50px;
 }
 
 .flush.flush-right {
-	top: 125px;
-	left: 208px;
+	top: 90px;
+	left: 135px;
 }
 
 .burger_down {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: relative;
-	top: 150px;
-	width: 400px;
-	height: 150px;
+	top: 400px;
+	width: 280px;
+	height: 180px;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 	background-color: rgb(243,148,55);
 	border: 7px solid rgba(103,55,13,100%);
+	animation-name: burger_down_keyframe;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
 }
 
+@keyframes burger_down_keyframe {
+	from {left : -250px;}
+	to {left: 500px;}
+} 
+
 .light {
-	top: 10px;
-	left: 40px;
-	width: 300px;
-	height: 130px;
+	position: static;
+	width: 200px;
+	height: 100px;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 	background-color: rgb(247,168,70);
 	position: absolute;
 }
 
 .salad-green {
-	z-index: 1;
+	z-index: 5;
 	position: absolute;
-	width: 400px;
+	width: 250px;
 	height: 150px;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 	background-color: rgb(142,187,73);
 }
 
 .salad {
+	animation-name: salad_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	animation-delay: 1s;
+	z-index: 6;
 	position: relative;
-	top: 150px;
-	width: 400px;
+	top: -200px;
+	left: 515px;
+	width: 250px;
 	height: 150px;
 	border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
 	background-color: rgb(142,187,73);
 	border: 7px solid rgba(103,55,13,100%);
 }
 
+@keyframes salad_keyframe {
+	from {top : -300px;}
+	to {top: 400px;}
+} 
+
 .salad-detail {
+	z-index: 4;
 	border: 7px solid rgba(103,55,13,100%);
 	position: absolute;
 	transform: rotate(20deg);
 	top: 100px;
-	width: 50px;
-	height: 30px;
+	width: 25px;
+	height: 20px;
 	border-radius: 25% 75% 70% 30% / 0% 0% 100% 100% ;
 	background-color: rgb(142,187,73);
 }
 
 .salad-detail.salad-position-1 {
 	transform: rotate(20deg);
+	left: 0px;
 	top: 100px;
 }
 
 .salad-detail.salad-position-2 {
 	transform: rotate(0deg);
-	left: 50px;
+	left: 30px;
 	top: 121px;
 }
 
 .salad-detail.salad-position-3 {
 	transform: rotate(-5deg);
-	left: 110px;
+	left: 70px;
 	top: 135px;
 }
 
 .salad-detail.salad-position-4 {
 	transform: rotate(-19deg);
-	left: 170px;
-	top: 133px;
+	left: 110px;
+	top: 135px;
 }
 
 .salad-detail.salad-position-5 {
 	transform: rotate(-25deg);
-	left: 230px;
-	top: 130px;
+	left: 150px;
+	top: 135px;
 }
 
 .salad-detail.salad-position-6 {
 	transform: rotate(-20deg);
-	left: 300px;
+	left: 190px;
 	top: 120px;
 }
  
 .salad-detail.salad-position-7 {
 	transform: rotate(-35deg);
-	left: 350px;
+	left: 220px;
 	top: 100px;
 	border-radius: 25% 75% 23% 77% / 0% 0% 100% 100%;
 }
 
-/*
-.animation {
-	width: 100px;
-	height: 100px;
-	background-color: red;
-	animation-name: example;
-	animation-duration: 5s;
-	position: relative;
-	animation-delay: 1s;
-/*	animation-iteration-count: 2;
-	/*animation-iteration-count: infinite;
+.meat {
+	position: absolute;
+	animation-delay: 1.75s;
+	animation-name: meat_keyframe;
+	animation-duration: 0.75s;
 	animation-fill-mode: forwards;
-	/*animation-direction: alternate-reverse;
-	animation-timing-function: ease-in;
+	z-index: 8;
+	box-sizing: border-box;
+	background-color: rgb(139,78,19);
+	width: 250px;
+	height: 180px;
+	left: 520px;
+	top: -300px;
+	border-radius: 45% 55% 49% 51% / 49% 54% 46% 51% ;
+	border: 7px solid rgba(103,55,13,100%);
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	display: flex;
 }
 
-@keyframes example {
-	/*from {background-color: red;}
-	to {background-color: yellow;}
-	
-	0% {background-color: red; left:0px; right: 0px;}
-	25% {background-color: yellow; left:200px; top:0px;}
-	50% {background-color: blue; left:200px; top: 200px;}
-	75% {background-color: purple; left:0px; top:200px;}
-	100% {background-color: green; left: 0px; top:0px;}
+@keyframes meat_keyframe {
+	from { top : -300px; }
+	to { top: 360px; }
+} 
+
+@keyframes keep_keyframe {
+	from { 	 }
+	to {  }
 }
-*/
+
+.meat.meat_up {
+	position: static;
+	box-sizing: border-box;
+	border: none;
+	background-color: rgb(139,78,60);
+	width: 200px;
+	height: 130px;
+	border-radius: 45% 55% 49% 51% / 49% 54% 46% 51% ;
+}
+
+.meat.meat_up.detail-1 {
+	animation-delay: 1.75s;
+	animation-name: keep_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: relative;
+	box-shadow: 0px -8px 0 0 rgb(103,55,13);
+	width: 20px;
+	height: 30px;
+	left: -40px;
+	top: 50px;
+	background-color: none;
+}
+
+.meat.meat_up.detail-2 {
+	animation-delay: 1.75s;
+	animation-name: keep_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: relative;
+	box-shadow: 0px -8px 0 0 rgb(103,55,13);
+	width: 20px;
+	height: 30px;
+	left: 40px;
+	top: 28px;
+	background-color: none;
+}
+.meat.meat_up.detail-3 {
+	animation-delay: 1.75s;
+	animation-name: keep_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: relative;
+	box-shadow: 0px -8px 0 0 rgb(103,55,13);
+	width: 20px;
+	height: 30px;
+	left: -70px;
+	top: 25px;
+	background-color: none;
+}
+.meat.meat_up.detail-4 {
+	animation-delay: 1.75s;
+	animation-name: keep_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: relative;
+	box-shadow: 0px -8px 0 0 rgb(103,55,13);
+	width: 20px;
+	height: 30px;
+	left: 70px;
+	top: 0px;
+	background-color: none;
+}
+.meat.meat_up.detail-5 {
+	animation-delay: 1.75s;
+	animation-name: keep_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: relative;
+	box-shadow: 0px -8px 0 0 rgb(103,55,13);
+	width: 20px;
+	height: 30px;
+	left: 0px;
+	top: 0px;
+	background-color: none;
+}
+
+@keyframes cheese_keyframe {
+	from { top : -200px; }
+	to { top: 360px; }
+} 
+
+@keyframes keepTop_keyframe {
+	from { top: 0px;	 }
+	to {  top: 0px;  }
+}
+
+
+.cheese {
+	top: -200px;
+	z-index: 9;
+	position: absolute;
+	animation-delay: 2.50s;
+	animation-name: cheese_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	left: 539px;
+	width: 200px;
+	height: 150px;
+	background-color: rgb(253,215,23);
+	border: 7px solid rgba(103,55,13,100%);
+	border-radius: 48% 52% 49% 51% / 14% 15% 85% 86%;
+}
+.cheese.cheese-1{
+	z-index: 10;
+	animation-delay: 2.50s;
+	animation-name: keepTop_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	width: 200px;
+	height: 150px;
+	background-color: rgb(253,215,23);
+	border: none;
+	border-radius: 48% 52% 49% 51% / 14% 15% 85% 86%;
+}
+
+.cheese.left-cheese {
+	animation-delay: 2.50s;
+	animation-name: keepTop_keyframe;
+	animation-duration: 0.75s;
+	animation-fill-mode: forwards;
+	position: absolute;
+	width: 200px;
+	height: 150px;
+	background-color: rgb(253,215,23);
+	border: 7px solid rgba(103,55,13,100%);
+	border-radius: 48% 52% 49% 51% / 14% 15% 85% 86%;
+	transform: rotate(180deg);
+	bottom: -10px;
+	left: -5px;
+}
+
+.animation div {
+	position: absolute;
+}
