@@ -4,6 +4,15 @@ body {
 	background-color: rgb(254,209,114);
 }
 
+.title {
+	display: block;
+	font-size: 10vh;
+	position: absolute;
+	font-family: 'Gloria Hallelujah', cursive;
+	color:   #331a00;
+	z-index: -1;
+}
+
 .hamburger_up {
 	z-index: 12;
 	position: relative;
@@ -18,21 +27,7 @@ body {
 	animation-fill-mode: forwards;
 	animation-delay: 1.25s;
 }
-/*
-@keyframes eyes_dot_left_keyframe {
-	0% { left: 143px; }
-	50% {left: 155px; }
-	100% {left: 143px;}
 
-}
-
-@keyframes eyes_dot_right_keyframe {
-	0% { left: 53px; }
-	50% {left: 63px; }
-	100% {left: 53px;}
-
-}
-*/
 @keyframes burger_up_keyframe {
 	from {top : -300px;}
 	to {top: 310px;}
@@ -48,86 +43,6 @@ body {
 	width: 240px;
 	height: 150px;
 }
-
-.seed {
-	background-color: rgb(251,238,135);
-	z-index: 2;
-	position: absolute;
-}
-
-.seed.seed-1 {
-	width: 15px;
-	height: 8px;
-	border-radius: 32% 68% 50% 50% / 50% 35% 65% 50%;
-	left: 100px;
-	top: 30px;
-}
-
-.seed.seed-2 {
-	width: 15px;
-	height: 7px;
-	border-radius: 21% 79% 71% 29% / 50% 35% 65% 50%;
-	left: 150px;
-	top: 35px;
-}
-
-.seed.seed-3 {
-	width: 17px;
-	height: 8px;
-	border-radius: 65% 35% 24% 76% / 0% 48% 52% 100%;
-	left: 140px;
-	top: 15px;
-}
-
-.seed.seed-4 {
-	width: 16px;
-	height: 7px;
-	border-radius: 61% 39% 72% 28% / 0% 100% 0% 100%;
-	left: 170px;
-	top: 18px;
-}
-
-.seed.seed-5 {
-	width: 15px;
-	height: 7px;
-	border-radius: 48% 52% 76% 24% / 48% 58% 42% 52%;
-	left: 197px;
-	top: 21px;
-}
-
-.seed.seed-6 {
-	width: 13px;
-	height: 12px;
-	border-radius: 9% 91% 0% 100% / 35% 72% 28% 65%;
-	left: 230px;
-	top: 24px;
-}
-
-
-.seed.seed-7 {
-	width: 17px;
-	height: 6px;
-	border-radius: 9% 91% 57% 43% / 35% 83% 17% 65%;
-	left: 210px;
-	top: 38px;
-}
-
-.seed.seed-8 {
-	width: 17px;
-	height: 6px;
-	border-radius: 9% 91% 77% 23% / 35% 100% 0% 65%;
-	left: 185px;
-	top: 45px;
-}
-
-.seed.seed-9 {
-	width: 10px;
-	height: 15px;
-	border-radius: 80% 20% 100% 0% / 61% 27% 73% 39%;
-	left: 127px;
-	top: 28px;
-}
-
 
 .eyes {
 	background-color: rgba(103,55,13);
@@ -158,24 +73,14 @@ body {
 }
 
 .dot-white.dot-left {
-	/*
-	animation-name: eyes_dot_left_keyframe;
-	animation-duration: 2s;
-	animation-fill-mode: forwards;
-	animation-delay: 4s;
-	*/
+
 	position: relative;
 	left: 55px;
 	top: 60px;
 }
 
 .dot-white.dot-right {
-	/*	
-	animation-name: eyes_dot_right_keyframe;
-	animation-duration: 2s;
-	animation-fill-mode: forwards;
-	animation-delay: 4s;
-	*/
+
 	position: absolute;
 	left: 145px;
 	top: 60px;
@@ -490,10 +395,10 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	left: -5px;
 }
 
-.main {
+.animation {
 	box-sizing: border-box;
 	width: 100%;
-	height: 80vh;
+	height: 90vh;
 	position: relative;
 	display: grid;
 	grid-template-columns: 1.5fr 1fr 1.5fr;
@@ -535,12 +440,19 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	align-self: center;
 }
 
+.main {
+	width: 100%;
+	height: 100vh;
+	position: absolute;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+}
+
 @keyframes buttons { 
 	from { visibility: hidden; }
 	to { visibility: visible; }
 }
-
-
 
 div button
 {
