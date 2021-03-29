@@ -160,7 +160,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	animation-delay: 0.5s;
 	z-index: 6;
 	position: relative;
-	top: -800px;
+	top: -830px;
 	width: 250px;
 	height: 150px;
 	left: 15px;
@@ -170,7 +170,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 }
 
 @keyframes salad_keyframe {
-	from {top : -800px;}
+	from {top : -830px;}
 	to {top: -140px;}
 } 
 
@@ -241,7 +241,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	width: 250px;
 	left: 23px;
 	height: 180px;
-	top: -600px;
+	top: -700px;
 	border-radius: 45% 55% 49% 51% / 49% 54% 46% 51% ;
 	border: 7px solid rgba(103,55,13,100%);
 	justify-content: center;
@@ -251,7 +251,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 }
 
 @keyframes meat_keyframe {
-	from { top : -600px; }
+	from { top : -700px; }
 	to { top: 5px; }
 } 
 
@@ -482,4 +482,3 @@ div button:hover
     transform:scale(1.3,1.3);
 } 
 
- 
