@@ -1,6 +1,7 @@
 body {
 	border: 0px;
 	margin: 0px;
+	background-color: rgb(255, 224, 224);
 }
 
 .hamburger_up {
@@ -17,7 +18,7 @@ body {
 	animation-fill-mode: forwards;
 	animation-delay: 3.25s;
 }
-
+/*
 @keyframes eyes_dot_left_keyframe {
 	0% { left: 143px; }
 	50% {left: 155px; }
@@ -31,7 +32,7 @@ body {
 	100% {left: 53px;}
 
 }
-
+*/
 @keyframes burger_up_keyframe {
 	from {top : -300px;}
 	to {top: 310px;}
@@ -157,21 +158,25 @@ body {
 }
 
 .dot-white.dot-left {
-	position: relative;
+	/*
 	animation-name: eyes_dot_left_keyframe;
 	animation-duration: 2s;
 	animation-fill-mode: forwards;
 	animation-delay: 4s;
+	*/
+	position: relative;
 	left: 55px;
 	top: 60px;
 }
 
 .dot-white.dot-right {
-	position: absolute;
+	/*	
 	animation-name: eyes_dot_right_keyframe;
 	animation-duration: 2s;
 	animation-fill-mode: forwards;
 	animation-delay: 4s;
+	*/
+	position: absolute;
 	left: 145px;
 	top: 60px;
 }
@@ -488,7 +493,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 .animation {
 	box-sizing: border-box;
 	width: 100%;
-	height: 99vh ;
+	height: 80vh ;
 	position: relative;
 	display: flex;
 	justify-content: center;
