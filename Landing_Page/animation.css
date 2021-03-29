@@ -1,7 +1,7 @@
 body {
 	border: 0px;
 	margin: 0px;
-	background-color: rgb(255, 224, 224);
+	background-color: rgb(254,209,114);
 }
 
 .hamburger_up {
@@ -14,9 +14,9 @@ body {
 	background-color: rgb(243,148,55);
 	border: 7px solid rgba(103,55,13,100%);
 	animation-name: burger_up_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
-	animation-delay: 3.25s;
+	animation-delay: 1.25s;
 }
 /*
 @keyframes eyes_dot_left_keyframe {
@@ -201,12 +201,12 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 
 .flush.flush-left {
 	top: 90px;
-	left: 50px;
+	left: 30px;
 }
 
 .flush.flush-right {
 	top: 90px;
-	left: 135px;
+	left: 155px;
 }
 
 .burger_down {
@@ -221,7 +221,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	background-color: rgb(243,148,55);
 	border: 7px solid rgba(103,55,13,100%);
 	animation-name: burger_down_keyframe;
-	animation-duration: 1s;
+	animation-duration: 0.5s;
 	animation-fill-mode: forwards;
 }
 
@@ -250,9 +250,9 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 
 .salad {
 	animation-name: salad_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
-	animation-delay: 1s;
+	animation-delay: 0.5s;
 	z-index: 6;
 	position: relative;
 	top: -800px;
@@ -326,9 +326,9 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 
 .meat {
 	position: relative;
-	animation-delay: 1.75s;
+	animation-delay: 0.75s;
 	animation-name: meat_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
 	z-index: 8;
 	box-sizing: border-box;
@@ -447,9 +447,9 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 	top: -500px;
 	z-index: 9;
 	position: relative;
-	animation-delay: 2.50s;
+	animation-delay: 1s;
 	animation-name: cheese_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
 	left: 40px;
 	width: 200px;
@@ -460,9 +460,9 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 }
 .cheese.cheese-1{
 	z-index: 10;
-	animation-delay: 2.50s;
+	animation-delay: 1s;
 	animation-name: keepTop_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
 	position: absolute;
 	left: 0px;
@@ -475,9 +475,9 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 }
 
 .cheese.left-cheese {
-	animation-delay: 2.50s;
+	animation-delay: 1s;
 	animation-name: keepTop_keyframe;
-	animation-duration: 0.75s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
 	position: absolute;
 	width: 200px;
@@ -532,6 +532,7 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 
 .inside {
 	position: relative;
+	align-self: center;
 }
 
 @keyframes buttons { 
@@ -543,18 +544,18 @@ box-shadow: 0px 15px 0 0 rgb(103,55,13);
 
 div button
 {
-	animation-delay: 4s;
+	animation-delay: 1.5s;
 	animation-name: buttons;
-	animation-duration: 0.5s;
+	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
 	visibility: hidden;
 	display: block;
     width: 200px;
     height: 50px;
-    background-color: #a74545;
+    background-color: rgb(102, 51, 0);
     color: white; 
     padding: 12px 20px;
-    border: 1px solid #a74545;
+    border: 1px solid rgb(102, 51, 0);
     border-radius: 4px;
     cursor: pointer;
     float: right;
@@ -564,7 +565,7 @@ div button
 
 div button:hover 
 {
-    background-color: rgb(255, 224, 224);
+    background-color: rgb(254,209,114);
     color: #a74545;
     transform:scale(1.3,1.3);
 } 

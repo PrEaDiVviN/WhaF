@@ -9,7 +9,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    background-color: rgb(212, 160, 160);
+    background-color: rgb(255, 177, 80);
     color: white;
     text-align: center;
 }
@@ -34,7 +34,7 @@
 }
 
 .termeni_si_conditii:hover {
-    color: #921CCD;
+    color: rgb(102, 51, 0);
 }
 
 .copyright {
