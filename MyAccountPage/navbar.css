@@ -1,0 +1,48 @@
+.navbar {
+	width: 100vw;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	height: 3.5vw;
+	background-color: rgb(212, 160, 160);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+}
+
+.navbar .navbar-left {
+	grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+.navbar .navbar-left a {
+	display: block;
+	max-width: 40%;
+	max-height: 100%;
+}
+
+.navbar .navbar-left a img {
+	max-width: 100%;
+	max-height: 100%;
+	margin-left: 20px;
+}
+
+
+
+.navbar .navbar-right {
+	border: 1px solid red;
+	grid-column-start: 3;
+	grid-column-end: 4;
+	max-width: 100%;
+	max-height: 100%;
+}
+
+.navbar-center {
+
+}
