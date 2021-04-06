@@ -6,3 +6,241 @@ body {
 	padding: 0px;
 	margin: 0px;
 }
+
+.viewgrid {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 0.75fr 8.5fr 0.75fr;
+}
+
+.viewgrid .main-content {
+	grid-row-start: 2;
+	grid-row-end: 3;
+	grid-column-start: 1;
+	grid-column-end: 2;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+
+.viewgrid .main-content .button-style {
+    background-color: rgb(201, 149, 149);
+    color: rgb(255, 255, 255);
+    padding: 22px 16px;
+    border: 1px solid white;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.viewgrid .main-content .button-style:hover	{
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .button-style:active {
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .button-account.button-style {
+	display: block;
+	width: 100%;
+	height: 100%;
+	grid-row-start: 4;
+	grid-row-end: 5;
+	grid-column-start: 3;
+	grid-column-end: 6;
+}
+
+.viewgrid .main-content .button-account.button-style.active	{
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .button-history.button-style {
+	display: block;
+	width: 100%;
+	height: 100%;
+	grid-row-start: 5;
+	grid-row-end: 6;
+	grid-column-start: 3;
+	grid-column-end: 6;
+}
+
+.viewgrid .main-content .button-history.button-style.active	{
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .button-added.button-style {
+	display: block;
+	width: 100%;
+	height: 100%;
+	grid-row-start: 6;
+	grid-row-end: 7;
+	grid-column-start: 3;
+	grid-column-end: 6;
+}
+
+.viewgrid .main-content .button-added.button-style.active	{
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .button-tried.button-style {
+	display: block;
+	width: 100%;
+	height: 100%;
+	grid-row-start: 7;
+	grid-row-end: 8;
+	grid-column-start: 3;
+	grid-column-end: 6;
+}
+
+.viewgrid .main-content .button-tried.button-style.active	{
+	background-color: rgb(26, 24, 24);
+}
+
+.viewgrid .main-content .requested-content-account{
+	background-color: rgb(212, 160, 160);
+	display: none;
+	width: 100%;
+	height: 100%;
+	grid-column-start: 8;
+	grid-column-end: 15;
+	grid-row-start: 2;
+	grid-row-end: 10;
+	border: 1px solid black;
+	border-radius: 15px;
+}
+
+.viewgrid .main-content .requested-content-tried {
+	background-color: rgb(212, 160, 160);
+	display: none;
+	width: 100%;
+	height: 100%;
+	grid-column-start: 8;
+	grid-column-end: 15;
+	grid-row-start: 2;
+	grid-row-end: 10;
+	border: 1px solid black;
+	border-radius: 15px;
+}
+
+.viewgrid .main-content .requested-content-added{
+	background-color: rgb(212, 160, 160);
+	display: none;
+	width: 100%;
+	height: 100%;
+	grid-column-start: 8;
+	grid-column-end: 15;
+	grid-row-start: 2;
+	grid-row-end: 10;
+	border: 1px solid black;
+	border-radius: 15px;
+}
+
+.viewgrid .main-content .requested-content-history{
+	background-color: rgb(212, 160, 160);
+	display: none;
+	width: 100%;
+	height: 100%;
+	grid-column-start: 8;
+	grid-column-end: 15;
+	grid-row-start: 2;
+	grid-row-end: 10;
+	border: 1px solid black;
+	border-radius: 15px;
+}
+
+.viewgrid .main-content .requested-content-account form {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: repeat(20, 1fr)
+}
+
+
+.viewgrid .main-content .requested-content-account form input {
+	width: 100%;
+	display: block;
+	background-color: gray; 
+	border: none;
+	color: white;
+
+}
+
+.viewgrid .main-content .requested-content-account .attention {
+	font-family: 'Dela Gothic One', cursive;
+	font-size: 30px;
+	color: white;
+	position: relative;
+	display: block;
+	grid-column-start: 1;
+	grid-column-end: 5;
+	grid-row-start: 1;
+	grid-row-end: 3;
+	width: 80%;
+	height: 100%;
+	padding-left: 30px;
+	padding-top: 5%;
+}
+
+.viewgrid .main-content .requested-content-account .details {
+	font-family: 'Dela Gothic One', cursive;
+	font-size: 15px;
+	color: white;
+	display: block;
+	grid-column-start: 1;
+	grid-column-end: 5;
+	grid-row-start: 3;
+	grid-row-end: 4;
+	padding-left: 30px;
+	width: 80%;
+	height: 100%;
+}
+
+
+.viewgrid .main-content .requested-content-account form input#firstname {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 5;
+	grid-row-end: 6;
+}
+
+.viewgrid .main-content .requested-content-account form label {
+	display: block;
+	text-align: center;
+	vertical-align: center;
+	width: 100%;
+	height: 100%;
+	color: white;
+}
+
+.viewgrid .main-content .requested-content-account form label.label-firstname {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 4;
+	grid-row-end: 5;
+}
+
+
+
+form form .submitbtn {
+  display: block;
+  position: relative;
+  bottom: 0px;
+  background-color: rgb(26, 24, 24);
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 80%;
+  opacity: 0.9;
+}

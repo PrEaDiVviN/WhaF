@@ -9,30 +9,86 @@
 		<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="footer.css">
 		<link rel="stylesheet" type="text/css" href="navbar.css">
+		<link rel="stylesheet" type="text/css" href="myaccountPage.css">
 	</head>
 	<body>
-		<div class="navbar">
-			<div class="navbar-left">
-				<a href="#"><img src="logo3.png" alt="logo picture"></a>
-			</div>
-			<div class="navbar-right">
-				<div class="user-info">
-					<div class="avatar-picture"></div>
-					<div class="username"><p>Username</p></div>
-					<div class="redirect"><a href="#">My Page</a></div>
+		<div class="viewgrid">
+			<div class="navbar">
+				<div class="navbar-left">
+					<a href="#"><img src="logo3.png" alt="logo picture"></a>
 				</div>
-			</div> 
-		</div>
-		<div class = "footer"> 
-    		<div class="center">
-				<a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"></a>
-        		<a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"></a>
-        		<a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"></a>
-    		</div>
-    		<div class="right-side">
-    			<p class="copyright"> © 2021 WhaF. No rights reserved. </p>
-    			<a class="termeni_si_conditii" href="Terms & Policy page\terms-and-policy.html">Terms and conditions.</a>
-    		</div>
+				<div class="navbar-right">
+					<div class="user-info">
+						<div class="avatar-picture"></div>
+						<div class="username"><p>Username</p></div>
+						<div class="redirect"><a href="#">My Page</a></div>
+					</div>
+				</div> 
+			</div>
+			<div class="main-content">
+				<button class="button-account button-style" onclick = "showTab('button-account','requested-content-account')">
+					Account
+				</button>
+				<button class="button-history button-style" onclick = "showTab('button-history','requested-content-history')">
+					Search History
+				</button>
+				<button class="button-added button-style" onclick = "showTab('button-added','requested-content-added')">
+					Added recipies
+				</button>
+				<button class="button-tried button-style" onclick = "showTab('button-tried','requested-content-tried')">
+					Made recipies
+				</button>
+				<div class="requested-content-account">
+					<form> 
+						  <h1 class="attention">Account modification page!</h1>
+    					  <p class="details">Please modify in the form the details that you want to change and press the submit button!</p>
+						  
+						  <label class="label-firstname" for="firstname">Last name:</label>
+  						  <input type="text" id="firstname" name="firstname" value="Actual first name">
+  						  <!--
+  						  <label for="lastname">Last name:</label>
+  						  <input type="text" id="lastname" name="lastname" value="Actual last name">
+
+  						  <label for="username">Username:</label>
+  						  <input type="text" id="username" name="username" value="Actual username">
+
+  						  <label for="email">Email</label>
+  						  <input type="email" id="email" name="email" value="Actual email">
+
+						  <label for="avatar">Choose a profile picture:</label>
+						  <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg">
+
+  						  <label for="birthdate">Birth date:</label>
+  						  <input type="date" id="birthdate" value="Actual user birth date">
+
+  						  <input type="button" id="deleteAccount" name="deleteAccount" value="Delete Account">
+
+  						  <input class="submitbtn" type="submit" value="Submit">
+  						  -->
+					</form>
+				</div>
+				<div class="requested-content-history">
+				b
+				</div>
+				<div class="requested-content-added">
+				c
+				</div>
+				<div class="requested-content-tried">
+				d
+				</div>
+			</div>
+			<div class = "footer"> 
+	    		<div class="center">
+					<a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"></a>
+	        		<a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"></a>
+	        		<a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"></a>
+	    		</div>
+	    		<div class="right-side">
+	    			<p class="copyright"> © 2021 WhaF. No rights reserved. </p>
+	    			<a class="termeni_si_conditii" href="Terms & Policy page\terms-and-policy.html">Terms and conditions.</a>
+	    		</div>
+	    	</div>
     	</div>
+    	<script src = "buttons.js"></script>
 	</body>
 </html>
