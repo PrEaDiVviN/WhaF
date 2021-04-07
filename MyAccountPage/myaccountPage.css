@@ -115,6 +115,7 @@ body {
 	grid-row-end: 10;
 	border: 1px solid black;
 	border-radius: 15px;
+	padding: 0px;
 }
 
 .viewgrid .main-content .requested-content-tried {
@@ -157,25 +158,39 @@ body {
 }
 
 .viewgrid .main-content .requested-content-account form {
+	padding: 0px;
+	margin: 0px;
 	width: 100%;
 	height: 100%;
-	position: relative;
+	display: block;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid {
+	width: 100%;
+	height: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: repeat(20, 1fr)
+	grid-template-rows: repeat(20, 1fr);
+	grid-gap: 5px;
 }
 
 
-.viewgrid .main-content .requested-content-account form input {
-	width: 100%;
+
+.viewgrid .main-content .requested-content-account form .form-grid input {
+	font-size: 15px;
 	display: block;
-	background-color: gray; 
+	background-color: white; 
 	border: none;
-	color: white;
-
+	color: black;
+    border-radius: 4px;
+    width: 80%;
+	height: 50%;
+	box-shadow: 4px 4px 10px #d08484;
+	padding: 10px;
+	margin: auto;
 }
 
-.viewgrid .main-content .requested-content-account .attention {
+.viewgrid .main-content .requested-content-account form .form-grid .attention {
 	font-family: 'Dela Gothic One', cursive;
 	font-size: 30px;
 	color: white;
@@ -185,13 +200,14 @@ body {
 	grid-column-end: 5;
 	grid-row-start: 1;
 	grid-row-end: 3;
-	width: 80%;
+	width: 100%;
 	height: 100%;
-	padding-left: 30px;
-	padding-top: 5%;
+	padding: 0px;
+	margin: 0px;
+	text-align: center;
 }
 
-.viewgrid .main-content .requested-content-account .details {
+.viewgrid .main-content .requested-content-account form .form-grid .details {
 	font-family: 'Dela Gothic One', cursive;
 	font-size: 15px;
 	color: white;
@@ -200,47 +216,128 @@ body {
 	grid-column-end: 5;
 	grid-row-start: 3;
 	grid-row-end: 4;
-	padding-left: 30px;
-	width: 80%;
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
 	height: 100%;
+	text-align: center;
 }
 
 
-.viewgrid .main-content .requested-content-account form input#firstname {
-	grid-column-start: 2;
-	grid-column-end: 4;
-	grid-row-start: 5;
+.viewgrid .main-content .requested-content-account form .form-grid input#firstname {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 4;
 	grid-row-end: 6;
 }
 
-.viewgrid .main-content .requested-content-account form label {
-	display: block;
-	text-align: center;
-	vertical-align: center;
-	width: 100%;
-	height: 100%;
-	color: white;
+.viewgrid .main-content .requested-content-account form .form-grid input#lastname {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 4;
+	grid-row-end: 6;
 }
 
-.viewgrid .main-content .requested-content-account form label.label-firstname {
+.viewgrid .main-content .requested-content-account form .form-grid input#username {
 	grid-column-start: 2;
 	grid-column-end: 4;
-	grid-row-start: 4;
-	grid-row-end: 5;
+	grid-row-start: 6;
+	grid-row-end: 8;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid input#password {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 8;
+	grid-row-end: 10;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid input#email {
+	grid-column-start: 2;
+	grid-column-end: 4;
+	grid-row-start: 10;
+	grid-row-end: 12;
 }
 
 
+.viewgrid .main-content .requested-content-account form .form-grid span#avatarphoto {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 12;
+	grid-row-end: 14;
+	display: block;
+    width: 80%;
+	height: 50%;
+	margin: auto;
+	padding: 10px;
+	margin: auto;
+	background-color: white;
+	display: flex;
+  	justify-content: flex-start;
+  	align-items: center;
+  	color: white;
+  	background-color: rgb(212, 160, 160);
+  	font-family: 'Dela Gothic One', cursive;
+	font-size: 20px;
+}
 
-form form .submitbtn {
-  display: block;
-  position: relative;
-  bottom: 0px;
-  background-color: rgb(26, 24, 24);
-  color: white;
-  padding: 16px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 80%;
-  opacity: 0.9;
+.viewgrid .main-content .requested-content-account form .form-grid input#avatar {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 12;
+	grid-row-end: 14;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid span#birthselect {
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 14;
+	grid-row-end: 16;
+	display: block;
+    width: 80%;
+	height: 50%;
+	margin: auto;
+	padding: 10px;
+	margin: auto;
+	background-color: white;
+	display: flex;
+  	justify-content: flex-start;
+  	align-items: center;
+  	color: white;
+  	background-color: rgb(212, 160, 160);
+  	font-family: 'Dela Gothic One', cursive;
+	font-size: 20px;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid input#birthdate {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 14;
+	grid-row-end: 16;
+	text-align: center;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid input#deleteAccount {
+	display: block;
+	background-color: rgb(26, 24, 24);
+	color: white;
+	border: none;
+	cursor: pointer;
+	grid-row-start: 18;
+	grid-row-end: 20;
+	grid-column-start: 1;
+	grid-column-end: 2;
+	height: 100%;
+}
+
+.viewgrid .main-content .requested-content-account form .form-grid input#submitbtn {
+	grid-column-start: 3;
+	grid-column-end: 5;
+	grid-row-start: 18;
+	grid-row-end: 20;
+	text-align: center;
+	height: 100%;
+	background-color: rgb(26, 24, 24);
+	color: white;
+	cursor: pointer;
 }
