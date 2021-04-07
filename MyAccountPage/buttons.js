@@ -7,10 +7,18 @@ function showTab(buttonName ,tabName) {
 		let btns = document.getElementsByClassName(buttons[i]);
 		btns[0].className = btns[0].className.replace(" active", "");
     }
-	let tab = document.getElementsByClassName(tabName);
-	let btn = document.getElementsByClassName(buttonName);
-    tab[0].style.display = "block";
+    let tab = document.getElementsByClassName(tabName);
+    let btn = document.getElementsByClassName(buttonName);
     btn[0].className += " active";
+    if(buttonName == "button-tried" || buttonName == "button-added") {
+    	tab[0].style.display = "flex";
+    	tab[0].style.alignContent = "flex-start";
+    	tab[0].style.justifyContent = "space-evenly";
+    	tab[0].style.flexWrap = "wrap";
+    
+    }
+    else
+		tab[0].style.display = "block";
 }
 
 
