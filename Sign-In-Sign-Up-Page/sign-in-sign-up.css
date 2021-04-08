@@ -6,7 +6,7 @@
 
 body 
 {
-    background-color: rgb(255, 224, 224);
+    background-color: rgb(255, 242, 242);
 }
 
 .grid-wrapper
@@ -17,6 +17,7 @@ body
 	display: grid;
 	grid-template-columns: 1fr 5fr 2fr 3.5fr 3.5fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    overflow: scroll;
 }
 
 .grid-wrapper .logo
@@ -75,6 +76,7 @@ body
     height: 55vh;
     padding: 40px;
     box-shadow: 5px 5px 15px #af6464;
+    background-color: rgb(255, 224, 224);
 }
 
 .account
@@ -118,9 +120,10 @@ body
 .register-box
 {
     width: 35vw;
-    height: 67vh;
+    height: 95vh;
     padding: 40px;
     box-shadow: 5px 5px 15px #af6464;
+    background-color: rgb(255, 224, 224);
 }
 
 h1
@@ -221,12 +224,11 @@ input
 .fa 
 {
     padding: 1vh;
-    font-size: 3vh;
+    font-size: 4vh;
     width: 3vh;
     text-align: center;
     text-decoration: none;
     margin: 1vh;
-    border-radius: 50%;
 }
 
 .fa:hover 
@@ -236,18 +238,15 @@ input
 
 .fa-facebook 
 {
-    background: #3B5998;
     color: white;
 }
 
 .fa-twitter 
 {
-    background: #55ACEE;
     color: white;
 }
 
 .fa-instagram 
 {
-    background: #125688;
     color: white;
 }
