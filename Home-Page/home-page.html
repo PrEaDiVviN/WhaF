@@ -23,8 +23,8 @@
 <body>
     <div class = "grid-wrapper">
         <div class = "navbar"> 
-            <div class = "navbar-left">
-                <a href = "#"> 
+            <div class = "navbar-center">
+                <a href = "#">
                     <img src = "../Logo/Logo-final1.png" alt = "Logo">
                 </a>
             </div>
@@ -32,15 +32,17 @@
             <div class = "navbar-right">
                 <div class = "user-info">
                     <div class = "avatar-picture">
-                        <img src = "../Other-Photos/avatar-picture.png" alt = "Avatar">
+                        <a href = "#">
+                            <img src = "../Other-Photos/avatar-picture.png" alt = "Avatar">
+                        </a>
                     </div>
 
                     <div class = "username">
                         <p> Username </p>
                     </div>
 
-                    <div class = "redirect">
-                        <button class = "my-page"> My Page </button>
+                    <div class = "user-settings">
+                        <button class = "my-page" onclick = "openMyPage()"> My Page </button>
                     </div>
                 </div>
             </div> 
@@ -126,7 +128,7 @@
             </div>
         </div> 
         
-        <div class = "filter-grid">
+        <div id = "Filter" class = "filter-grid">
             <div class = "filter">
                 <div class = "dropdown">
                     <button class = "filter-button" onclick = "openDropdown()"> Filtering </button>
@@ -572,16 +574,73 @@
             </div>
         </div>
 
+        <div id = "MyPage" class = "page-content">
+            <div class = "page-wrapper"> 
+                <div class = "page-format">
+                    <div class = "page-format-wrapper">
+                        <button class = "page-button" onclick = "openRecipes('Added')"> Added Recipes </button> 
+                    
+                        <button class = "page-button" onclick = "openRecipes('Tried')"> Tried Recipes </button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id = "Added" class = "recipes-content">
+            <div class = "recipes-wrapper">
+                <div class = "recipes-format">
+                    <div class = "page-recipes">
+                        <img src = "../Other-Photos/Recipe20.jpg" alt = "R20" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe19.jpg" alt = "R19" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe1.jpg" alt = "R1" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe2.jpg" alt = "R2" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe3.jpg" alt = "R3" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe18.jpg" alt = "R18" class = "item">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Tried" class = "recipes-content">
+            <div class = "recipes-wrapper">
+                <div class = "recipes-format">
+                    <div class = "page-recipes">
+                        <img src = "../Other-Photos/Recipe17.jpg" alt = "R17" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe15.jpg" alt = "R15" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe14.jpg" alt = "R14" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe4.jpg" alt = "R4" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe5.jpg" alt = "R5" class = "item">
+    
+                        <img src = "../Other-Photos/Recipe6.jpg" alt = "R6" class = "item">
+
+                        <img src = "../Other-Photos/Recipe7.jpg" alt = "R7" class = "item">
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class = "grid-footer">
             <div class = "footer"> 
                 <div class = "center">
                     <a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"> </a>
+                    
                     <a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"> </a>
+                    
                     <a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"> </a>
                 </div>
         
                 <div class = "right">
                     <p class = "copyright"> © 2021 WhaF. No rights reserved. </p>
+                    
                     <a href = "../Terms-Policy-Page/terms-and-policy.html" class = "terms"> Terms and conditions. </a>
                 </div>
             </div>
