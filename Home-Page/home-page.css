@@ -34,7 +34,7 @@ body
     grid-gap: 10px;
 }
 
-.grid-wrapper .navbar .navbar-left 
+.grid-wrapper .navbar .navbar-center
 {
 	box-sizing: border-box;
 	grid-column-start: 2;
@@ -47,7 +47,7 @@ body
 	width: 100%;
 }
 
-.grid-wrapper .navbar .navbar-left a 
+.grid-wrapper .navbar .navbar-center a 
 {
 	margin-left: 30px;
 	display: block;
@@ -55,7 +55,7 @@ body
 	max-height: 100%;
 }
 
-.grid-wrapper .navbar .navbar-left a img 
+.grid-wrapper .navbar .navbar-center a img 
 {
 	max-width: 100%;
 	max-height: 100%;
@@ -130,7 +130,7 @@ body
     color: rgb(10, 7, 7);
 }
 
-.grid-wrapper .navbar .navbar-right .user-info .redirect 
+.grid-wrapper .navbar .navbar-right .user-info .user-settings
 {
 	box-sizing: border-box;
 	grid-column-start: 3;
@@ -271,6 +271,11 @@ input[type = text]
 .search button:hover 
 {
     background-color: rosybrown;
+}
+
+#Filter
+{
+    visibility: visible;
 }
 
 .filter-grid
@@ -575,12 +580,92 @@ td a
     grid-gap: 15px;
 }
 
+.page-content
+{
+    grid-row-start: 3;
+	grid-row-end: 6;
+	grid-column-start: 1;
+	grid-column-end: 4;
+    display: none;
+    height: 100%;
+}
+
+.page-content .page-wrapper
+{
+    display: grid;
+    grid-template-columns: 0.10fr 1fr 0.10fr;
+    grid-template-rows: 8fr 4fr 2fr;
+}
+
+.page-format
+{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.page-format-wrapper
+{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+}
+
+.page-button
+{
+    background-color: rgb(201, 149, 149);
+    color: white;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 100%;
+}
+
+.page-button:hover 
+{
+    background-color: #111;
+}
+
 .item 
 {
     width: 300px;
     height: 300px;
 }
 
+.recipes-content
+{
+    grid-row-start: 4;
+	grid-row-end: 6;
+	grid-column-start: 1;
+	grid-column-end: 4;
+    display: none;
+    height: 100%;
+}
+
+.recipes-wrapper
+{
+    display: grid;
+    grid-template-columns: 0.13fr 1fr 0.10fr;
+    grid-template-rows: 0.05fr 5fr 2fr;
+}
+
+.recipes-format
+{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.page-recipes
+{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto;
+}
 
 .grid-wrapper .grid-footer
 {
