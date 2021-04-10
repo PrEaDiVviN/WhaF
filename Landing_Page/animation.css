@@ -460,7 +460,6 @@ div button
 	animation-name: buttons;
 	animation-duration: 0.25s;
 	animation-fill-mode: forwards;
-	visibility: hidden;
 	display: block;
     width: 200px;
     height: 50px;
@@ -479,3 +478,7 @@ div button:hover
 {
     transform:scale(1.1,1.1);
 } 
+
+.resposive-view-burger {
+	display: none;
+}

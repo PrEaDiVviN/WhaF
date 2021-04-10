@@ -1,5 +1,9 @@
 .footer 
 {
+    grid-row-start: 3;
+    grid-row-end: 4;
+    grid-column-start: 1;
+    grid-column-end: 2;
     width: 100vw;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -59,18 +63,15 @@
 
 .fa-facebook 
 {
-    background: #3B5998;
     color: white;
 }
 
 .fa-twitter 
 {
-    background: #55ACEE;
     color: white;
 }
 
 .fa-instagram 
 {
-    background: #125688;
     color: white;
 }
