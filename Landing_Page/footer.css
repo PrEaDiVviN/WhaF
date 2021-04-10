@@ -32,17 +32,21 @@
 }
 
 .termeni_si_conditii {
-    margin-right: 15px;
+    margin-right: 0.5vw;
     text-decoration: none;
     color: white;
+    font-size: 2vh;
 }
+
+
 
 .termeni_si_conditii:hover {
     color: #921CCD;
 }
 
 .copyright {
-    margin-right: 15px;
+    margin-right: 0.5vw;
+    font-size: 2vh;
 }
 
 .fa 

@@ -1,4 +1,4 @@
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 770px) {
 * {
 	text-align: center;
     overflow: hidden; 
@@ -164,7 +164,7 @@ div button:hover
 
 .main .footer div.right-side .termeni_si_conditii {
 	display: block;
-	width: 100%;
+	width: auto;
 	margin: 0px;
     text-decoration: none;
     color: white;
