@@ -1,6 +1,6 @@
 .viewgrid .footer 
 {
-    height: 100%;
+    height: 70px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -63,18 +63,15 @@
 
 .viewgrid  .footer div.center .fa-facebook 
 {
-    background: #3B5998;
     color: white;
 }
 
 .viewgrid  .footer div.center .fa-twitter 
 {
-    background: #55ACEE;
     color: white;
 }
 
 .viewgrid  .footer div.center .fa-instagram 
 {
-    background: #125688;
     color: white;
 }

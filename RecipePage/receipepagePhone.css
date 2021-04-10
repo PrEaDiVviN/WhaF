@@ -1,0 +1,295 @@
+@media screen and (max-width: 450px) {
+
+    .viewgrid .content .footer div.right-side {
+    	width: 100%;
+    	height: 100%;
+        margin-right: 0px;
+        padding: 0px;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+
+    .viewgrid .content .footer div.center {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        width: 100%;
+    	height: 100%;
+    	display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .viewgrid .content .footer {
+        width: 100%;
+        height: 120px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr;
+        background-color: rgb(212, 160, 160);
+        grid-gap: 0px;
+        color: white;
+        text-align: center;
+        padding: 0px;
+    	position: static;
+        margin: 0;
+    }
+
+    .viewgrid .content .footer .termeni_si_conditii:hover {
+        color: #921CCD;
+    }
+
+
+    .viewgrid .content .footer div.right-side p {
+    	width: 100%;
+    }
+
+    .viewgrid .content .footer div.right-side .termeni_si_conditii {
+    	display: block;
+    	width: auto;
+    	margin: 0px;
+        text-decoration: none;
+        color: white;
+    }
+    .viewgrid .content .footer div.right-side .termeni_si_conditii:hover {
+        color: #921CCD;
+    }
+
+
+    .viewgrid .content .footer div.right-side .copyright {
+    	display: block;
+    	width: 100%;
+    	margin: 0px;
+    }
+    .viewgrid .content img.mainpicture{
+        width: 90%;
+    }
+    .viewgrid .content .title {
+        font-size: 7vw;
+    }
+    .viewgrid .content .time {
+        width: 90%;
+        font-size: 5vw;
+    }
+    .viewgrid .content .titlu-text {
+        width: 90%;
+        font-size: 6vw;
+    }
+    .viewgrid .content ul {
+        width: 90%;
+    }
+
+    .viewgrid .content ul li img{
+        width: 14%;
+        height: 10%;
+    }
+    .viewgrid .content ul li div{
+        display: inline-block;
+        width: 90%;
+        height: 100%;
+        margin: 0px;
+        font-size: 3vw;
+        padding: 0px;
+        padding-left: 2%;
+    }
+    .viewgrid .content ol {
+        width: 90%;
+        height: auto;
+        margin: auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        display: flex;
+        justify-content: center;
+        display: block;
+        list-style-position: inside;
+        list-style-type: none;
+    }
+
+    .viewgrid .content ol li{
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5%;
+    }
+
+    .viewgrid .content ol li img{
+        width: 100%;
+        height: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .viewgrid .content ol li div{
+        width: 100%;
+        height: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3vw;
+        color: black;
+        margin-left: 10%;
+    }
+}
+
+@media screen and (min-width: 451px) and (max-width: 1025px) {
+
+    .viewgrid .content .footer div.right-side {
+        width: 100%;
+        height: 100%;
+        margin-right: 0px;
+        padding: 0px;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+
+    .viewgrid .content .footer div.center {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .viewgrid .content .footer {
+        width: 100%;
+        height: 120px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr;
+        background-color: rgb(212, 160, 160);
+        grid-gap: 0px;
+        color: white;
+        text-align: center;
+        padding: 0px;
+        position: relative;
+        margin: 0;
+    }
+
+    .viewgrid .content .footer .termeni_si_conditii:hover {
+        color: #921CCD;
+    }
+
+
+    .viewgrid .content .footer div.right-side p {
+        width: 100%;
+    }
+
+    .viewgrid .content .footer div.right-side .termeni_si_conditii {
+        display: block;
+        width: auto;
+        margin: 0px;
+        text-decoration: none;
+        color: white;
+    }
+    .viewgrid .content .footer div.right-side .termeni_si_conditii:hover {
+        color: #921CCD;
+    }
+
+
+    .viewgrid .content .footer div.right-side .copyright {
+        display: block;
+        width: 100%;
+        margin: 0px;
+    }
+    .viewgrid .content img.mainpicture{
+        width: 70%;
+    }
+    .viewgrid .content .title {
+        font-size: 7vw;
+    }
+    .viewgrid .content .time {
+        width: 70%;
+        font-size: 5vw;
+    }
+    .viewgrid .content .titlu-text {
+        width: 70%;
+        font-size: 6vw;
+    }
+    .viewgrid .content ul {
+        width: 70%;
+    }
+
+    .viewgrid .content ul li img{
+        width: 14%;
+        height: 10%;
+    }
+    .viewgrid .content ul li div{
+        display: inline-block;
+        width: 70%;
+        height: 100%;
+        margin: 0px;
+        font-size: 3vw;
+        padding: 0px;
+        padding-left: 2%;
+    }
+    .viewgrid .content ol {
+        width: 70%;
+        height: auto;
+        margin: auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
+        display: flex;
+        justify-content: center;
+        display: block;
+        list-style-position: inside;
+        list-style-type: none;
+    }
+
+    .viewgrid .content ol li{
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 5%;
+    }
+
+    .viewgrid .content ol li img{
+        width: 100%;
+        height: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .viewgrid .content ol li div{
+        width: 100%;
+        height: 50%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3vw;
+        color: black;
+        margin-left: 10%;
+    }
+}
