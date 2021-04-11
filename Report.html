@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> What The Food Scholarly Report </title>
+
+    <meta charset = "UTF-8">
+</head>
+
+<body>
+    <h1> Software Requirements Specification </h1>
+        
+    <h1> For What The Food </h1>
+
+    <section typeof = "sa:AuthorsList">
+        <h2> Authors </h2>
+            
+        <ul>
+            <li typeof = "sa:ContributorRole" property = "schema:author">
+                <span typeof = "schema:Person">
+                    <meta property = "schema:givenName" content = "Alexandru">
+
+                    <meta property = "schema:additionalName" content = "Dumitru">
+
+                    <meta property = "schema:familyName" content = "Hutu">
+                    
+                    <span property = "schema:name"> Hutu Alexandru-Dumitru </span>
+                </span>
+            </li>
+
+            <li typeof = "sa:ContributorRole" property = "schema:author">
+                <span typeof = "schema:Person">
+                    <meta property = "schema:givenName" content = "Maria">
+
+                    <meta property = "schema:familyName" content = "Brinzila">
+                    
+                    <span property = "schema:name"> Brinzila Maria </span>
+                </span>
+            </li>
+        </ul>
+    </section>
+
+    <section>
+        <h2> Table of Contents </h2>
+        
+        <ul>
+            <li> 
+                <a href = "#introduction">Introduction </a> 
+                <ul>
+                	<li>
+                		<a href = "#purpose">1.1 Purpose </a>
+            		</li>
+            		 <li>
+                		<a href = "#audience">1.2 Intended Audience and Reading Suggestions </a>
+            		</li>
+            		<li>
+                		<a href = "#scope">1.3 Product Scope </a>
+            		</li>
+           			<li>
+                		<a href = "#references">1.4 References </a>
+            		</li>
+                </ul>
+            </li>
+
+            <li>
+                <a href = "#functionalities">Overall Description </a>
+                   <ul>
+	                	<li>
+	                		<a href = "#perspective">2.1 Product Perspective </a>
+	            		</li>
+	            		 <li>
+	                		<a href = "#functions">2.2 Product Functions </a>
+	            		</li>
+	            		<li>
+	                		<a href = "#environment">2.3 Operating Environment </a>
+	            		</li>
+            		</ul>
+            </li>
+
+            <li>
+                <a href = "#page-functionality-and-usage"> Page Functionality and Usage </a>
+
+                <ul>
+                    <li>
+                        <a href = "#the-landing-page"> 3.1 The Landing Page </a>
+                    </li>
+
+                    <li>
+                        <a href = "#the-login-register-page"> 3.2 The Login Register Page </a>
+                    </li>
+
+                    <li>
+                        <a href = "#the-home-page"> 3.3 The Home Page </a>
+                    </li>
+
+                    <li>
+                        <a href = "#the-add-recipe-page"> 3.4 The Add Recipe Page </a>
+                    </li>
+
+                    <li>
+                        <a href = "#the-terms-and-policy-page"> 3.5 The Terms and Policy Page </a>
+                    </li>                   
+                    <li>
+                        <a href = "#the-recipe-page"> 3.6 The Recipe Page </a>
+                    </li>
+                    <li>
+                        <a href = "#the-account-page"> 3.7 The Account Page </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href = "#technologies"> Used Technologies </a>
+                <ul>
+                    <li>
+                        <a href = "#front-end-technologies"> 4.1 Front End Tehnologies </a>
+                    </li>
+
+                    <li>
+                        <a href = "#back-end-technologies"> 4.2 Backend Tehnologies </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <section id = "introduction">
+        <h2 id = "#introduction"> 1. Introduction </h2>
+        <h3 id ="purpose"> 1.1 Purpose </h3>
+
+        <p> The purpose of this website is to help people find and share new recipes. Users can either
+            make an account and be able to access some extra features (such as posting a recipe, show 
+            the fact that the user has tried a certain recipe by posting a photo of the final product and
+            access to a user page where the user can see the recipes that they posted and the ones that 
+            they tried) or use the website without having to register (they will only be able to find
+            new recipes).
+        </p>
+        <h3 id="audience"> 1.2 Intended audience and Reading Suggestions</h3>
+        <p> This document was written in order to help people understand the purpose of this website,
+            how it was made, what functionalities it has and what services it provides. The document should be read in the order it is written.
+        </p>
+        <h3 id="scope"> 1.3 Produc scope</h3>
+        <p> The product is suitable for users that want to cook recipies and want to share their experiences ,but is also for users that just want to find out how a certain recipe is made because the software allows seeing them without registration. The product's goal is to became a platform for amateur and professional cookers to share their skill and new recipies. </p>
+        <h3 id="references"> 1.4. References </h3>
+        <ol>
+            <li> 
+                <a href = "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"> HTML Documentation </a>
+            </li>
+            <li>
+                <a href = "https://www.w3schools.com/css/css_intro.asp"> CSS Guide </a>
+            </li>
+            <li>
+                <a href = "https://www.w3schools.com/js/js_intro.asp"> JavaScript Guide </a>
+            </li>
+        </ol>
+    </section>
+
+    <section id = "functionalities">
+    	<h2>2. Overall Description</h2>
+        <h3 id="perspective"> 2.1 Product Perspective </h3>
+        <p>This is a new, self contained product. It is a software -> website which will provide recipies to all the users that need them. The two components of the product are the front-end, the user interface and the back-end, the web service that serves the users.</p>
+        <h3 id="functions"> 2.2 Product Functions </h3>    
+        <ul>
+            <li> Login & Register </li>
+            <li> Navigation without authentification </li>
+            <li> Filter recipes by popularity, prepping time, total (finalizing) time, difficulty 
+                most recent and A - Z
+            </li>
+            <li> Search by recipe name, certain ingredients, how difficult the recipe is, prepping
+                time and total (finalizing) time or after certain tags, category (extra details 
+                about a certain recipe such as 'healthy', 'low-calorie' or 'keto diet') 
+            </li>
+            <li> Add your own recipes that will show up on your own page (Added Recipes) by writing
+                its name, ingredients, prepping time, total time, a photo of the end product, 
+                tags (optional), recipe intructions and photos showing the whole process (the number
+                of instructive photos that can be added is the number of instructions)
+            </li>
+            <li> Rankings showing the most popular recipes, the most popular ingredients and the most
+                avoided ingredients that are updated every month (in order for a recipe/ingredient
+                to become the most popular, it needs to be tried by the most users)
+            </li>
+            <li> Users that don't have an account can only search for recipes, browse recipes by
+                categories, see the rankings and generally try out new recipes
+            </li>
+            <li> Users that have an account can also add their own recipes, show they tried a 
+                certain recipe by uploading a photo of the end result, they have access to their 
+                own individual page where they can see all the recipes they have tried and added 
+                and to user settings where, besides changing their personal data (such as username,
+                email etc.), they can see their search history, the added recipes and they can 
+                delete the recipes they added  
+            </li>
+            <li> The last search will be saved on the browser for the users
+                that don't have an account and all past searches will be saved (search history) 
+                for the users that have an account (they can find them in their account)
+            </li>
+        </ul>
+        <h3 id="environment"> 2.3 Operating Environment </h3>
+        	<p>The website will operate in Mozilla Firefox and Google Chrome browsers for the desktop users, using windows 10, windows 8.1, windows 7, Linux Or Mac and for tablets such as Ipad, Ipad Pro, Galaxy Note 9, and also for mobile devices such as Samsung Galaxy S9, Iphone 6/7/8, Microsoft Lumia 950, Nexus 6P Android and so on. </p>  
+    </section>
+
+    <section id = "page-functionality-and-usage">
+        <h2> 3. Page Functionality and Usage </h2>
+
+        <p> In this section, we cover exactly what each page contains, what it allows the user to do 
+            and how it can be used.
+        </p> 
+    </section>
+
+    <section id = "the-landing-page">
+        <h3> 3.1 The Landing Page </h3>
+
+        <p> The landing page contains an animation and 2 options: users can either click on the 
+            navigate button and use the services the website provides as a user that doesn't have
+            an account, or click on the Login & Register button that will redirect you to the 
+            Login - register page.
+        </p>
+
+        <p> The last thing that can be seen on this page is the footer which contains links to our social
+            media accounts (Facebook, Twitter and Instagram) and to our terms and policy page.
+        </p>
+    </section>
+
+    <section id = "the-login-register-page">
+        <h3> 3.2 The Login Register Page </h3>
+
+        <p> The login - register page contains the website's logo, a photo with some examples of recipes
+            the user will find on the website and a login form.
+        </p>
+
+        <p> The user signs in with their username and password and has a 'remember me' option that
+            allows them to have their username and password be stored by the browser and whenever they
+            want to login again they don't have to write their personal data once again (it will be
+            written automatically).
+        </p>
+
+        <p> In the login, form the user also has the option to make an account had they not made ones 
+            already.
+        </p>
+
+        <p> In order to make an account, the user must provide their first and last name,
+            an unique username, a password that has at least 7 characters and their date of birth in order to
+            prove they are at least 18 years old.       
+        </p>
+
+        <p> Before the register button there is a link to the terms & conditions page so before signing
+            up, the user should read the terms and the policy of our website in order to get familiarized
+            with the data we collect, what they aren't allowed to do on our website and so on.
+        </p>
+
+        <p> This page contains the same footer as the landing page. </p>
+    </section> 
+
+    <section id = "the-home-page">
+        <h3> 3.3 The Home Page </h3>
+
+        <p> The home page is where the user can do the most, which has the most functionalities and offers
+            the most to the user.
+        </p>
+
+        <p> Firstly, the user can see the categories that we exist on our website. By clicking any 
+            given category, the user will be able to see a few recipes that are in that particular
+            category and if one of them catches their eyes, they can see that recipe's page by simply
+            clicking on it.
+        </p>
+
+        <p> Secondly, the user can see the 3 rankings that we provide by clicking on the Rankings button 
+            and see the recipe page of the most popular recipes by clicking on their name.
+        </p>
+
+        <p> Another functionality of this page is the Add Recipe button that will redirect the user to
+            the add recipe page.
+        </p>
+
+        <p> The user can also search for certain recipes by their names, ingredients or by their
+            difficulty, prepping or total time, by certain tags or by a particular category. 
+        </p>
+
+        <p> The Filter button allows the user to sort the recipes that resulted after a search, or after
+            selecting a certain category. They can sort them either by popularity, prepping and total
+            time, difficulty, most recent recipes or alphabetically (A - Z).
+        </p>
+
+        <p> By clicking on the logo or the avatar photo, the user can easily access the user settings 
+            page. In addition to that, by clicking the My Page button, the user will see their page which
+            contains 2 buttons and allows the user to see the recipes they had added and the ones they had 
+            tried ever since they made their account.
+        </p>
+
+        <p> This page contains the same footer as the landing page. </p>
+    </section>
+
+    <section id = "the-add-recipe-page">
+        <h3> 3.4 The Add Recipe Page </h3>
+
+        <p> This page allows users that have an account to add a new recipe. They need to upload a photo of the end result, 
+            to write down the recipe's name, the category it belongs to, the number of 
+            ingredients, the name of each ingredient, the number of instructions the recipe requires and 
+            photos corresponding to a certain instruction (the maximum number of demonstrative photos 
+            is the number of instructions).
+        </p>
+
+        <p> The logo, avatar photo and the footer have the same functionalities as on the other photos.
+            The My Page button allows the user to easily be redirected to their page.
+        </p>
+    </section>
+
+    <section id = "the-terms-and-policy-page">
+        <h3> 3.5 The Terms and Policy Page </h3>
+
+        <p> In this page, the user can mostly get acquainted with the purpose of this website (About us 
+            button), our terms and conditions (About terms & conditions button) and our policy 
+            (About our policy button). 
+        </p>
+
+        <p> Just like on the other pages, this page also has a footer with the same functionalities 
+            as the ones on the other pages. The logo and the avatar photo will also redirect the user 
+            to the user settings page and the home button will redirect them to the home page.
+        </p>
+    </section>
+    <section id = "the-recipe-page">
+        <h3> 3.6 The Recipe Page </h3>
+
+        <p> This page allows users with or without an account to see details about a certain recipe. They can see a photo of the end result of that recipe, the recipe's name, the category it belongs to, the name of the ingredient and also the instructions alongside with a picture for each step so that the user can follow the instruction precisely.
+        </p>
+        <p> The logo redirects the user to the main page of the website
+        </p>
+    </section>
+    <section id = "the-account-page">
+        <h3> 3.7 The Account Page </h3>
+        <p>The user who has logged in will have to choose between 4 tabs of account settings, visited recipe history, added recipe and tried recipe.<br> The account settings tab allows the user to change details abouts his account such as the email, the username, the password, and so on.
+		<br> The visited recipe vistory will allown the user to see all the recipies he has seen from the time his account was created.
+        <br>The added recipe page will allow the user to see all the recipies he has added from the time his account was created.
+        <br>
+        The tried recipe page will allow the user to see all the recipies he has tried from the time his account was created.
+        </p>
+    </section>
+   	<section id = "technologies">
+        <h2> 4. Technologies </h2>
+        <h3 id="front-end-technologies"> 4.1 Front-end Technologies </h3>
+
+        <p> Here go the front-end technologies used in the making of our website. (CSS, JAVASCRIPT, HTML) </p>
+        <h3 id="back-end-technologies"> 4.2 Back-end Technologies </h3>
+
+        <p> Here go the back-end technologies used in the making of our website. (PHP) </p>
+    </section>
+</body>
