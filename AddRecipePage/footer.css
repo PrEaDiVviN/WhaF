@@ -1,20 +1,23 @@
-.viewgrid .footer {
-    grid-row-start: 3;
-    grid-row-end: 4;
-    grid-column-start: 1;
-    grid-column-end: 2;
+.viewgrid .footer 
+{
+    height: 70px;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 10px;
-    height: 100%;
+    left: 0;
+    bottom: 0;
     background-color: rgb(212, 160, 160);
     color: white;
     text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
 }
 
-.viewgrid .footer div.center {
+.viewgrid  .footer div.center {
     grid-column-start: 2;
     grid-column-end: 3;
     display: flex;
@@ -22,7 +25,7 @@
     align-items: center;
 }
 
-.viewgrid .footer div.right-side {
+.viewgrid  .footer div.right-side {
     grid-column-start: 3;
     grid-column-end: 4;
     display: flex;
@@ -30,51 +33,45 @@
     align-items: center;
 }
 
-.viewgrid .termeni_si_conditii {
-    font-size: 1vw;
-    vertical-align: middle;
+.viewgrid  .termeni_si_conditii {
     margin-right: 15px;
     text-decoration: none;
     color: white;
 }
 
-.viewgrid .termeni_si_conditii:hover {
+.viewgrid  .termeni_si_conditii:hover {
     color: #921CCD;
 }
 
 .viewgrid .copyright {
-    font-size: 1vw;
-    vertical-align: middle;
     margin-right: 15px;
 }
 
-.viewgrid .footer div.center .fa {  
-    padding: 0.5vw;
-    width: 1.5vw;
+.viewgrid  .footer div.center .fa {  
+    padding: 1vh;
+    font-size: 3vh;
+    width: 3vh;
     text-align: center;
-    vertical-align: middle;
     text-decoration: none;
-    margin: 0.5vw;
+    margin: 1vh;
     border-radius: 50%;
 }
 
-.viewgrid .footer div.center .fa:hover {
+.viewgrid  .footer div.center .fa:hover {
     opacity: 0.7;
 }
 
-.viewgrid .footer div.center .fa-facebook {
-    font-size: 1.5vw;
+.viewgrid  .footer div.center .fa-facebook 
+{
     color: white;
 }
 
-.viewgrid .footer div.center .fa-twitter {
-    font-size: 1.5vw;
+.viewgrid  .footer div.center .fa-twitter 
+{
     color: white;
 }
 
-.viewgrid .footer div.center .fa-instagram {
-    font-size: 1.5vw;
+.viewgrid  .footer div.center .fa-instagram 
+{
     color: white;
 }
-
-

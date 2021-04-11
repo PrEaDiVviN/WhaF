@@ -7,7 +7,7 @@
 	height: 100%;
 	background-color: rgb(212, 160, 160);
 	display: grid;
-	grid-template-columns: 1fr 1.5fr 0.5fr;
+	grid-template-columns: 1fr 0fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 10px;
 }
