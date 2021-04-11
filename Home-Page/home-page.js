@@ -16,11 +16,9 @@ function openMyPage()
 
     document.getElementById("MyPage").style.display = "block";
 
-    document.getElementById("MyPage").style.visibility = "visible";
+    document.getElementById("Default").style.display = "none";
 
-    document.getElementById("Default").style.visibility = "hidden";
-
-    document.getElementById("Filter").style.visibility = "hidden";
+    document.getElementById("Filter").style.display = "none";
 }
 
 function openPage(pageName) 
@@ -41,15 +39,15 @@ function openPage(pageName)
 
     document.getElementById(pageName).style.display = "block";
 
-    document.getElementById("Default").style.visibility = "hidden";
+    document.getElementById("Default").style.display = "none";
 
-    document.getElementById("Added").style.visibility = "hidden";
+    document.getElementById("Added").style.display = "none";
 
-    document.getElementById("Tried").style.visibility = "hidden";
+    document.getElementById("Tried").style.display = "none";
 
-    document.getElementById("MyPage").style.visibility = "hidden";
+    document.getElementById("MyPage").style.display = "none";
 
-    document.getElementById("Filter").style.visibility = "Visible";
+    document.getElementById("Filter").style.display = "block";
 }
 
 function openDropdown() 
@@ -95,6 +93,4 @@ function openRecipes(pageName)
     }
 
     document.getElementById(pageName).style.display = "block";
-
-    document.getElementById(pageName).style.visibility = "visible";
 }
