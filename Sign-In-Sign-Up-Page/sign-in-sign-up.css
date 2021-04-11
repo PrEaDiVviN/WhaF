@@ -176,14 +176,16 @@ input
 .footer 
 {
     position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;
     grid-gap: 10px;
     left: 0;
     bottom: 0;
-    width: 100%;
-    height: 7%;
     background-color: rgb(212, 160, 160);
     color: white;
     text-align: center;
@@ -193,6 +195,9 @@ input
 {
     grid-column-start: 2;
     grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .footer div.right
@@ -206,7 +211,7 @@ input
 
 .terms 
 {
-    margin-right: 5px;
+    margin-right: 15px;
     text-decoration: none;
     color: white;
 }
@@ -224,11 +229,12 @@ input
 .fa 
 {
     padding: 1vh;
-    font-size: 4vh;
+    font-size: 3vh;
     width: 3vh;
     text-align: center;
     text-decoration: none;
     margin: 1vh;
+    border-radius: 50%;
 }
 
 .fa:hover 
@@ -339,6 +345,77 @@ input
 
     .grid-wrapper .grid-footer
     {
-        display: none;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        width: auto;
+        height: 100%;
+    }
+    
+    .footer 
+    {
+        position: fixed;
+        width: 100%;
+        height: 90px;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr 1fr;
+        background-color: rgb(212, 160, 160);
+        grid-gap: 0px;
+        color: white;
+        text-align: center;
+        padding: 0px;
+        margin: 0;
+    }
+
+    .footer div.right
+    {
+        width: 100%;
+        height: 100%;
+        margin-right: 0px;
+        padding: 0px;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: flex;
+        justify-content: space-around;
+        align-content: center;
+        flex-direction: column;
+        margin-top: 10px;
+    }
+    
+    .footer div.center 
+    {
+        grid-row-start: 2;
+        grid-row-end: 3;
+        grid-column-start: 1;
+        grid-column-end: 2;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .footer div.right p 
+    {
+        width: 100%;
+    }
+    
+    .footer div.right .terms 
+    {
+        display: block;
+        width: auto;
+        margin: 0px;
+        text-decoration: none;
+        color: white;
+    }
+    
+    .footer div.right .copyright 
+    {
+        display: block;
+        width: 100%;
+        margin: 0px;
     }
 }
