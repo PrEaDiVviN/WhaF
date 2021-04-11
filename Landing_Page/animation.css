@@ -1,7 +1,7 @@
 body {
 	border: 0px;
 	margin: 0px;
-	background-color: rgb(254,209,114);
+	background-color: rgb(255, 242, 242);
 }
 
 .title {
@@ -463,10 +463,10 @@ div button
 	display: block;
     width: 200px;
     height: 50px;
-    background-color: rgb(102, 51, 0);
+    background-color: #af6464;
     color: white; 
     padding: 12px 20px;
-    border: 1px solid rgb(102, 51, 0);
+    border: 1px solid #af6464;
     border-radius: 4px;
     cursor: pointer;
     float: right;

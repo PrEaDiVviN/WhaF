@@ -62,7 +62,6 @@
     padding: 1%;
     justify-content: center;
     align-content: center;
-    background-color: #b84d69;
 }
 
 .viewgrid .navbar .navbar-right .user-info .avatar-picture{
@@ -110,7 +109,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #e49756;
+    background-color: #bd5d5d;
 }
 
 .viewgrid .navbar .navbar-right .user-info .redirect a{
