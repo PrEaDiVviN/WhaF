@@ -17,6 +17,8 @@
 
     <link href = "https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel = "stylesheet">
 
+    <link href = "https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel = "stylesheet">
+
     <link rel = "stylesheet" type = "text/css" href = "home-page.css">
 </head>
 
@@ -24,7 +26,7 @@
     <div class = "grid-wrapper">
         <div class = "navbar"> 
             <div class = "navbar-center">
-                <a href = "../MyAccountPage/myaccountPage.html">
+                <a href = "/my-account">
                     <img src = "../Logo/Logo-final1.png" alt = "Logo">
                 </a>
             </div>
@@ -32,7 +34,7 @@
             <div class = "navbar-right">
                 <div class = "user-info">
                     <div class = "avatar-picture">
-                        <a href = "../MyAccountPage/myaccountPage.html">
+                        <a href = "/my-account">
                             <img src = "../Other-Photos/avatar-picture.png" alt = "Avatar">
                         </a>
                     </div>
@@ -58,17 +60,17 @@
             </div>
 
             <div class = "add-recipe">
-                <button onclick = "window.location.href = '../AddRecipePage/addrecipePage.html'" class = "grid-button"> Add Recipe </button>
+                <button onclick = "window.location.href = '/add-recipe'" class = "grid-button"> Add Recipe </button>
+            </div>
+
+            <div class = "filter">
+                <button class = "grid-button" onclick = "openFilter()"> Filtering </button>
             </div>
 
             <div class = "search">
-                <form action = "#">
-                    <input type = "text" placeholder = "Search.." name = "search">
-
-                    <button type = "submit" onclick = "openPage('Recipes')"> 
+                <button class = "grid-button" onclick = "openPage('Search')"> 
                         <i class = "fa fa-search"></i>
-                    </button>
-                </form>
+                </button>
             </div>
         </div>
         
@@ -76,79 +78,57 @@
             <div class = "default-wrapper"> 
                 <div class = "default-format">
                     <div class = "wrapper">
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe15.jpg" alt = "R15" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe14.jpg" alt = "R14" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe13.jpg" alt = "R13" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe20.jpg" alt = "R20" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe21.jpg" alt = "R21" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe22.jpg" alt = "R22" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe12.jpg" alt = "R12" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe11.jpg" alt = "R11" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe10.jpg" alt = "R10" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe17.jpg" alt = "R17" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe18.jpg" alt = "R18" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe19.jpg" alt = "R19" class = "item">
                         </a>
                     </div>
                 </div>
             </div>
         </div> 
-        
-        <div id = "Filter" class = "filter-grid">
-            <div class = "filter">
-                <div class = "dropdown">
-                    <button class = "filter-button" onclick = "openDropdown()"> Filtering </button>
-
-                    <div id = "Dropdown" class = "dropdown-content">
-                        <a onclick = "openPage('Recipes')"> Popularity </a>
-
-                        <a onclick = "openPage('Recipes')"> Prepping Time </a>
-
-                        <a onclick = "openPage('Recipes')"> Total (finalizing) Time </a>
-
-                        <a onclick = "openPage('Recipes')"> Difficulty </a>
-
-                        <a onclick = "openPage('Recipes')"> Most recent </a>
-
-                        <a onclick = "openPage('Recipes')"> A - Z </a>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div id = "Categories" class = "content">
             <div class = "format-wrapper"> 
@@ -528,47 +508,118 @@
             </div>
         </div>
 
+        <div id = "Filter" class = "content-filter">
+            <div class = "filtering-wrapper"> 
+                <div class = "filter-format">
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Popularity </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Prepping Time </button>
+                    <br>
+                    
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Total Time </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Difficulty </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Most recent </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> A - Z </button>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Search" class = "content" onclick = "search()">
+            <div class = "format3-wrapper"> 
+                <div class = "format3">
+                    <div class = "search-wrapper">
+                        <form class = "search-form">
+                            <br>
+                            <h1> <strong> Search </strong> </h1> <br>
+    
+                            <label for = "recipe"> Recipe Name: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Name" id = "recipe" name = "recipe">                            
+
+                            <label for = "wanted"> Wanted Ingredients: </label> 
+    
+                            <input type = "text" placeholder = "Enter Wanted Ingredients" id = "wanted" name = "wanted">
+                            <br><br> 
+
+                            <label for = "undesired"> Undesired Ingredients: </label> 
+    
+                            <input type = "text" placeholder = "Enter Undesired Ingredients" id = "undesired" name = "undesired">
+
+                            <label for = "difficulty"> Recipe Difficulty: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Difficulty" id = "difficulty" name = "difficulty">
+                            <br><br> 
+
+                            <label for = "prep"> Prepping Time: </label> 
+    
+                            <input type = "text" placeholder = "Enter Prepping Time" id = "prep" name = "prep">
+
+                            <label for = "total"> Total Time: </label> 
+    
+                            <input type = "text" placeholder = "Enter Total Time" id = "total" name = "total">
+                            <br><br> 
+
+                            <label for = "category"> Recipe Category: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Category" id = "category" name = "category">
+                            <br><br> 
+
+                            <input onclick = "openPage('Recipes')" type = "submit" value = "Search">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id = "Recipes" class = "content">
             <div class = "format2-wrapper"> 
                 <div class = "format2">
                     <div class = "search-wrapper">
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe1.jpg" alt = "R1" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe2.jpg" alt = "R2" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe3.jpg" alt = "R3" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe4.jpg" alt = "R4" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe5.jpg" alt = "R5" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe6.jpg" alt = "R6" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe7.jpg" alt = "R7" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe8.jpg" alt = "R8" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe9.jpg" alt = "R9" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe10.jpg" alt = "R10" class = "item">
                         </a>
                     </div>
@@ -592,27 +643,27 @@
             <div class = "recipes-wrapper">
                 <div class = "recipes-format">
                     <div class = "page-recipes">
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe20.jpg" alt = "R20" class = "item">
                         </a>
     
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe19.jpg" alt = "R19" class = "item">
                         </a>
     
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe1.jpg" alt = "R1" class = "item">
                         </a>
     
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe2.jpg" alt = "R2" class = "item">
                         </a>
     
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe3.jpg" alt = "R3" class = "item">
                         </a>
     
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe18.jpg" alt = "R18" class = "item">
                         </a>
                     </div>
@@ -624,31 +675,31 @@
             <div class = "recipes-wrapper">
                 <div class = "recipes-format">
                     <div class = "page-recipes">
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe17.jpg" alt = "R17" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe15.jpg" alt = "R15" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe14.jpg" alt = "R14" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe4.jpg" alt = "R4" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe5.jpg" alt = "R5" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe6.jpg" alt = "R6" class = "item">
                         </a>
 
-                        <a href = "../RecipePage/recipe.html">
+                        <a href = "/recipe-page">
                             <img src = "../Other-Photos/Recipe7.jpg" alt = "R7" class = "item">
                         </a>
                     </div>
@@ -669,7 +720,7 @@
                 <div class = "right">
                     <p class = "copyright"> © 2021 WhaF. No rights reserved. </p>
                     
-                    <a href = "../Terms-Policy-Page/terms-and-policy.html" class = "terms"> Terms and conditions. </a>
+                    <a href = "/terms-policy" class = "terms"> Terms and conditions. </a>
                 </div>
             </div>
         </div>
