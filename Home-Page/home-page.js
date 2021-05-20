@@ -19,6 +19,8 @@ function openMyPage()
     document.getElementById("Default").style.display = "none";
 
     document.getElementById("Filter").style.display = "none";
+
+    document.getElementById("Search").style.display = "none";
 }
 
 function openPage(pageName) 
@@ -47,33 +49,10 @@ function openPage(pageName)
 
     document.getElementById("MyPage").style.display = "none";
 
-    document.getElementById("Filter").style.display = "block";
-}
-
-function openDropdown() 
-{
-    //show the dropdown content
-    document.getElementById("Dropdown").classList.toggle("show");
-
-    //close the dropdown, if the user clicks outside of it
-    window.onclick = function(event) 
-    {
-        if (!event.target.matches('.filter-button')) 
-        {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            var i;
-
-            for (i = 0; i < dropdowns.length; i++) 
-            {
-                var openDropdown = dropdowns[i];
-
-                if (openDropdown.classList.contains('show')) 
-                {
-                    openDropdown.classList.remove('show');
-                }
-            }
-        }
-    }
+    if (pageName == 'Recipes')
+        document.getElementById("Filter").style.display = "block";
+    else
+        document.getElementById("Filter").style.display = "none";
 }
 
 function openRecipes(pageName) 
@@ -93,4 +72,43 @@ function openRecipes(pageName)
     }
 
     document.getElementById(pageName).style.display = "block";
+
+    document.getElementById("Default").style.display = "none";
+
+    document.getElementById("Filter").style.display = "none";
+
+    document.getElementById("Search").style.display = "none";
+}
+
+function openFilter() 
+{
+    var i, content, nav;
+
+    content = document.getElementsByClassName("content-filter");
+    for (i = 0; i < content.length; i++) 
+    {
+        content[i].style.display = "none";
+    }
+
+    nav = document.getElementsByClassName("filter-button");
+    for (i = 0; i < nav.length; i++) 
+    {
+        nav[i].style.backgroundColor = "";
+    }
+
+    document.getElementById("Filter").style.display = "block";
+
+    document.getElementById("Default").style.display = "block";
+
+    document.getElementById("Search").style.display = "none";
+
+    document.getElementById("Categories").style.display = "none";
+
+    document.getElementById("Rankings").style.display = "none";
+
+    document.getElementById("MyPage").style.display = "none";
+
+    document.getElementById("Added").style.display = "none";
+
+    document.getElementById("Tried").style.display = "none";
 }
