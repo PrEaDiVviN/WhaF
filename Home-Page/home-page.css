@@ -305,6 +305,56 @@ body
     grid-gap: 15px;
 }
 
+.split-previous
+{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+
+.previous
+{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.split-next
+{
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+}
+
+.next
+{
+    grid-column-start: 2;
+    grid-column-end: 3;
+}
+
+.default-buttons
+{
+    font-family: 'Dela Gothic One', cursive;
+	font-size: 1vw;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    color: white;
+    background-color: #bd5d5d;
+    border: none;
+    width: 10vw;
+    height: 7vh;
+}
+
+.default-buttons:hover
+{
+    background-color: rgb(212, 160, 160);
+    color: #ffffff;
+}
+
 .content
 {
     grid-row-start: 3;
@@ -690,6 +740,7 @@ input
     display: grid;
     grid-template-columns: auto auto auto;
     grid-template-rows: auto;
+    grid-gap: 15px;
 }
 
 .grid-wrapper .grid-footer
