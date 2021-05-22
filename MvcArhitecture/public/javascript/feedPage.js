@@ -94,3 +94,7 @@ function openRecipes(pageName)
 
     document.getElementById(pageName).style.display = "block";
 }
+
+if(this.readyState === XMLHttpRequest.DONE && this.status === 302) {
+    alert('You have to log in to be able to post a recipe on the website!');
+} 

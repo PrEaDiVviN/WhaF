@@ -89,6 +89,48 @@ module.exports = class recipe {
         }
         return Promise.resolve(true);
     }
+
+    async getAllInfoAboutRecipe(recipeName) {
+        let pgQuery = 'SELECT * FROM public.recipe WHERE public.recipe.recipe_name = $1;';
+        let values = [recipeName];
+        let data = await client.query(pgQuery,values);
+        if(data != null && data.rows[0] != undefined) {
+            let recipeID = data.rows[0].recipe_id;
+            let userID = data.rows[0].user_id;
+            let recipePhoto = data.rows[0].photo;
+            let categorie = data.rows[0].category;
+            let nrIngrediente = data.rows[0].nr_ingredients;
+            let preperationTime = data.rows[0].prep_time;
+            let finalizationTime = data.rows[0].final_time;
+            let nrInstructiuni = data.rows[0].nr_instructions;
+            let dificultate = data.rows[0].difficulty;
+            return Promise.resolve({recipeID: recipeID, userID: userID, recipePhoto: recipePhoto, categorie: categorie, nrIngrediente: nrIngrediente,
+                preperationTime: preperationTime, finalizationTime: finalizationTime, nrInstructiuni: nrInstructiuni, dificultate: dificultate});
+        }
+        return Promise.resolve(null);
+    }
+
+    async getAllIngredients(recipeID) {
+        let pgQuery = 'SELECT * FROM public.ingredient WHERE public.ingredient.recipe_id = $1;';
+        let values = [recipeID];
+        let data = await client.query(pgQuery,values);
+        if(data != null && data.rows[0] != undefined) {
+            let ingrediente = data.rows;
+            return Promise.resolve({ingrediente: ingrediente});
+        }
+        return Promise.resolve(null);
+    }
+
+    async getAllInstructions(recipeID) {
+        let pgQuery = 'SELECT * FROM public.instruction WHERE public.instruction.recipe_id = $1;';
+        let values = [recipeID];
+        let data = await client.query(pgQuery,values);
+        if(data != null && data.rows[0] != undefined) {
+            let instructiuni = data.rows;
+            return Promise.resolve({instructiuni: instructiuni});
+        }
+        return Promise.resolve(null);
+    }
 }
 
 

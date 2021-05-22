@@ -87,6 +87,9 @@ function sendRecipeToDatabase() {
         else  if(this.readyState === XMLHttpRequest.DONE && this.status === 700) {
             alert('The recipe name already exists! Please try another one so you can insert your own recipe.');
         }
+        else  if(this.readyState === XMLHttpRequest.DONE && this.status === 701) {
+            alert('The type of files you inserted are not images! Please, insert these types of images! (Accepted formats are .jpg, .png, .svg)');
+        }
     }
     
     let recipeName = document.getElementById("numereteta").value;

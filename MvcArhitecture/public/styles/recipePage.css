@@ -89,6 +89,35 @@
   font-family: "Fredoka One", cursive;
   text-align: center;
 }
+.viewgrid .content .info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  height: auto;
+  font-size: 3vw;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+
+.viewgrid .content .info p {
+  padding-bottom: 20px;
+}
+
+.viewgrid .content .time {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50%;
+  height: 10%;
+  font-size: 3vw;
+  margin: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
 
 .viewgrid .content .time {
   display: flex;
@@ -394,6 +423,58 @@
 
 .viewgrid .navbar-center {
   box-sizing: border-box;
+}
+
+#tried {
+  display: block;
+  width: 20%;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid white;
+  background-color: rgb(212, 160, 160);
+  font-size: 20px;
+  color: white;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#tried:hover {
+  cursor: pointer;
+}
+
+form {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+form input {
+  display: block;
+  width: 40%;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: "Vollkorn", serif;
+  text-align: center;
+  border: 1px solid darkgray;
+  margin-top: 0px;
+  margin-bottom: 15px;
+}
+
+form input:focus {
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+}
+
+form input:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 450px) {

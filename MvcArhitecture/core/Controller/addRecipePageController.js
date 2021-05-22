@@ -9,10 +9,9 @@ const recipeModel = new recipe();
 
 module.exports = class addRecipePageController {
     static async GET(request, response) {
-        //Daca cookie-ul este setat, si este corect, atunci redirectionam userul spre /feedPage.html
+        //Daca cookie-ul este setat, si este corect, atunci permitem userului ca acceseze pagina
         //                         , si este gresit, atunci redirectionam userul userul spre /sign-in-sign-up.html
-        //Daca cookie-ul nu este setat, atunci lasam userul sa aleaga ce vrea sa faca.(POST LOGIN/ POST REGISTER)
-
+        //Daca cookie-ul nu este setat, atunci redirectionam userul userul spre /sign-in-sign-up.html
         let cookie = request.headers.cookie;
 
         if(cookie != undefined) {
@@ -34,16 +33,8 @@ module.exports = class addRecipePageController {
             }
         } 
         else {
-            fs.stat("core/View/addrecipePage.html", (err, stats) => {
-                response.statusCode = 200;
-                response.setHeader('Content-Type', 'text/html');
-                if(stats) {
-                    fs.createReadStream("core/View/addrecipePage.html").pipe(response);
-                } else {
-                    response.statusCode = 404;
-                    response.end('Sorry, page not found!');
-                }
-            }); 
+            response.writeHead(302, { 'Location': '/sign-in-sign-up.html'});
+            response.end();
         }
     }
 
@@ -78,9 +69,6 @@ module.exports = class addRecipePageController {
                     var categorie = fields.categorie;
                     //verificam informatiile ca sunt valide
                     var existsRecipeName = await recipeModel.getRecipeIdByName(recipeName);
-                    console.log("returneaza=========================================================================");
-                    console.log(existsRecipeName);
-                    console.log("returneaza=========================================================================");
                     if(existsRecipeName != null) {
                         response.statusCode = 700;
                         response.end();
@@ -92,9 +80,27 @@ module.exports = class addRecipePageController {
                     var pozeInstructiuni = files.pozeInstructiuni;
                     
                     //verificam ca userul a trimis poze si nu alte lucruri
-                    //TODO
+                    if(recipePhoto.type != 'image/jpeg' && recipePhoto.type != 'image/png' && recipePhoto.type != 'image/svg+xml') {
+                        response.statusCode = 701;
+                        response.end();
+                        return ;
+                    }
+                    if(nrInstructiuni > 1) {
+                        for (var i = 0; i < nrInstructiuni; i++) 
+                        if(pozeInstructiuni[i].type != 'image/jpeg' && pozeInstructiuni[i].type != 'image/png' && pozeInstructiuni[i].type != 'image/svg+xml') {
+                            response.statusCode = 701;
+                            response.end();
+                            return ;
+                        }
+                    }
+                    else if(pozeInstructiuni.type != 'image/jpeg' && pozeInstructiuni.type != 'image/png' && pozeInstructiuni.type != 'image/svg+xml') {
+                        response.statusCode = 701;
+                        response.end();
+                        return ;
+                    }
                     
-
+                    
+                    
                     //cream un folder cu numele retetei in data de forma data/recipeName
                     var pathRecipe = "data/recipes/" + recipeName;
                     if (!fs.existsSync(pathRecipe)){
@@ -121,21 +127,48 @@ module.exports = class addRecipePageController {
                     //salvam pozele instructiunilor
                     var type;
                     var arrayTypes = [];
-                    for (var i = 0; i < nrInstructiuni; i++) {
-                        var oldPath =  pozeInstructiuni[i].path;
-                        if(pozeInstructiuni[i].type == 'image/jpeg') {
+                    if(nrInstructiuni > 1) {
+                        for (var i = 0; i < nrInstructiuni; i++) {
+                            var oldPath =  pozeInstructiuni[i].path;
+                            if(pozeInstructiuni[i].type == 'image/jpeg') {
+                                type = 'jpg'
+                                arrayTypes[i] = 'jpg';
+                            }
+                            else if(pozeInstructiuni[i].type == 'image/png') {
+                                type = 'png';
+                                arrayTypes[i] = 'png';
+                            }
+                            else if(pozeInstructiuni[i].type == 'image/svg+xml') {
+                                type= 'svg';
+                                arrayTypes[i] = 'svg';
+                            }
+                            var newPath = pathRecipe + '/' + ('poza' + (i+1)) + "." + type;
+                            fs.rename(oldPath, newPath, function (err) {
+                                if (err) {
+                                    console.log(err); 
+                                    response.statusCode = 406;
+                                    response.end('Unknown error');
+                                    return ;
+                                }
+                            });
+                        }
+                    }
+                    else {
+                        var oldPath =  pozeInstructiuni.path;
+                        if(pozeInstructiuni.type == 'image/jpeg') {
                             type = 'jpg'
-                            arrayTypes[i] = 'jpg';
+                            arrayTypes[0] = 'jpg';
                         }
-                        else if(pozeInstructiuni[i].type == 'image/png') {
+                        else if(pozeInstructiuni.type == 'image/png') {
                             type = 'png';
-                            arrayTypes[i] = 'png';
+                            arrayTypes[0] = 'png';
                         }
-                        else if(pozeInstructiuni[i].type == 'image/svg+xml') {
+                        else if(pozeInstructiuni.type == 'image/svg+xml') {
                             type= 'svg';
-                            arrayTypes[i] = 'svg';
+                            arrayTypes[0] = 'svg';
                         }
-                        var newPath = pathRecipe + '/' + ('poza' + (i+1)) + "." + type;
+                        arrayTypes[1] = ' ';
+                        var newPath = pathRecipe + '/poza1.' + type;
                         fs.rename(oldPath, newPath, function (err) {
                             if (err) {
                                 console.log(err); 

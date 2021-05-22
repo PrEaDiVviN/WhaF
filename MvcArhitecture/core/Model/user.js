@@ -122,7 +122,7 @@ module.exports = class user {
             }
             else {
               var cookieTime = new Date();
-              cookieTime.setMinutes(cookieTime.getMinutes()+30);
+              cookieTime.setMinutes(cookieTime.getMinutes()+1440);
               var token = Tokenizer.produceToken(username,firstName,lastName,cookieTime);
               let pgQuery3 = {
                 name: 'InsertSession',

@@ -7,7 +7,8 @@ const user = require('./Model/user');
 const path = require('path');
 const landingController = require('./Controller/landingController.js');
 const registerLoginController = require('./Controller/registerLoginController.js');
-const addRecipeController = require('./Controller/addRecipePageController.js')
+const addRecipeController = require('./Controller/addRecipePageController.js');
+const recipePageController = require('./Controller/recipePageController.js');
 
 module.exports = (request, response) => {
         const method = request.method;
@@ -25,18 +26,6 @@ module.exports = (request, response) => {
                             response.setHeader('Content-Type', 'text/html');
                               if(stats) {
                                   fs.createReadStream("core/View/feedPage.html").pipe(response);
-                              } else {
-                                  response.statusCode = 404;
-                                  response.end('Sorry, page not found!');
-                              }
-                          }); 
-                    break;
-                    case "/recipePage.html":
-                        fs.stat("core/View/recipePage.html", (err, stats) => {
-                            response.statusCode = 200;
-                            response.setHeader('Content-Type', 'text/html');
-                              if(stats) {
-                                  fs.createReadStream("core/View/recipePage.html").pipe(response);
                               } else {
                                   response.statusCode = 404;
                                   response.end('Sorry, page not found!');
@@ -74,26 +63,51 @@ module.exports = (request, response) => {
                         addRecipeController.GET(request,response);
                     break;
                     default:    
-                    let fileName = path.join(__dirname, "..", "public" , request.url);
-                    if(request.url.endsWith('.png') || request.url.endsWith('.jpg'))
-                        fileName = path.join(__dirname, "..", "public", 'images' , request.url);
-                    else if(request.url.endsWith('.css'))  
-                        fileName = path.join(__dirname, "..", "public", 'styles' , request.url);    
-                    else if(request.url.endsWith('.js'))     
-                        fileName = path.join(__dirname, "..", "public", 'javascript' , request.url);    
-                    console.log(request.url);
-                    fs.stat(fileName, (err, stats) => {
-                        if(err) {
-                            response.statusCode = 404;
-                            response.end('Sorry, page not found!');
-                        } else {
-                            if(fileName.toLowerCase().endsWith('.css'))
-                                response.setHeader('Content-Type', 'text/css'); 
-                            else if(fileName.toLowerCase().endsWith('.js'))
-                                response.setHeader('Content-Type', 'text/javascript'); 
-                            fs.createReadStream(fileName).pipe(response);
+                        if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
+                            ||request.url.substr(request.url.length-4) === '.jpg')) {//daca suntem pe recipe
+                                
+                            if(request.url.substr(request.url.length - 5) === '.html')//daca se termina in .html, atunci trebuie sa trimitem View-ul
+                                recipePageController.GET(request,response);
+                            else {//altfel trebuie sa trimitem pozele viewului
+                                let photoPath = "data/" + request.url;
+                                //TODO, tipuri fotografi  
+                                try {
+                                    response.statusCode = 200;
+                                    fs.createReadStream(photoPath).pipe(response);
+                                }
+                                catch(e) {
+                                    console.log(e);
+                                    response.statusCode(404);
+                                    response.end();
+                                }
+                            }
                         }
-                    });
+                        else {
+                            var splitRoute = request.url.split("/");
+                            var file = splitRoute[splitRoute.length-1];
+                            console.log("=================================");
+                            console.log(file);
+                            console.log("=================================");
+                            let fileName = path.join(__dirname, "..", "public" , file);
+                            if(file.endsWith('.png') || file.endsWith('.jpg'))
+                                fileName = path.join(__dirname, "..", "public", 'images' , file);
+                            else if(file.endsWith('.css'))  
+                                fileName = path.join(__dirname, "..", "public", 'styles' , file);    
+                            else if(file.endsWith('.js'))     
+                                fileName = path.join(__dirname, "..", "public", 'javascript' , file);    
+                            fs.stat(fileName, (err, stats) => {
+                                if(err) {
+                                    response.statusCode = 404;
+                                    response.end('Sorry, page not found!');
+                                } else {
+                                    if(fileName.toLowerCase().endsWith('.css'))
+                                        response.setHeader('Content-Type', 'text/css'); 
+                                    else if(fileName.toLowerCase().endsWith('.js'))
+                                        response.setHeader('Content-Type', 'text/javascript'); 
+                                    fs.createReadStream(fileName).pipe(response);
+                                }
+                            });
+                        }
                 }
                 break;
             case "POST":  
