@@ -6,94 +6,163 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href = "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel = "stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet"> 
-		<link rel="stylesheet" type="text/css" href="footer.css">
-		<link rel="stylesheet" type="text/css" href="navbar.css">
 		<link rel="stylesheet" type="text/css" href="addrecipePage.css">
-		<link rel="stylesheet" type="text/css" href="addrecipePageResponsiveView.css">
 	</head>
 	<body>
 		<div class="viewgrid">
 			<div class="navbar">
 				<div class="navbar-left">
-					<a href="../Home-Page/home-page.html"><img src="logo3.png" alt="logo picture"></a>
+					<a href="../Home-Page/home-page.html"><img src="../Logo/Logo-final2.png" alt="logo picture"></a>
 				</div>
 				<div class="navbar-right">
 					<div class="user-info">
-						<div class="avatar-picture"><a href="../MyAccountPage/myaccountPage.html"><img src="user.png" alt="u" style="width: 100%; height:100%;"></a></div>
-						<div class="username"><p>Username</p></div>
-						<div class="redirect"><a href="../Home-Page/home-page.html">My Page</a></div>
+						<div class="avatar-picture"><a href="../MyAccountPage/myaccountPage.html"><img src="../Other-Photos/avatar-picture.png" alt="u"></a></div>
+						<div class="username"><p>Username</p></div> 
+						<div class="redirect">
+							<button class = "my-page" onclick = "openMyPage()"> My Page </button>
+						</div>
 					</div>
 				</div> 
 			</div>
 			<div class="main-content">
-				<!--
-				<input type="text" id="input1">
-				<button onclick="myJsFunction()">BUTTON</button>
-				<script type="text/javascript">
-				 function myJsFunction(){
-				    var text=document.getElementById('input1').value;
-				    console.log(text);
-				 }
-				</script>
-				-->
-				<form>
-					<div>Completeaza urmatorul formular pentru a-ti posta reteta!</div>
-  					<label for="numereteta">Numele retetei</label>
-  					<input type="text" id="numereteta" name="numereteta">
-  					<label for="pozareteta">Poza retetei</label>
-  					<input type="file" id="pozareteta" name="pozareteta">
-  					<label for="categorie">Categorie</label>
+				<form method="POST" id = "formInstr" enctype="multipart/form-data">
+					<div> Fill out this form to post your recipe! </div>
+  					<label for="numereteta">Recipe Name</label>
+  					<input type="text" id="numereteta" name="numereteta" required = "true">
+  					<label for="pozareteta">Recipe Photo</label>
+  					<input type="file" id="pozareteta" name="pozareteta" required = "true">
+  					<label for="categorie">Category</label>
 					<select id="categorie" name="categorie">
-				        <option value="ff">Fast food</option>
-				        <option value="su">Supe</option>
-				        <option value="de">Deserturi</option>
-			      	</select>
-			      	<label for="nringrediente">Numar ingrediente</label>
-					<select id="nringrediente" name="nringrediente">
-				        <option value="none">Niciunul</option>
-				        <option value="1">1</option>
+				        <option value="ff">Breakfast</option>
+				        <option value="su">Brunch</option>
+				        <option value="de">Lunch</option>
+						<option value="de">Snacks</option>
+						<option value="de">Dinner</option>
+						<option value="de">Soups</option>
+						<option value="de">Salads</option>
+						<option value="de">Main Dishes</option>
+						<option value="de">Pasta</option>
+						<option value="de">Seafood</option>
+						<option value="de">Pizza</option>
+						<option value="de">Burgers</option>
+						<option value="de">Vegetarian</option>
+						<option value="de">Vegan</option>
+						<option value="de">Sides</option>
+						<option value="de">Sauces</option>
+						<option value="de">Desserts</option>
+						<option value="de">Drinks</option>
+			      	</select> 
+			      	<label for="nringrediente">Number of Ingredients</label>
+					<select id="nringrediente" name="nringrediente" onchange="addIngredient()">
+				        <option value="none">None</option>
+				        <option value="1" selected>1</option>
 				        <option value="2">2</option>
 				    	<option value="3">3</option>
 				        <option value="4">4</option>
+						<option value="5">5</option>
+				        <option value="6">6</option>
+				    	<option value="7">7</option>
+				        <option value="8">8</option>
+						<option value="9">9</option>
+				        <option value="10">10</option>
+				    	<option value="11">11</option>
+				        <option value="12">12</option>
+						<option value="13">13</option>
+				        <option value="14">14</option>
+				    	<option value="15">15</option>
+				        <option value="16">16</option>
+						<option value="17">17</option>
+				        <option value="18">18</option>
+				    	<option value="19">19</option>
+				        <option value="20">20</option>
+				        <option value="21">21</option>
+				        <option value="22">22</option>
+				    	<option value="23">23</option>
+				        <option value="24">24</option>
+						<option value="25">25</option>
+				        <option value="26">26</option>
+				    	<option value="27">27</option>
+				        <option value="28">28</option>
+						<option value="29">29</option>
+				        <option value="30">30</option>
+				    	<option value="31">31</option>
+				        <option value="32">32</option>
+						<option value="33">33</option>
+				        <option value="34">34</option>
+				    	<option value="35">35</option>
+				        <option value="36">36</option>
+						<option value="37">37</option>
+				        <option value="38">38</option>
+				    	<option value="39">39</option>
+				        <option value="40">40</option>
 			      	</select>
-			      	<label for="1_ingredient">1. Ingredient</label>
-  					<input type="text" id="1_ingredient" name="1_ingredient">
-			      	<label for="2_ingredient">2. Ingredient</label>
-  					<input type="text" id="2_ingredient" name="2_ingredient">
-			      	<label for="3_ingredient">3. Ingredient</label>
-  					<input type="text" id="3_ingredient" name="3_ingredient">  					
-			      	<label for="4_ingredient">4. Ingredient</label>
-  					<input type="text" id="4_ingredient" name="4_ingredient">  
-  					<label for="preptime">Timp preparare(min)</label>
-  					<input type="number" id="preptime" name="preptime">		
-  					<label for="fintime">Timp finalizare(min)</label>
-  					<input type="number" id="fintime" name="fintime">	
-  					<label for="nrinstructiuni">Numar instructiuni</label>	
-  					<select id="nrinstructiuni" name="nrinstructiuni">
-				        <option value="none">Niciuna</option>
-				        <option value="1">1</option>
+					<div class="ingredinte_wrapper">
+						<label for="1_ingredient">1. Ingredient</label>
+						<input type="text" id="1_ingredient" name="1_ingredient" required = "true">
+					</div>   
+  					<label for="preptime">Prepping Time (min)</label>
+  					<input type="number" id="preptime" name="preptime" required = "true">		
+  					<label for="fintime">Total Time (min)</label>
+  					<input type="number" id="fintime" name="fintime" required = "true">	
+  					<label for="nrinstructiuni">Number of Instructions</label>	
+  					<select id="nrinstructiuni" name="nrinstructiuni" onchange="addInstruction()">
+				        <option value="none" >None</option>
+				        <option value="1" selected>1</option>
 				        <option value="2">2</option>
 				    	<option value="3">3</option>
 				        <option value="4">4</option>
+						<option value="5">5</option>
+				        <option value="6">6</option>
+				    	<option value="7">7</option>
+				        <option value="8">8</option>
+						<option value="9">9</option>
+				        <option value="10">10</option>
+				    	<option value="11">11</option>
+				        <option value="12">12</option>
+						<option value="13">13</option>
+				        <option value="14">14</option>
+				    	<option value="15">15</option>
+				        <option value="16">16</option>
+						<option value="17">17</option>
+				        <option value="18">18</option>
+				    	<option value="19">19</option>
+				        <option value="20">20</option>
+				        <option value="21">21</option>
+				        <option value="22">22</option>
+				    	<option value="23">23</option>
+				        <option value="24">24</option>
+						<option value="25">25</option>
+				        <option value="26">26</option>
+				    	<option value="27">27</option>
+				        <option value="28">28</option>
+						<option value="29">29</option>
+				        <option value="30">30</option>
+				    	<option value="31">31</option>
+				        <option value="32">32</option>
+						<option value="33">33</option>
+				        <option value="34">34</option>
+				    	<option value="35">35</option>
+				        <option value="36">36</option>
+						<option value="37">37</option>
+				        <option value="38">38</option>
+				    	<option value="39">39</option>
+				        <option value="40">40</option>
 			      	</select>		
-			      	<label for="instructiune1">Instructiunea 1</label>	
-			      	<textarea id="instructiune1" name="instructiune1"></textarea>
-			      	<label for="pozainstructiunea1">Poza instructiunea 1</label>
-  					<input type="file" id="pozainstructiunea1" name="pozainstructiunea1">
-			      	<label for="instructiune2">Instructiunea 2</label>	
-			      	<textarea id="instructiune2" name="instructiune1"></textarea>
-			        <label for="pozainstructiunea2">Poza instructiunea 2</label>
-  					<input type="file" id="pozainstructiunea2" name="pozainstructiunea2">
-			      	<label for="instructiune3">Instructiunea 3</label>	
-			      	<textarea id="instructiune3" name="instructiune1"></textarea>
-			        <label for="pozainstructiunea3">Poza instructiunea 3</label>
-  					<input type="file" id="pozainstructiunea3" name="pozainstructiunea3">
-			      	<label for="instructiune4">Instructiunea 4</label>	
-			      	<textarea id="instructiune4" name="instructiune1"></textarea>
-			      	<label for="pozainstructiunea4">Poza instructiunea 4</label>
-  					<input type="file" id="pozainstructiunea4" name="pozainstructiunea4">
-			      	<button type="submit">Submit</button>
+					<div class="instructiuni_wrapper">
+						<label for="instructiune1">Instruction 1</label>	
+						<textarea id="instructiune1" name="instructiune1" required = "true"></textarea>
+						<label for="pozainstructiunea1">Instruction Photo 1</label>
+						<input type="file" id="pozainstructiunea1" name="pozainstructiunea1" required = "true">
+					</div>   
+					<label for="dificultate">Difficulty</label>
+					<select id="dificultate" name="dificultate">
+				        <option value="u">Easy</option>
+				        <option value="m">Medium</option>
+				        <option value="g">Hard</option>
+			      	</select>
+			      	<button id="submitbtn" type="button" onclick="sendRecipeToDatabase()">Submit your recipe</button>
 				</form>
 				<div class = "footer"> 
 		    		<div class="center">
@@ -108,6 +177,6 @@
 	    		</div>
 			</div>
     	</div>
-    	<script src = "buttons.js"></script>
+    	<script src = "addrecipePage.js"></script>
 	</body>
 </html>
