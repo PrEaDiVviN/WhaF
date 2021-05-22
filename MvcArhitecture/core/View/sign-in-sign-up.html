@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Sign in - up page </title>
+
+    <meta charset = "UTF-8">
+
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel = "stylesheet" type = "text/css" href = "sign-in-sign-up.css">
+</head>
+
+<body>
+    <div class = "grid-wrapper">
+        <div class = "logo">
+            <div class = "format">
+                <img src = "Logo-final.png" alt = "Logo" class = "logo-view">
+            </div>
+        </div>
+
+        <div class = "recipes">
+            <div class = "format">
+                <img src = "Recipes.jpg" alt = "Recipes" class = "recipes-view">
+            </div>
+        </div>
+
+        <div id = "Login" class = "login">
+            <form method="POST" id="loginFORM"> 
+                <div class = "login-box"> 
+                    <br>
+                    <h1> <strong> Sign In </strong> </h1> <br>
+                
+                    <label for = "username"> Username: </label> 
+
+                    <input type = "text" placeholder = "Enter Username" id = "username" name = "username" required>
+                    <br> <br>
+    
+                    <label for = "passwd"> Password: </label>
+    
+                    <input type = "password" placeholder = "Enter Password" id = "passwd" name = "passwd" minlength = "4" required>
+                    <br> <br>
+    
+                    <label>
+                        <input type = "checkbox" checked = "checked" name = "remember"> Remember me
+                    </label> <br> <br>
+
+                    <p class = "account"> 
+                        <strong> Need an account? 
+                            <button type="button" class = "sign-up" onclick = "openForm('Register', 'Login')"> Sign up now </button>
+                        </strong>
+                    </p> <br>
+                    <button type = "button" onclick="reloadCurrentPage()">Login</button>
+                </div>
+            </form>
+        </div>
+
+        <div id = "Register" class = "register">
+            <form method="POST" id="registerFORM"> 
+                <div class = "register-box"> 
+                    <br>
+                    <h1> <strong> Sign Up </strong> </h1> <br>
+    
+                    <label for = "fName"> First Name: </label> 
+    
+                    <input type = "text" placeholder = "Enter First Name" id = "fName" name = "fName" required>
+                    <br><br>
+
+                    <label for = "lName"> Last Name: </label>
+    
+                    <input type = "text" placeholder = "Enter Last Name" id = "lName" name = "lName" required>
+                    <br> <br>
+                    
+                    <label for = "mail"> Email: </label>
+    
+                    <input type = "email" placeholder = "Enter Email" id = "mail" name = "mail">
+                    <br><br>
+
+                    <label for = "UserName"> Username: </label>
+    
+                    <input type = "text" placeholder = "Enter Username" id = "UserName" name = "UserName" required>
+                    <br> <br>
+
+                    <label for = "Password"> Password: </label>
+    
+                    <input type = "password" placeholder = "Enter Password" id = "Password" name = "Password" minlength = "8" maxlength="30" required pattern="^[a-zA-Z]+[1-9]+$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 8 characters and only using letters and numbers.' : ''); if(this.checkValidity()) form.passw.pattern = this.value;">
+                    <br><br>
+
+                    <label for = "passw"> Confirm Password: </label>
+    
+                    <input type = "password" placeholder = "Confirm Password" id = "passw" name = "passw" minlength = "8" maxlength="30" required pattern="^[a-zA-Z]+[1-9]+$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Please enter the same Password!' : '');" >
+                    <br> <br>
+    
+                    <label for = "data"> Date of birth: </label>
+    
+                    <input type = "date" id = "date" name = "data" required>
+                    <br> <br>
+
+                    <p> By creating an account you agree to our 
+                        <a href = "/terms-policy" style = "color:rgb(29, 131, 233)"> Terms & Privacy</a>.
+                    </p> <br>
+                    
+                    <input type = "button"  onclick="sendRegisterAndRedirect()" value = "Register">
+                </div>
+            </form>
+        </div> 
+
+        <div class = "grid-footer">
+            <div class = "footer"> 
+                <div class = "center">
+                    <a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"> </a>
+                    
+                    <a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"> </a>
+                    
+                    <a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"> </a>
+                </div>
+        
+                <div class = "right">
+                    <p class = "copyright"> © 2021 WhaF. No rights reserved. </p>
+                    
+                    <a href = "/terms-policy" class = "terms"> Terms and conditions. </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src = "/sign-in-sign-up.js"></script>
+</body>
+</html>
