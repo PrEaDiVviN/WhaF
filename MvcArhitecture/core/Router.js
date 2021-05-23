@@ -69,7 +69,7 @@ module.exports = (request, response) => {
                             if(request.url.substr(request.url.length - 5) === '.html')//daca se termina in .html, atunci trebuie sa trimitem View-ul
                                 recipePageController.GET(request,response);
                             else {//altfel trebuie sa trimitem pozele viewului
-                                let photoPath = "data/" + request.url;
+                                let photoPath = "data/" + request.url.replace('%20',' ');;
                                 //TODO, tipuri fotografi  
                                 try {
                                     response.statusCode = 200;
@@ -80,6 +80,19 @@ module.exports = (request, response) => {
                                     response.statusCode(404);
                                     response.end();
                                 }
+                            }
+                        }
+                        else if(request.url.substr(0,6) === '/users') {
+                            var filePath = 'data/' + request.url.replace('%20',' ');
+                            console.log(filePath);
+                            try {
+                                response.statusCode = 200;
+                                fs.createReadStream(filePath).pipe(response);
+                            }
+                            catch(e) {
+                                console.log(e);
+                                response.statusCode = 404;
+                                response.end();
                             }
                         }
                         else {
@@ -117,6 +130,9 @@ module.exports = (request, response) => {
                     break;
                     case "/addrecipePage.html":
                         addRecipeController.POST(request, response);
+                    break;
+                    case "/recipePage.html":
+                        recipePageController.POST(request,response);
                     break;
                 }
                 break;
