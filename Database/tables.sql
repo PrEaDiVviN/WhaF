@@ -3,6 +3,7 @@ DROP TABLE public.instruction
 DROP TABLE public.search
 DROP TABLE public.ingredient
 DROP TABLE public.recipe
+DROP TABLE public.tried
 DROP TABLE public.user
 
 CREATE TABLE public.user
@@ -29,7 +30,7 @@ CREATE TABLE public.recipe
 	prep_time integer NOT NULL,
 	final_time integer NOT NULL,
 	nr_instructions integer NOT NULL,
-	difficulty integer NOT NULL /* 1-10 => 1 easy, 10 hard */
+	difficulty VARCHAR(25) NOT NULL /* 1-10 => 1 easy, 10 hard */
 )
 
 CREATE TABLE public.instruction 
@@ -61,7 +62,15 @@ CREATE TABLE public.search
 	user_id integer NOT NULL REFERENCES public.user(user_id),
 	recipe_id integer REFERENCES public.recipe(recipe_id),
 	ingredient_id integer REFERENCES public.ingredient(ingredient_id),
-	difficulty integer
+	difficulty VARCHAR(25)
+)
+
+CREATE TABLE public.tried
+(
+    id_try SERIAL PRIMARY KEY,
+    id_user INT NOT NULL,
+    recipe_name VARCHAR(100) NOT NULL, 
+    photo VARCHAR(100) NOT NULL
 )
 
 /* user table */
