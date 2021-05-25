@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Settings Page </title>
+
+    <meta charset = "UTF-8">
+
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel = "preconnect" href = "https://fonts.gstatic.com">
+
+	<link href = "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel = "stylesheet">
+
+    <link rel = "stylesheet" type = "text/css" href = "settingsPage.css">
+</head>
+
+<body>
+    <div class = "grid-wrapper">
+        <div class = "navbar"> 
+            <div class = "navbar-left">
+                <a href = "/feedPage.html">
+                    <img src = "/Logo-final2.png" alt = "Logo">
+                </a>
+            </div>
+
+            <div class = "navbar-right">
+                <div class = "user-info">
+                    <div class = "avatar-picture">
+                        <a href = "/feedPage.html">
+                            <img src = "/avatar-picture.png" alt = "Avatar">
+                        </a>
+                    </div>
+
+                    <div class = "username">
+                        <p> Username </p>
+                    </div>
+
+                    <div class = "user-settings">
+                        <button class = "my-page" onclick = "openMyPage()"> My Page </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+
+        <div class = "button-menu">
+            <div class = "button-format">
+                <div class = "button-wrapper">
+                    <div class = "format">
+                        <button class = "menu-button" onclick = "openTab(event, 'Settings')" id = "defaultOpen"> Account Settings </button>
+    
+                        <button class = "menu-button" onclick = "openTab(event, 'History')"> Search History </button>
+    
+                        <button class = "menu-button" onclick = "openTab(event, 'Added')"> Added Recipes </button>
+
+                        <button class = "menu-button" onclick = "openTab(event, 'Tried')"> Tried Recipes </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Settings" class = "content">
+            <div class = "settings-wrapper">
+                <div class = "settings-format">
+                    <form> <div class = "form-grid">
+                        <h1 class = "attention"> Account modification page! </h1>
+    					
+                        <p class = "details"> Please modify in the form the details that you want to change and press the submit button! </p>
+  						
+                        <input type = "text" id = "firstname" name = "firstname" placeholder = "Enter New Firstname">
+  						
+                        <input type = "text" id = "lastname" name = "lastname" placeholder = "Enter New Lastname">
+  						
+                        <input type = "text" id = "username" name = "username" placeholder = "Enter New Username">
+  						
+                        <input type = "text" id = "password" name = "password" placeholder = "Enter New Password">
+  						
+                        <input type = "email" id = "email" name = "email" placeholder = "Enter new Email">
+  						
+                        <span id = "avatarphoto"> Select New Avatar Photo </span>
+						
+                        <input type = "file" id = "avatar" name = "avatar" accept = "image/png, image/jpeg">
+						
+                        <span id = "birthselect"> Select New Birth Date </span>
+  						
+                        <input type = "date" id = "birthdate">					  
+  						
+                        <input type = "button" id = "deleteAccount" name = "deleteAccount" value = "Delete Account">
+  						
+                        <input id = "submitbtn" type = "submit" value = "Submit changed">
+                    </div></form>
+                </div>
+            </div>
+        </div>
+
+        <div id = "History" class = "content">
+            <div class = "history-wrapper">
+                <div class = "history-format">
+                    <div class = "str">
+                        <span> Shaorma cu castraveti </span>
+                        <a href = "#"> Link </a>
+                    </div>
+					
+                    <div class = "str">
+                        <span> Shaorma cu castraveti </span>
+                        <a href = "#"> Link </a>
+                    </div>
+
+                    <div class = "str">
+                        <span> Shaorma cu castraveti </span>
+                        <a href = "#"> Link </a>
+                    </div>
+
+                    <div class = "str">
+                        <span> Shaorma cu castraveti </span>
+                        <a href = "#"> Link </a>
+                    </div>
+
+                    <div class = "str">
+                        <div class = "split-previous"> 
+                            <div class = "previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Added" class = "content">
+            <div class = "added-wrapper">
+                <div class = "added-format">
+                    <div class = "added-recipes">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe13.jpg" alt = "R13" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe12.jpg" alt = "R12" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe3.jpg" alt = "R3" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe4.jpg" alt = "R4" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe5.jpg" alt = "R5" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe2.jpg" alt = "R2" class = "item">
+                        </a>
+
+                        <div class = "recipes-previous"> 
+                            <div class = "button-previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "recipes-next"> 
+                            <div class = "button-next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div> <br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div id = "Tried" class = "content">
+            <div class = "added-wrapper">
+                <div class = "added-format">
+                    <div class = "added-recipes">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe10.jpg" alt = "R10" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe22.jpg" alt = "R22" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe15.jpg" alt = "R15" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe14.jpg" alt = "R14" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe1.jpg" alt = "R1" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe18.jpg" alt = "R18" class = "item">
+                        </a>
+
+                        <div class = "recipes-previous"> 
+                            <div class = "button-previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "recipes-next"> 
+                            <div class = "button-next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div> <br>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
+        <div class = "grid-footer">
+            <div class = "footer"> 
+                <div class = "center">
+                    <a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"> </a>
+                    
+                    <a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"> </a>
+                    
+                    <a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"> </a>
+                </div>
+        
+                <div class = "right">
+                    <p class = "copyright"> © 2021 WhaF. No rights reserved. </p>
+                    
+                    <a href = "/termsPolicy.html" class = "terms"> Terms and conditions. </a>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <script src = "settingsPage.js"></script>
+</body>
+</html>

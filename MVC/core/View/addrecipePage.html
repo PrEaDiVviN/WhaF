@@ -1,0 +1,182 @@
+`<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>What food ? - Toate retele pe care le doresti!</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href = "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel = "stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Vollkorn&display=swap" rel="stylesheet"> 
+		<link rel="stylesheet" type="text/css" href="addrecipePage.css">
+	</head>
+	<body>
+		<div class="viewgrid">
+			<div class="navbar">
+				<div class="navbar-left">
+					<a href="/feedPage.html"><img src="/Logo-final2.png" alt="logo picture"></a>
+				</div>
+				<div class="navbar-right">
+					<div class="user-info">
+						<div class="avatar-picture"><a href="/settingsPage.html"><img src="/avatar-picture.png" alt="u"></a></div>
+						<div class="username"><p>${username}</p></div> 
+						<div class="redirect">
+							<button class = "my-page" onclick = "logout()"> Logout </button>
+						</div>
+					</div>
+				</div> 
+			</div>
+			<div class="main-content">
+				<form method="POST" id = "formInstr" enctype="multipart/form-data">
+					<div> Fill out this form to post your recipe! </div>
+  					<label for="numereteta">Recipe Name</label>
+  					<input type="text" id="numereteta" name="numereteta" required = "true">
+  					<label for="pozareteta">Recipe Photo</label>
+  					<input type="file" id="pozareteta" name="pozareteta" required = "true">
+  					<label for="categorie">Category</label>
+					<select id="categorie" name="categorie">
+				        <option value="ff">Breakfast</option>
+				        <option value="su">Brunch</option>
+				        <option value="de">Lunch</option>
+						<option value="de">Snacks</option>
+						<option value="de">Dinner</option>
+						<option value="de">Soups</option>
+						<option value="de">Salads</option>
+						<option value="de">Main Dishes</option>
+						<option value="de">Pasta</option>
+						<option value="de">Seafood</option>
+						<option value="de">Pizza</option>
+						<option value="de">Burgers</option>
+						<option value="de">Vegetarian</option>
+						<option value="de">Vegan</option>
+						<option value="de">Sides</option>
+						<option value="de">Sauces</option>
+						<option value="de">Desserts</option>
+						<option value="de">Drinks</option>
+			      	</select> 
+			      	<label for="nringrediente">Number of Ingredients</label>
+					<select id="nringrediente" name="nringrediente" onchange="addIngredient()">
+				        <option value="none">None</option>
+				        <option value="1" selected>1</option>
+				        <option value="2">2</option>
+				    	<option value="3">3</option>
+				        <option value="4">4</option>
+						<option value="5">5</option>
+				        <option value="6">6</option>
+				    	<option value="7">7</option>
+				        <option value="8">8</option>
+						<option value="9">9</option>
+				        <option value="10">10</option>
+				    	<option value="11">11</option>
+				        <option value="12">12</option>
+						<option value="13">13</option>
+				        <option value="14">14</option>
+				    	<option value="15">15</option>
+				        <option value="16">16</option>
+						<option value="17">17</option>
+				        <option value="18">18</option>
+				    	<option value="19">19</option>
+				        <option value="20">20</option>
+				        <option value="21">21</option>
+				        <option value="22">22</option>
+				    	<option value="23">23</option>
+				        <option value="24">24</option>
+						<option value="25">25</option>
+				        <option value="26">26</option>
+				    	<option value="27">27</option>
+				        <option value="28">28</option>
+						<option value="29">29</option>
+				        <option value="30">30</option>
+				    	<option value="31">31</option>
+				        <option value="32">32</option>
+						<option value="33">33</option>
+				        <option value="34">34</option>
+				    	<option value="35">35</option>
+				        <option value="36">36</option>
+						<option value="37">37</option>
+				        <option value="38">38</option>
+				    	<option value="39">39</option>
+				        <option value="40">40</option>
+			      	</select>
+					<div class="ingredinte_wrapper">
+						<label for="1_ingredient">1. Ingredient</label>
+						<input type="text" id="1_ingredient" name="1_ingredient" required = "true">
+					</div>   
+  					<label for="preptime">Prepping Time (min)</label>
+  					<input type="number" id="preptime" name="preptime" required = "true">		
+  					<label for="fintime">Total Time (min)</label>
+  					<input type="number" id="fintime" name="fintime" required = "true">	
+  					<label for="nrinstructiuni">Number of Instructions</label>	
+  					<select id="nrinstructiuni" name="nrinstructiuni" onchange="addInstruction()">
+				        <option value="none" >None</option>
+				        <option value="1" selected>1</option>
+				        <option value="2">2</option>
+				    	<option value="3">3</option>
+				        <option value="4">4</option>
+						<option value="5">5</option>
+				        <option value="6">6</option>
+				    	<option value="7">7</option>
+				        <option value="8">8</option>
+						<option value="9">9</option>
+				        <option value="10">10</option>
+				    	<option value="11">11</option>
+				        <option value="12">12</option>
+						<option value="13">13</option>
+				        <option value="14">14</option>
+				    	<option value="15">15</option>
+				        <option value="16">16</option>
+						<option value="17">17</option>
+				        <option value="18">18</option>
+				    	<option value="19">19</option>
+				        <option value="20">20</option>
+				        <option value="21">21</option>
+				        <option value="22">22</option>
+				    	<option value="23">23</option>
+				        <option value="24">24</option>
+						<option value="25">25</option>
+				        <option value="26">26</option>
+				    	<option value="27">27</option>
+				        <option value="28">28</option>
+						<option value="29">29</option>
+				        <option value="30">30</option>
+				    	<option value="31">31</option>
+				        <option value="32">32</option>
+						<option value="33">33</option>
+				        <option value="34">34</option>
+				    	<option value="35">35</option>
+				        <option value="36">36</option>
+						<option value="37">37</option>
+				        <option value="38">38</option>
+				    	<option value="39">39</option>
+				        <option value="40">40</option>
+			      	</select>		
+					<div class="instructiuni_wrapper">
+						<label for="instructiune1">Instruction 1</label>	
+						<textarea id="instructiune1" name="instructiune1" required = "true"></textarea>
+						<label for="pozainstructiunea1">Instruction Photo 1</label>
+						<input type="file" id="pozainstructiunea1" name="pozainstructiunea1" required = "true">
+					</div>   
+					<label for="dificultate">Difficulty</label>
+					<select id="dificultate" name="dificultate">
+				        <option value="Easy">Easy</option>
+				        <option value="Medium">Medium</option>
+				        <option value="Hard">Hard</option>
+			      	</select>
+			      	<button id="submitbtn" type="button" onclick="sendRecipeToDatabase()">Submit your recipe</button>
+				</form>
+				<div class = "footer"> 
+		    		<div class="center">
+						<a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"></a>
+		        		<a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"></a>
+		        		<a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"></a>
+		    		</div>
+		    		<div class="right-side">
+		    			<p class="copyright"> © 2021 WhaF. No rights reserved. </p>
+		    			<a class="termeni_si_conditii" href="/termsPolicy.html">Terms and conditions.</a>
+		    		</div>
+	    		</div>
+			</div>
+    	</div>
+    	<script src = "addrecipePage.js"></script>
+	</body>
+</html>`

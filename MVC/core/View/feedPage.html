@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Home Page </title>
+
+    <meta charset = "UTF-8">
+
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+
+    <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel = "preconnect" href = "https://fonts.gstatic.com">
+
+	<link href = "https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel = "stylesheet">
+
+    <link href = "https://fonts.googleapis.com/css2?family=Ultra&display=swap" rel = "stylesheet">
+
+    <link rel = "stylesheet" type = "text/css" href = "feedPage.css">
+</head>
+
+<body>
+    <div class = "grid-wrapper">
+        <div class = "navbar"> 
+            <div class = "navbar-center">
+                <a href = "/settingsPage.html">
+                    <img src = "/Logo-final1.png" alt = "Logo">
+                </a>
+            </div>
+
+            <div class = "navbar-right">
+                <div class = "user-info">
+                    <div class = "avatar-picture">
+                        <a href = "/settingsPage.html">
+                            <img src = "/avatar-picture.png" alt = "Avatar">
+                        </a>
+                    </div>
+
+                    <div class = "username">
+                        <p> Username </p>
+                    </div>
+
+                    <div class = "user-settings">
+                        <button class = "my-page" onclick = "openMyPage()"> My Page </button>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        
+        <div class = "menu">
+            <div class = "categories">
+                <button class = "grid-button" onclick = "openPage('Categories')"> Categories </button>
+            </div>
+
+            <div class = "rankings">
+                    <button class = "grid-button" onclick = "openPage('Rankings')"> Rankings </button>
+            </div>
+
+            <div class = "add-recipe">
+                <button onclick = "window.location.href = '/addrecipePage.html'" class = "grid-button"> Add Recipe </button>
+            </div>
+
+            <div class = "filter">
+                <button class = "grid-button" onclick = "openFilter()"> Filtering </button>
+            </div>
+
+            <div class = "search">
+                <button class = "grid-button" onclick = "openPage('Search')"> 
+                        <i class = "fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div id = "Default" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div class = "wrapper">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe15.jpg" alt = "R15" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe14.jpg" alt = "R14" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe13.jpg" alt = "R13" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe20.jpg" alt = "R20" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe21.jpg" alt = "R21" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe22.jpg" alt = "R22" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe12.jpg" alt = "R12" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe11.jpg" alt = "R11" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe10.jpg" alt = "R10" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe17.jpg" alt = "R17" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe18.jpg" alt = "R18" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe19.jpg" alt = "R19" class = "item">
+                        </a>
+                        
+                        <div class = "split-previous"> 
+                            <div class = "previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div id = "Categories" class = "content">
+            <div class = "format-wrapper"> 
+                <div class = "format">
+                    <div class = "categories-wrapper">
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Breakfast </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Brunch </button>
+                        
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Lunch </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Snacks </button>
+                        
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Dinner </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Soups </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Salads </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Main Dishes </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Pasta </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Seafood </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Pizza </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Burgers </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Vegetarian </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Vegan </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Sides </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Sauces </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Desserts </button>
+
+                        <button class = "categories-button" onclick = "openPage('Recipes')"> Drinks </button>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+
+        <div id = "Rankings" class = "content">
+            <div class = "format1-wrapper"> 
+                <div class = "format1">
+                    <div class = "rankings-wrapper">
+                        <button class = "ranking-button" onclick = "openPage('PopularR')"> Most Popular Recipes </button>
+
+                        <button class = "ranking-button" onclick = "openPage('PopularI')"> Most Popular Ingredients </button>
+
+                        <button class = "ranking-button" onclick = "openPage('AvoidedI')"> Most Avoided Ingredients </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "PopularR" class = "content">
+            <div class = "table-wrapper"> 
+                <div class = "table-format">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Rank </th>
+
+                                <th> Recipe Name </th>
+
+                                <th> Category </th>
+
+                                <th> Recipe Author </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td> 1 </td>
+
+                                <td> 
+                                    <a href = "#"> Name1 </a>
+                                </td>
+
+                                <td> Category1 </td>
+
+                                <td> Author1 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 2 </td>
+
+                                <td> 
+                                    <a href = "#"> Name2 </a>
+                                </td>
+
+                                <td> Category2 </td>
+
+                                <td> Author2 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 3 </td>
+
+                                <td> 
+                                    <a href = "#"> Name3 </a>
+                                </td>
+
+                                <td> Category3 </td>
+
+                                <td> Author3 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 4 </td>
+
+                                <td> 
+                                    <a href = "#"> Name4 </a>
+                                </td>
+
+                                <td> Category4 </td>
+
+                                <td> Author4 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 5 </td>
+
+                                <td> 
+                                    <a href = "#"> Name5 </a>
+                                </td>
+
+                                <td> Category5 </td>
+
+                                <td> Author5 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 6 </td>
+
+                                <td> 
+                                    <a href = "#"> Name6 </a>
+                                </td>
+
+                                <td> Category6 </td>
+
+                                <td> Author6 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 7 </td>
+
+                                <td> 
+                                    <a href = "#"> Name7 </a>
+                                </td>
+
+                                <td> Category7 </td>
+
+                                <td> Author7 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 8 </td>
+
+                                <td> 
+                                    <a href = "#"> Name8 </a>
+                                </td>
+
+                                <td> Category8 </td>
+
+                                <td> Author8 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 9 </td>
+
+                                <td> 
+                                    <a href = "#"> Name9 </a>
+                                </td>
+
+                                <td> Category9 </td>
+
+                                <td> Author9 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 10 </td>
+
+                                <td> 
+                                    <a href = "#"> Name10 </a>
+                                </td>
+
+                                <td> Category10 </td>
+
+                                <td> Author10 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id = "PopularI" class = "content">
+            <div class = "table-wrapper"> 
+                <div class = "table-format">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Rank </th>
+
+                                <th> Ingredient Name </th>
+
+                                <th> Number Of Recipes Used In </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td> 1 </td>
+
+                                <td> Name1 </td>
+
+                                <td> Number1 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 2 </td>
+
+                                <td> Name2 </td>
+                                
+                                <td> Number2 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 3 </td>
+
+                                <td> Name3 </td>
+                                
+                                <td> Number3 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 4 </td>
+
+                                <td> Name4 </td>
+                                
+                                <td> Number4 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 5 </td>
+
+                                <td> Name5 </td>
+                                
+                                <td> Number5 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 6 </td>
+
+                                <td> Name6 </td>
+                                
+                                <td> Number6 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 7 </td>
+
+                                <td> Name7 </td>
+                                
+                                <td> Number7 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 8 </td>
+
+                                <td> Name8 </td>
+                                
+                                <td> Number8 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 9 </td>
+
+                                <td> Name9 </td>
+                                
+                                <td> Number9 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 10 </td>
+
+                                <td> Name10 </td>
+                                
+                                <td> Number10 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id = "AvoidedI" class = "content">
+            <div class = "table-wrapper"> 
+                <div class = "table-format">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th> Rank </th>
+
+                                <th> Ingredient Name </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td> 1 </td>
+
+                                <td> Name1 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 2 </td>
+                                
+                                <td> Name2 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 3 </td>
+                                
+                                <td> Name3 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 4 </td>
+                                
+                                <td> Name4 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 5 </td>
+                                
+                                <td> Name5 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 6 </td>
+                                
+                                <td> Name6 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 7 </td>
+                                
+                                <td> Name7 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 8 </td>
+                                
+                                <td> Name8 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 9 </td>
+                                
+                                <td> Name9 </td>
+                            </tr>
+
+                            <tr>
+                                <td> 10 </td>
+                                
+                                <td> Name10 </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Filter" class = "content-filter">
+            <div class = "filtering-wrapper"> 
+                <div class = "filter-format">
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Popularity </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Prepping Time </button>
+                    <br>
+                    
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Total Time </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Difficulty </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> Most recent </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "openPage('Recipes')"> A - Z </button>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Search" class = "content" onclick = "search()">
+            <div class = "format3-wrapper"> 
+                <div class = "format3">
+                    <div class = "search-wrapper">
+                        <form class = "search-form">
+                            <br>
+                            <h1> <strong> Search </strong> </h1> <br>
+    
+                            <label for = "recipe"> Recipe Name: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Name" id = "recipe" name = "recipe">                            
+
+                            <label for = "wanted"> Wanted Ingredients: </label> 
+    
+                            <input type = "text" placeholder = "Enter Wanted Ingredients" id = "wanted" name = "wanted">
+                            <br><br> 
+
+                            <label for = "undesired"> Undesired Ingredients: </label> 
+    
+                            <input type = "text" placeholder = "Enter Undesired Ingredients" id = "undesired" name = "undesired">
+
+                            <label for = "difficulty"> Recipe Difficulty: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Difficulty" id = "difficulty" name = "difficulty">
+                            <br><br> 
+
+                            <label for = "prep"> Prepping Time: </label> 
+    
+                            <input type = "text" placeholder = "Enter Prepping Time" id = "prep" name = "prep">
+
+                            <label for = "total"> Total Time: </label> 
+    
+                            <input type = "text" placeholder = "Enter Total Time" id = "total" name = "total">
+                            <br><br> 
+
+                            <label for = "category"> Recipe Category: </label> 
+    
+                            <input type = "text" placeholder = "Enter Recipe Category" id = "category" name = "category">
+                            <br><br> 
+
+                            <input onclick = "openPage('Recipes')" type = "submit" value = "Search">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Recipes" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe1.jpg" alt = "R1" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe2.jpg" alt = "R2" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe3.jpg" alt = "R3" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe4.jpg" alt = "R4" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe5.jpg" alt = "R5" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe6.jpg" alt = "R6" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe7.jpg" alt = "R7" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe8.jpg" alt = "R8" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe9.jpg" alt = "R9" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe10.jpg" alt = "R10" class = "item">
+                        </a>
+
+                        <div class = "split-previous"> 
+                            <div class = "previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "MyPage" class = "page-content">
+            <div class = "page-wrapper"> 
+                <div class = "page-format">
+                    <div class = "page-format-wrapper">
+                        <button class = "page-button" onclick = "openRecipes('Added')"> Added Recipes </button> 
+                    
+                        <button class = "page-button" onclick = "openRecipes('Tried')"> Tried Recipes </button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id = "Added" class = "recipes-content">
+            <div class = "recipes-wrapper">
+                <div class = "recipes-format">
+                    <div class = "page-recipes">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe20.jpg" alt = "R20" class = "item">
+                        </a>
+    
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe19.jpg" alt = "R19" class = "item">
+                        </a>
+    
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe1.jpg" alt = "R1" class = "item">
+                        </a>
+    
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe2.jpg" alt = "R2" class = "item">
+                        </a>
+    
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe3.jpg" alt = "R3" class = "item">
+                        </a>
+    
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe18.jpg" alt = "R18" class = "item">
+                        </a>
+
+                        <div class = "split-previous"> 
+                            <div class = "previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Tried" class = "recipes-content">
+            <div class = "recipes-wrapper">
+                <div class = "recipes-format">
+                    <div class = "page-recipes">
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe17.jpg" alt = "R17" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe15.jpg" alt = "R15" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe14.jpg" alt = "R14" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe4.jpg" alt = "R4" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe5.jpg" alt = "R5" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe6.jpg" alt = "R6" class = "item">
+                        </a>
+
+                        <a href = "/recipePage.html">
+                            <img src = "/Recipe7.jpg" alt = "R7" class = "item">
+                        </a>
+
+                        <div class = "split-previous"> 
+                            <div class = "previous">
+                                <button class = "default-buttons"> &laquo; Previous </button>
+                            </div> 
+                        </div>
+
+                        <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons"> Next  &raquo; </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class = "grid-footer">
+            <div class = "footer"> 
+                <div class = "center">
+                    <a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"> </a>
+                    
+                    <a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"> </a>
+                    
+                    <a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"> </a>
+                </div>
+        
+                <div class = "right">
+                    <p class = "copyright"> © 2021 WhaF. No rights reserved. </p>
+                    
+                    <a href = "/termsPolicy.html" class = "terms"> Terms and conditions. </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src = "feedPage.js"></script>
+</body>
+</html>
