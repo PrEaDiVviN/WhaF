@@ -1,4 +1,3 @@
-DROP TABLE public.photo_instruction
 DROP TABLE public.instruction
 DROP TABLE public.search
 DROP TABLE public.ingredient
@@ -30,23 +29,15 @@ CREATE TABLE public.recipe
 	prep_time integer NOT NULL,
 	final_time integer NOT NULL,
 	nr_instructions integer NOT NULL,
-	difficulty VARCHAR(25) NOT NULL /* 1-10 => 1 easy, 10 hard */
+	difficulty VARCHAR(25) NOT NULL /* easy, medium, hard */
 )
 
-CREATE TABLE public.instruction 
+CREATE TABLE public.instruction
 (
-	instruction_id SERIAL PRIMARY KEY,
-	recipe_id integer NOT NULL REFERENCES public.recipe(recipe_id),
-	instructions VARCHAR(250) NOT NULL,
-	photo VARCHAR(100) NOT NULL
-)
-
-CREATE TABLE public.photo_instruction
-(
-	photo_id SERIAL PRIMARY KEY,
-	photo_path VARCHAR(30) NOT NULL,
-	instruction_id integer NOT NULL 
-		REFERENCES public.instruction(instruction_id)
+    instruction_id SERIAL PRIMARY KEY,
+    recipe_id integer NOT NULL REFERENCES public.recipe(recipe_id),
+    instructions VARCHAR(250) NOT NULL,
+    photo VARCHAR(100) NOT NULL
 )
 
 CREATE TABLE public.ingredient
@@ -116,18 +107,6 @@ SELECT * FROM public.instruction;
 
 SELECT recipe_name, instructions FROM public.recipe r
 		JOIN public.instruction i ON r.recipe_id = i.recipe_id;
-
-/* photo instruction table */
-INSERT INTO public.photo_instruction (photo_path, instruction_id) 
-	VALUES ('E:\Catalog\Recipe1.jpg', 1);
-	
-INSERT INTO public.photo_instruction (photo_path, instruction_id) 
-	VALUES ('E:\Catalog\Recipe2.jpg', 1);
-	
-SELECT * FROM public.photo_instruction;
-
-SELECT photo_path, instructions FROM public.photo_instruction i1
-	JOIN public.instruction i2 ON i1.instruction_id = i2.instruction_id;
 	
 /* search table */
 INSERT INTO public.search (user_id, recipe_id)
