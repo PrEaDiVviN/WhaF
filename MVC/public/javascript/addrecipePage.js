@@ -1,5 +1,21 @@
-/*function logout() {
-}*/
+function logout() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/addrecipePage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 302) {
+            window.location.reload(); 
+        } 
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("recipeName", 'Logout');
+    xhr.send(formData);
+}
 
 function addIngredient() {
     var content, nringredient;
@@ -20,8 +36,6 @@ function addIngredient() {
             content[0].append(label);
             content[0].append(input);
         }
-    
- 
 }
 
 function addInstruction() {
@@ -54,8 +68,6 @@ function addInstruction() {
             content[0].append(label2);
             content[0].append(input);
         }
-    
- 
 }
 
 function verifyChecked() {

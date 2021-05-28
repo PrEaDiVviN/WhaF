@@ -63,10 +63,10 @@ module.exports = class registerLoginController {
                 else if (answer === true) {
                     try {
                         var infoUser = await userModel.getSessionAndTime(username);
-                        response.statusCode = 200;
                         response.setHeader('Set-Cookie', username + '=' + infoUser.sessionid + '; path=/; Expires=' + infoUser.connectionTime.toUTCString() + ';');
                         console.log(username + '=' + infoUser.sessionid + '; path=/; expires=' + infoUser.connectionTime.toUTCString() + ';')
-                        response.end();   
+                        response.statusCode = 200;
+                        response.end(); 
                     }
                     catch(e) {
                         console.log(e);

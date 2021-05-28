@@ -269,12 +269,24 @@ module.exports = class user {
 
           try { 
             let answerCONNT = await client.query(pgQuery2);
-            if (answerCONNT.rows && answerCONNT.rows.length > 0){
-              return Promise.resolve({sessionid: answerCONNT.rows[0].sessionid, connectionTime: new Date(answerCONNT.rows[0].connection_time)});
+            if (answerCONNT.rows && answerCONNT.rows.length > 0) {
+              //update connection time
+              var cookieTime = new Date();
+              cookieTime.setMinutes(cookieTime.getMinutes() + 5);
+
+              let pgQuery4 = {
+                name: 'UpdateSessionTime',
+                text: 'UPDATE public.session SET connection_time = $1 WHERE user_id = $2;',
+                values: [cookieTime, userID],
+              };
+
+              await client.query(pgQuery4); 
+
+              return Promise.resolve({sessionid: answerCONNT.rows[0].sessionid, connectionTime: cookieTime});
             }
             else {
               var cookieTime = new Date();
-              cookieTime.setMinutes(cookieTime.getMinutes()+30);
+              cookieTime.setMinutes(cookieTime.getMinutes()+5);
               var token = Tokenizer.produceToken(username,firstName,lastName,cookieTime);
 
               let pgQuery3 = {
@@ -284,6 +296,7 @@ module.exports = class user {
               };
 
               await client.query(pgQuery3);  
+
               return Promise.resolve({sessionid: token, connectionTime: cookieTime});
             }
           } catch(e2) {
@@ -294,6 +307,52 @@ module.exports = class user {
           console.log(e1);
           return Promise.resolve(null);
         };
+    }
+
+    async logout(username) {
+      let pgQuery = { 
+        name: 'GetUserId',
+        text: 'SELECT user_id FROM public.user WHERE public.user.username = $1',
+        values: [username],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+        console.log(answer);
+
+        let userID = answer.rows[0].user_id;
+
+        let pgQuery1 = {
+          name: 'GetUserSession',
+          text: 'SELECT sessionid FROM public.user JOIN public.session ON public.user.user_id = public.session.user_id WHERE public.user.user_id = $1;',
+          values: [userID],
+        };
+
+        try { 
+          let selected = await client.query(pgQuery1);
+          console.log(selected);
+
+          //facem ca cookie-ul sa fie expirat => este data si ora curenta 
+          var cookieTime = new Date();
+          cookieTime.setMinutes(cookieTime.getMinutes());
+
+          let pgQuery2 = {
+            name: 'UpdateConnTime',
+            text: 'UPDATE public.session SET connection_time = $1 WHERE user_id = $2;',
+            values: [cookieTime, userID],
+          };
+
+          await client.query(pgQuery2); 
+
+          return Promise.resolve({sessionid: selected.rows[0].sessionid, connectionTime: cookieTime});
+        } catch(e2) {
+          console.log(e2);
+          return Promise.resolve(null);
+        }
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
     }
 
     async getUserIdByUsername(username) {

@@ -4,7 +4,6 @@ function openForm(pageName, hiddenPage)
     document.getElementById(hiddenPage).style.display = "none";
 };
 
-
 function reloadCurrentPage() {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/loginRegister.html', true);
@@ -21,6 +20,7 @@ function reloadCurrentPage() {
             alert("Wrong user credentials! Please check your username and password.");
         }
     }
+
     let username = document.getElementById("username").value;
     let password = document.getElementById("passwd").value; 
     xhr.send(JSON.stringify({type: 'Login' ,username: username, password: password}));
