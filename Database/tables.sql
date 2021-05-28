@@ -3,6 +3,7 @@ DROP TABLE public.search
 DROP TABLE public.ingredient
 DROP TABLE public.recipe
 DROP TABLE public.tried
+DROP TABLE public.added
 DROP TABLE public.user
 
 CREATE TABLE public.user
@@ -60,6 +61,14 @@ CREATE TABLE public.tried
 (
     id_try SERIAL PRIMARY KEY,
     id_user INT NOT NULL,
+    recipe_name VARCHAR(100) NOT NULL, 
+    photo VARCHAR(100) NOT NULL
+)
+
+CREATE TABLE public.added
+(
+    added_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
     recipe_name VARCHAR(100) NOT NULL, 
     photo VARCHAR(100) NOT NULL
 )
@@ -131,3 +140,9 @@ SELECT username, ingredient_name FROM public.search s
 SELECT username, difficulty FROM public.search s
 	JOIN public.user u ON s.user_id = u.user_id
 	WHERE search_id = 3;
+	
+SELECT * FROM public.user;
+
+SELECT * FROM public.recipe;
+
+DELETE FROM public.user WHERE user_id = 6;
