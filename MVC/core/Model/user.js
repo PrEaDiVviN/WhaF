@@ -16,7 +16,6 @@ client.connect();
  
 module.exports = class user {
     async insertUserIntoDatabase(firstName, lastName, email, username, password, birthDate) {
-
         let pgQuery = 'INSERT INTO public.user (first_name, last_name, email, username, user_passwd, birth) VALUES ($1, $2, $3, $4, $5, $6);';
         let values = [firstName, lastName, email, username, password, birthDate];
         try {
@@ -226,7 +225,7 @@ module.exports = class user {
       }
     }
 
-    async firstLastName(firstName,lastName) {
+    async firstLastName(firstName, lastName) {
       var lgF = firstName.length, lgL = lastName.length;
       var char = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
       var i;
@@ -239,6 +238,20 @@ module.exports = class user {
 
       for (i = 0; i < lgL; i++) {
         if (!char.includes(lastName[i])) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    async validateName(name) {
+      var lg = name.length;
+      var char = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+      var i;
+
+      for (i = 0; i < lg; i++) {
+        if (!char.includes(name[i])) {
           return false;
         }
       }
@@ -272,7 +285,7 @@ module.exports = class user {
             if (answerCONNT.rows && answerCONNT.rows.length > 0) {
               //update connection time
               var cookieTime = new Date();
-              cookieTime.setMinutes(cookieTime.getMinutes() + 5);
+              cookieTime.setMinutes(cookieTime.getMinutes() + 30);
 
               let pgQuery4 = {
                 name: 'UpdateSessionTime',
@@ -286,7 +299,7 @@ module.exports = class user {
             }
             else {
               var cookieTime = new Date();
-              cookieTime.setMinutes(cookieTime.getMinutes()+5);
+              cookieTime.setMinutes(cookieTime.getMinutes() + 30);
               var token = Tokenizer.produceToken(username,firstName,lastName,cookieTime);
 
               let pgQuery3 = {
@@ -318,7 +331,7 @@ module.exports = class user {
 
       try {
         let answer = await client.query(pgQuery);
-        console.log(answer);
+        console.log(answer.rows.length);
 
         let userID = answer.rows[0].user_id;
 
@@ -375,7 +388,196 @@ module.exports = class user {
         console.log(e1);
         return Promise.resolve(null);
       };
-  }
+    }
+
+    async updateFname(fName, userID) {
+      let pgQuery = { 
+        name: 'UpdateFirstName',
+        text: 'UPDATE public.user SET first_name = $1 WHERE user_id = $2;',
+        values: [fName, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updateLname(lName, userID) {
+      let pgQuery = { 
+        name: 'UpdateLastName',
+        text: 'UPDATE public.user SET last_name = $1 WHERE user_id = $2;',
+        values: [lName, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updateUsername(username, userID) {
+      let pgQuery = { 
+        name: 'UpdateUsername',
+        text: 'UPDATE public.user SET username = $1 WHERE user_id = $2;',
+        values: [username, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+          return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updatePassword(password, userID) {
+      let pgQuery = { 
+        name: 'UpdatePassword',
+        text: 'UPDATE public.user SET user_passwd = $1 WHERE user_id = $2;',
+        values: [password, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updateEmail(email, userID) {
+      let pgQuery = { 
+        name: 'UpdateEmail',
+        text: 'UPDATE public.user SET email = $1 WHERE user_id = $2;',
+        values: [email, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updateBirthday(birthdate, userID) {
+      let pgQuery = { 
+        name: 'UpdateBirthdate',
+        text: 'UPDATE public.user SET birth = $1 WHERE user_id = $2;',
+        values: [birthdate, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async updatePhoto(newPath, userID) {
+      let pgQuery = { 
+        name: 'UpdatePhoto',
+        text: 'UPDATE public.user SET photo = $1 WHERE user_id = $2;',
+        values: [newPath, userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async deleteSession(userID) {
+      let pgQuery = { 
+        name: 'DeleteSession',
+        text: 'DELETE FROM public.session WHERE user_id = $1;',
+        values: [userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
+
+    async deleteUser(userID) {
+      let pgQuery = { 
+        name: 'DeleteUser',
+        text: 'DELETE FROM public.user WHERE user_id = $1;',
+        values: [userID],  
+      };
+
+      try {
+        let answer = await client.query(pgQuery);
+
+        if (answer != null) {
+            return Promise.resolve(true);
+        }
+        else 
+          return Promise.resolve(null);
+      } catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+    }
 
     verifyUserCredentials(username, password, response) {
         client.connect();

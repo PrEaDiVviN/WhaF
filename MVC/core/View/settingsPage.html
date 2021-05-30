@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+`<!DOCTYPE html>
+<html lang = "en-US">
 <head>
     <title> Settings Page </title>
 
@@ -40,11 +40,11 @@
                     </div>
 
                     <div class = "username">
-                        <p> Username </p>
+                        <p> ${username} </p>
                     </div>
 
                     <div class = "user-settings">
-                        <button class = "my-page" onclick = "openMyPage()"> My Page </button>
+                        <button class = "my-page" onclick = "logout()"> Logout </button>
                     </div>
                 </div>
             </div> 
@@ -69,33 +69,35 @@
         <div id = "Settings" class = "content">
             <div class = "settings-wrapper">
                 <div class = "settings-format">
-                    <form> <div class = "form-grid">
-                        <h1 class = "attention"> Account modification page! </h1>
+                    <form method = "POST" id = "changeSettings" enctype = "multipart/form-data"> 
+                        <div class = "form-grid">
+                            <h1 class = "attention"> Account modification page! </h1>
     					
-                        <p class = "details"> Please modify in the form the details that you want to change and press the submit button! </p>
+                            <p class = "details"> Please modify in the form the details that you want to change and press the submit button! </p>
   						
-                        <input type = "text" id = "firstname" name = "firstname" placeholder = "Enter New Firstname">
+                            <input type = "text" id = "firstname" name = "firstname" placeholder = "Enter New Firstname">
   						
-                        <input type = "text" id = "lastname" name = "lastname" placeholder = "Enter New Lastname">
+                            <input type = "text" id = "lastname" name = "lastname" placeholder = "Enter New Lastname">
   						
-                        <input type = "text" id = "username" name = "username" placeholder = "Enter New Username">
+                            <input type = "text" id = "username" name = "username" placeholder = "Enter New Username">
   						
-                        <input type = "text" id = "password" name = "password" placeholder = "Enter New Password">
+                            <input type = "password" id = "password" name = "password" placeholder = "Enter New Password">
   						
-                        <input type = "email" id = "email" name = "email" placeholder = "Enter new Email">
+                            <input type = "email" id = "email" name = "email" placeholder = "Enter new Email">
   						
-                        <span id = "avatarphoto"> Select New Avatar Photo </span>
+                            <span id = "avatarphoto"> Select New Avatar Photo </span>
 						
-                        <input type = "file" id = "avatar" name = "avatar" accept = "image/png, image/jpeg">
+                            <input type = "file" id = "avatar" name = "avatar" accept = "image/png, image/jpeg">
 						
-                        <span id = "birthselect"> Select New Birth Date </span>
+                            <span id = "birthselect"> Select New Birth Date </span>
   						
-                        <input type = "date" id = "birthdate">					  
+                            <input type = "date" id = "birthdate">
+                            
+                            <input type = "button" id = "deleteAcc" value = "Delete Account" onclick = "deleteAccount()">
   						
-                        <input type = "button" id = "deleteAccount" name = "deleteAccount" value = "Delete Account">
-  						
-                        <input id = "submitbtn" type = "submit" value = "Submit changed">
-                    </div></form>
+                            <input type = "submit" id = "submitbtn" value = "Submit changed" onclick = "sendChanges()">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -249,4 +251,4 @@
         
     <script src = "settingsPage.js"></script>
 </body>
-</html>
+</html>`

@@ -81,7 +81,7 @@ module.exports = class recipePageController {
                     if (result === false)
                         formItems = '<input id="add" type="file"> <button id="tried" onclick="savePhoto()" type="button"> Add to tried recipies!</button>'; //atunci ii permitem sa incerce reteta
                     else        
-                        formItems = '<h1 style="color:purple;">Here is your try!</h1> <a style="width: 50vw;" href="/users/' + username + '/' + result.replace("%20", " ") +'"><img alt="try photo" style="width: 100%; height: auto;" src="/users/' + username + '/' + result.replace("%20", " ") + '" ></a>';
+                        formItems = '<h1 style="color:purple;">Here is your try!</h1> <a style="width: 50vw;" href="/users/' + username + '/' + result.replace("%20", " ") +'"><img alt="try photo" style="width: 100%; height: auto;" src="/users/' + username + '/' + result.replace("%20", " ") + '" ></a> <button class = "delete-button"> Delete try </button>';
                 }
             } 
 

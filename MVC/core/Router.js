@@ -9,6 +9,7 @@ const landingController = require('./Controller/landingController.js');
 const registerLoginController = require('./Controller/registerLoginController.js');
 const addRecipeController = require('./Controller/addRecipePageController.js');
 const recipePageController = require('./Controller/recipePageController.js');
+const settingsController = require('./Controller/settingsController.js');
 
 module.exports = (request, response) => {
         const method = request.method;
@@ -43,24 +44,15 @@ module.exports = (request, response) => {
                                   response.end('Sorry, page not found!');
                               }
                           });  
-                    break;
-                    case "/settingsPage.html":
-                        fs.stat("core/View/settingsPage.html", (err, stats) => {
-                            response.statusCode = 200;
-                            response.setHeader('Content-Type', 'text/html');
-                              if(stats) {
-                                  fs.createReadStream("core/View/settingsPage.html").pipe(response);
-                              } else {
-                                  response.statusCode = 404;
-                                  response.end('Sorry, page not found!');
-                              }
-                          }); 
-                    break;      
+                    break;     
                     case "/loginRegister.html":
                         registerLoginController.GET(request,response);
                     break;
                     case "/addrecipePage.html":
                         addRecipeController.GET(request,response);
+                    break;
+                    case "/settingsPage.html":
+                        settingsController.GET(request,response);
                     break;
                     default:    
                         if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
@@ -133,6 +125,9 @@ module.exports = (request, response) => {
                     break;
                     case "/recipePage.html":
                         recipePageController.POST(request,response);
+                    break;
+                    case "/settingsPage.html":
+                        settingsController.POST(request, response);
                     break;
                 }
                 break;

@@ -2,6 +2,28 @@
   padding: 0px;
   margin: 0px;
 }
+
+.delete-button
+{
+  margin-top: 15px;
+  font-family: 'Dela Gothic One', cursive;
+	font-size: 1vw;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  color: white;
+  background-color: #bd5d5d;
+  border: none;
+  width: 10vw;
+  height: 7vh;
+}
+
+.delete-button:hover 
+{
+  background-color: rgb(212, 160, 160);
+  color: #ffffff;
+}
+
 .viewgrid {
   width: 100vw;
   height: 100vh;

@@ -414,7 +414,7 @@ form .form-grid input#birthdate
 	text-align: center;
 }
 
-form .form-grid input#deleteAccount 
+form .form-grid input#deleteAcc 
 {
 	display: block;
 	background-color: #a74545;
@@ -428,7 +428,7 @@ form .form-grid input#deleteAccount
 	height: 100%;
 }
 
-form .form-grid input#deleteAccount:hover
+form .form-grid input#deleteAcc:hover
 {
     background-color: black;
     color: rgb(255, 255, 255);

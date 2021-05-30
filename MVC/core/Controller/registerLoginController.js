@@ -171,7 +171,5 @@ module.exports = class registerLoginController {
                 }
             }
         });
-        
     }
-
 }
