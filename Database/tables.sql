@@ -3,7 +3,6 @@ DROP TABLE public.search
 DROP TABLE public.ingredient
 DROP TABLE public.recipe
 DROP TABLE public.tried
-DROP TABLE public.added
 DROP TABLE public.user
 
 CREATE TABLE public.user
@@ -16,7 +15,8 @@ CREATE TABLE public.user
 	username VARCHAR(50) NOT NULL,
 	user_passwd VARCHAR(25) NOT NULL,
 	birth DATE NOT NULL,
-	photo VARCHAR(100)
+	photo VARCHAR(100),
+	status integer NOT NULL /* 0 not an admin, 1 admin */ 
 )
 
 CREATE TABLE public.recipe
@@ -30,6 +30,7 @@ CREATE TABLE public.recipe
 	prep_time integer NOT NULL,
 	final_time integer NOT NULL,
 	nr_instructions integer NOT NULL,
+	score integer, /*number of times a recipe has been tried */
 	difficulty VARCHAR(25) NOT NULL /* easy, medium, hard */
 )
 
@@ -60,35 +61,22 @@ CREATE TABLE public.search
 CREATE TABLE public.tried
 (
     id_try SERIAL PRIMARY KEY,
-    id_user INT NOT NULL,
-    recipe_name VARCHAR(100) NOT NULL, 
-    photo VARCHAR(100) NOT NULL
-)
-
-CREATE TABLE public.added
-(
-    added_id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL,
+    id_user integer NOT NULL,
     recipe_name VARCHAR(100) NOT NULL, 
     photo VARCHAR(100) NOT NULL
 )
 
 /* user table */
 INSERT INTO public.user (first_name, last_name, email, username, user_passwd, 
-		birth, photo)
+		birth, photo, status)
 	VALUES ('Brinzila', 'Maria', 'maria.brinzila2000@gmail.com', 
-		'mariabrinzila_', 'passwd', '2000-02-14', 
-		'E:\ASII\profile.jpg');
-	
-SELECT * FROM public.user;
+		'mariabrinzila', 'mariaB123-', '2000-02-14', null, 0);
 
 /* recipe table */
 INSERT INTO public.recipe (user_id, recipe_name, photo, category, 
 		nr_ingredients, prep_time, final_time, nr_instructions, difficulty)
 	VALUES (1, 'RecipeTest', 'E:\Catalog\Recipe1.jpg', 
 		'categoryRecipe', 2, 30, 65, 2, 3);
-
-SELECT * FROM public.recipe;
 
 SELECT first_name, last_name, recipe_name FROM public.user u
 	JOIN public.recipe r ON r.user_id = u.user_id;
@@ -99,8 +87,6 @@ INSERT INTO public.ingredient (recipe_id, ingredient_name)
 
 INSERT INTO public.ingredient (recipe_id, ingredient_name) 
 	VALUES (1, 'I2');
-	
-SELECT * FROM public.ingredient;
 
 SELECT recipe_name, ingredient_name FROM public.recipe r
 		JOIN public.ingredient i ON r.recipe_id = i.recipe_id;
@@ -111,8 +97,6 @@ INSERT INTO public.instruction (recipe_id, instructions, photo)
 
 INSERT INTO public.instruction (recipe_id, instructions, photo) 
 	VALUES (1, 'lalala', 'E:\catalog\Recipe1.jpg');
-	
-SELECT * FROM public.instruction;
 
 SELECT recipe_name, instructions FROM public.recipe r
 		JOIN public.instruction i ON r.recipe_id = i.recipe_id;
@@ -145,4 +129,8 @@ SELECT * FROM public.user;
 
 SELECT * FROM public.recipe;
 
+SELECT * FROM public.tried;
+
 DELETE FROM public.user WHERE user_id = 6;
+
+UPDATE public.user SET username = 'mariabrinzila' WHERE user_id = 1;
