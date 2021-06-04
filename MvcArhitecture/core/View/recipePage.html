@@ -18,27 +18,173 @@
 				<div class="title">
 					<h1 id="pageName">${pageName}</h1>
 				</div>
-				<img class="mainpicture" src="${recipePhoto}.jpg" alt="ceva">
+
+
+				<form>
+					<input id="inputChangeName" type="text" placeholder="new name">
+					<button type="button" id="changeName" onclick="modifyRecipeName()">Change page Name</button>
+				</form>
+
+
+				<img class="mainpicture" src="${recipePhoto}" alt="ceva">
+
+				<form>
+					<input id="inputChangeRecipePhoto" type="file">
+					<button type="button" id="changeRecipePhoto" onclick="changeRecipePhoto1()">Change recipePhoto</button>
+				</form>
+
 				<div class="info">
-					<p><strong>Timp preparare: </strong>${preperationTime} minute.</p> 
-					<p><strong>Timp finalizare: </strong>${finalizationTime} minute.</p> 
-					<p><strong>Categorie: </strong>${categorie}</p> 
-					<p><strong>Dificultate reteta: </strong>${dificultate}</p>
-					<p><strong>Numar ingrediente: </strong>${nrIngrediente}</p> 
-					<p><strong>Numar instructiuni: </strong>${nrInstructiuni}</p>
+					<p id = "prep"><strong>Timp preparare: </strong>${preperationTime} minute.</p> 
+
+					<form>
+						<input id="inputChangePreparationTime" type="number" placeholder="new preparation time">
+						<button type="button" id="changePrepationTime" onclick = "changeRecipeTime('prep')">Change preparation time!</button>
+					</form>
+					
+					<p id = "fin"><strong>Timp finalizare: </strong>${finalizationTime} minute.</p> 
+
+					<form>
+						<input id="inputChangeFinalisationTime" type="number" placeholder="new finalisation time">
+						<button type="button" id="changeFinalisationTime" onclick="changeRecipeTime('fin')">Change finalisation time!</button>
+					</form>	
+
+					<p id = "cat"><strong>Categorie reteta: </strong>${categorie}</p> 
+
+					<form>
+						<select id="categorie" name="categorie">
+							<option value="Fast Food">Fast food</option>
+							<option value="Supe">Supe</option>
+							<option value="Deserturi">Deserturi</option>
+						</select>
+						<button type="button" id="changeCategory" onclick="changeSelect('cat')">Change Category</button>
+					</form>  
+
+					<p id = "dif"><strong>Dificultate reteta: </strong>${dificultate}</p>
+
+					<form>
+						<select id="dificultate" name="dificultate">
+							<option value="Usor">Usor</option>
+							<option value="Mediu">Mediu</option>
+							<option value="Greu">Greu</option>
+						</select>
+						<button type="button" id="changeDificultateReteta"  onclick="changeSelect('dif')">Change dificulty!</button>
+					</form>
+
+					<p id = "ing"><strong>Numar ingrediente: </strong>${nrIngrediente}</p> 
+					<p id = "ins"><strong>Numar instructiuni: </strong>${nrInstructiuni}</p>
 				</div>
 				<div class="titlu-text">
 					<strong>Ingrediente</strong>
 				</div>
-				<ul>
+				<ul id="listIngredients">
 					${ingrediente}
 				</ul>
+
+				<form>
+					<label for="nringrediente">Adauga ingrediente</label>
+					<select id="nringrediente" name="nringrediente" onchange="addIngredient()">
+						<option value="none" selected>Niciunul</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+						<option value="32">32</option>
+						<option value="33">33</option>
+						<option value="34">34</option>
+						<option value="35">35</option>
+						<option value="36">36</option>
+						<option value="37">37</option>
+						<option value="38">38</option>
+						<option value="39">39</option>
+						<option value="40">40</option>
+					</select>
+				</form>
+				<div class="add_ingredinte_wrapper">
+				</div>
 				<div class="titlu-text">
 					<strong>Pasi preparare</strong>
 				</div>
-				<ol>
+				<ol id="listInstructions">
 					${instructiuni}
 				</ol>
+
+				<form>
+					<label for="nrinstructiuni">Adauga instructiuni</label>	
+					<select id="nrinstructiuni" name="nrinstructiuni" onchange="addInstruction()">
+						<option value="none" selected>Niciuna</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+						<option value="8">8</option>
+						<option value="9">9</option>
+						<option value="10">10</option>
+						<option value="11">11</option>
+						<option value="12">12</option>
+						<option value="13">13</option>
+						<option value="14">14</option>
+						<option value="15">15</option>
+						<option value="16">16</option>
+						<option value="17">17</option>
+						<option value="18">18</option>
+						<option value="19">19</option>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+						<option value="24">24</option>
+						<option value="25">25</option>
+						<option value="26">26</option>
+						<option value="27">27</option>
+						<option value="28">28</option>
+						<option value="29">29</option>
+						<option value="30">30</option>
+						<option value="31">31</option>
+						<option value="32">32</option>
+						<option value="33">33</option>
+						<option value="34">34</option>
+						<option value="35">35</option>
+						<option value="36">36</option>
+						<option value="37">37</option>
+						<option value="38">38</option>
+						<option value="39">39</option>
+						<option value="40">40</option>
+					</select>
+				  </form>
+				  <div class="add_instructiuni_wrapper">
+				  </div>
+
+
 				<form>
 					${formItems}
 				</form>
@@ -56,6 +202,7 @@
 			</div>
 
     	</div>
-		<script src = "recipePage.js"></script>
+		<script src = "/recipePage.js"></script>
+		<script src = "/adminPage.js"></script>
 	</body>
 </html>`

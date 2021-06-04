@@ -9,6 +9,8 @@ const landingController = require('./Controller/landingController.js');
 const registerLoginController = require('./Controller/registerLoginController.js');
 const addRecipeController = require('./Controller/addRecipePageController.js');
 const recipePageController = require('./Controller/recipePageController.js');
+const settingsPageControler = require('./Controller/settingsPageController.js');
+const adminPageController = require('./Controller/adminPageController.js');
 
 module.exports = (request, response) => {
         const method = request.method;
@@ -44,17 +46,8 @@ module.exports = (request, response) => {
                               }
                           }); 
                     break;
-                    case "/myaccountPage.html":
-                        fs.stat("core/View/myaccountPage.html", (err, stats) => {
-                            response.statusCode = 200;
-                            response.setHeader('Content-Type', 'text/html');
-                              if(stats) {
-                                  fs.createReadStream("core/View/myaccountPage.html").pipe(response);
-                              } else {
-                                  response.statusCode = 404;
-                                  response.end('Sorry, page not found!');
-                              }
-                          }); 
+                    case "/settingsPage.html":
+                        settingsPageControler.GET(request,response);
                     break;      
                     case "/sign-in-sign-up.html":
                         registerLoginController.GET(request,response);
@@ -62,15 +55,22 @@ module.exports = (request, response) => {
                     case "/addrecipePage.html":
                         addRecipeController.GET(request,response);
                     break;
+                    case "/adminPage.html":
+                        adminPageController.GET(request,response);
+                    break;    
                     default:    
                         if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
-                            ||request.url.substr(request.url.length-4) === '.jpg')) {//daca suntem pe recipe
+                            ||request.url.includes('.jpg') || request.url.includes('.png') || request.url.includes('.svg'))) {//daca suntem pe recipe
                                 
                             if(request.url.substr(request.url.length - 5) === '.html')//daca se termina in .html, atunci trebuie sa trimitem View-ul
                                 recipePageController.GET(request,response);
                             else {//altfel trebuie sa trimitem pozele viewului
-                                let photoPath = "data/" + request.url.replace('%20',' ');;
-                                //TODO, tipuri fotografi  
+                                var photoPath;
+                                if(request.url.includes('?'))
+                                    photoPath = "data/" + request.url.replace('%20',' ').substr(0,request.url.replace('%20',' ').indexOf('?'));
+                                else
+                                    photoPath = "data/" + request.url.replace('%20',' ');
+                                //TODO, tipuri fotografii  
                                 try {
                                     response.statusCode = 200;
                                     fs.createReadStream(photoPath).pipe(response);
@@ -134,13 +134,57 @@ module.exports = (request, response) => {
                     case "/recipePage.html":
                         recipePageController.POST(request,response);
                     break;
+                    case "/settingsPage.html":
+                        settingsPageControler.POST(request,response);
+                    break;
+                    case "/recipeSkipAndCount":
+                        adminPageController.GET_RECIPES(request,response); 
+                    break; 
+                    case "/deleteRecipe":
+                        adminPageController.DELETE_RECIPE(request, response);
+                    break;
+                    //add default 400
+                        
                 }
-                break;
-        
+            break;
+            case "DELETE": 
+                switch(currentUrl) {
+                    case "/deleteRecipe":
+                        adminPageController.DELETE_RECIPE(request, response);
+                    break;
+                    case "/deleteIngredient":
+                        adminPageController.DELETE_INGREDIENT(request,response);
+                    break;
+                    default:
+                }
+            break; 
+            case "PATCH": 
+                switch(currentUrl) {
+                    case "/modifyRecipe/recipeName":
+                        adminPageController.PATCH_RECIPE_NAME(request,response);
+                    break;
+                    case "/modifyRecipe/recipePhoto":
+                        adminPageController.PATCH_RECIPE_PHOTO(request,response);
+                    break;
+                    case "/modifyRecipe/Time":
+                        adminPageController.PATCH_RECIPE_TIME(request, response);
+                    break;
+                    case "/modifyRecipe/Type":
+                        adminPageController.PATCH_RECIPE_TYPE(request, response);
+                    break;
+                    case "/modifyRecipe/addIngredients":
+                        adminPageController.PATCH_RECIPE_INGREDIENTS(request, response);
+                    break;
+                    case "/modifyRecipe/addInstructions":
+                        adminPageController.PATCH_RECIPE_INSTRUCTIONS(request, response);
+                    break;
+                    default:
+                }
+            break;
             case "OPTIONS": 
                     const headers = {
                         'Access-Control-Allow-Origin': '*',
-                        'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+                        'Access-Control-Allow-Methods': 'OPTIONS, POST, GET, PATCH',
                         'Access-Control-Max-Age': 2592000
                     };
                     response.writeHeader(200, headers);

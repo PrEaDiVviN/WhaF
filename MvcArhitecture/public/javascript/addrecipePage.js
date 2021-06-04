@@ -18,8 +18,6 @@ function addIngredient()
             content[0].append(label);
             content[0].append(input);
         }
-    
- 
 }
 
 function addInstruction() 
@@ -102,7 +100,7 @@ function sendRecipeToDatabase() {
     }
     let preparationTime = document.getElementById("preptime").value;
     let finalizationTime = document.getElementById("fintime").value;
-    let nrInstructiuni = document.getElementById("nrinstructiuni").value
+    let nrInstructiuni = document.getElementById("nrinstructiuni").value;
     let instructiuni = [];
     let pozeInstructiuni = [];
     for( i = 0 ; i < nrInstructiuni; i++) {

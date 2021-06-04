@@ -44,7 +44,7 @@ module.exports = class recipePageController {
             let ingrediente = '';
             //construim string-ul dinamic pt ingrediente
             for(let i = 0; i < nrIngrediente; i++) {
-                ingrediente = ingrediente + '<li><img src="/circle.png" alt="circle"><div>' + dataIngrediente.ingrediente[i].ingredient_name + '</div></li>';
+                ingrediente = ingrediente + '<li class="relative" id="li' +(i + 1) + '"><img src="/circle.png" alt="circle"><div id="div' + (i+1) + '" >' + dataIngrediente.ingrediente[i].ingredient_name + '</div><img src="/deleteButton.png" id="delete' +(i+1) + '" alt="delete" class="deleteButton" onclick="deleteIngredient(this.id)"></li>';
             }
             //obtinem instructiunile retetei
             let dataInstructiuni = await recipeModel.getAllInstructions(recipeID);
@@ -53,7 +53,7 @@ module.exports = class recipePageController {
                 instructiuni = instructiuni + '<li><img src="/recipes/' + pageName + ('/poza' + (i + 1))  + (dataInstructiuni.instructiuni[i].photo.substr(dataInstructiuni.instructiuni[i].photo.length-4)).replace('%20',' ') + '" alt="photo"><div>' + dataInstructiuni.instructiuni[i].instructions +'</div></li>';
             }
             //obtinem calea catre poza retetei
-            const recipePhoto =  '/recipes/' + pageName + '/' + 'recipePhoto';
+            const recipePhoto =  '/recipes/' + pageName + '/' + 'recipePhoto.jpg' + '?' + new Date().getTime();
 
             //setam variabila care va ilustra posibilitatea de a trimite o reteta la sigur vid
             var formItems = '';

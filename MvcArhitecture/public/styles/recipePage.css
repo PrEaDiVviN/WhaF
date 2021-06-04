@@ -30,6 +30,27 @@
   height: 100%;
 }
 
+.viewgrid .deleteButton {
+  position: absolute;
+  width: 20%;
+  height: 70% !important;
+  right: 0px;
+  top: 0px;
+  background-color: #ff4d4d;
+  z-index: 1;
+}
+
+.viewgrid .deleteButton:hover {
+  cursor: pointer;
+  background-color: #ff1a1a;
+}
+
+.viewgrid .relative {
+  position: relative;
+  width: 40%;
+  height: 10%;
+}
+
 @media screen and (max-width: 700px) {
   .viewgrid .logoimg a {
     width: 50%;
@@ -71,6 +92,90 @@
   margin-bottom: 7%;
 }
 
+.viewgrid .content form {
+  width: 60%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+  padding: 30px;
+}
+
+.viewgrid .content form input {
+  display: block;
+  width: 70%;
+  padding: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid darkgray;
+  font-size: 16px;
+}
+
+.viewgrid .content form input:focus {
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+}
+
+.viewgrid .content form label {
+  display: block;
+  width: 70%;
+  margin-top: 20px;
+  font-family: "Vollkorn", serif;
+  font-size: 20px;
+}
+
+.viewgrid .content form select {
+  display: block;
+  width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid darkgray;
+  font-size: 16px;
+}
+
+.viewgrid .content form select:focus {
+  border: 1px solid black;
+}
+
+.viewgrid .content form button {
+  display: block;
+  width: 30%;
+  padding: 15px;
+  margin-top: 35px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: 1px solid white;
+  background-color: rgb(212, 160, 160);
+  font-size: 20px;
+  color: white;
+}
+.viewgrid .content form button:hover {
+  cursor: pointer;
+}
+
+.viewgrid .content form textarea {
+  display: block;
+  width: 70%;
+  resize: none;
+  padding: 10px;
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid darkgray;
+  font-size: 20px;
+}
+
+.viewgrid .content form textarea:focus {
+  border-radius: 10px;
+  border: 1px solid black;
+  outline: none;
+}
+
 .viewgrid .content .title {
   margin-top: 2%;
   margin-bottom: 2%;
@@ -94,7 +199,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 50%;
+  width: 80%;
   height: auto;
   font-size: 3vw;
   margin: auto;

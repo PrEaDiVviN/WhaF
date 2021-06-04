@@ -1,7 +1,8 @@
-const { Pool } = require('pg');
+const { Pool, Client } = require('pg');
 const Tokenizer = require('../../utility/tokenizer.js');
 const fs = require('fs');
 const { request } = require('http');
+const { exception } = require('console');
 
 //database connection
 const client = new Pool({
@@ -12,9 +13,180 @@ const client = new Pool({
     port: 5432,
 });
 
-client.connect();
+const transaction = new Client({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'ProiectTW',
+    password: 'proiect',
+    port: 5432,
+});
+client.connect();  
+transaction.connect();
  
 module.exports = class user {
+
+    async modifyFirstName(firstName, username) {
+        const queryText = 'UPDATE public.user SET first_name = $1 WHERE public.user.username = $2;';
+        try {
+            await transaction.query(queryText, [firstName, username]);
+        }
+        catch(e) {
+          return false;
+        }
+        return true;
+    } 
+
+    async modifyLastName(lastName, username) {
+        const queryText = 'UPDATE public.user SET last_name = $1 WHERE public.user.username = $2;';
+        try {
+            await transaction.query(queryText, [lastName, username]);
+        }
+        catch(e) {
+          return false;
+        }
+        return true;
+    }
+
+    async modifyUsername(newUsername, username) {
+        const queryText = 'UPDATE public.user SET username = $1 WHERE public.user.username = $2;';
+        try {
+            await transaction.query(queryText, [newUsername, username]);
+            let oldPath = 'data/users/' + username;
+            let newPath = 'data/users/' + newUsername;
+            fs.renameSync(oldPath, newPath);
+        }
+        catch(e) {
+          return false;
+        }
+        return true;
+    }
+
+    async modifyEmail(email, username) {
+        const queryText = 'UPDATE public.user SET email = $1 WHERE public.user.username = $2;';
+        try {
+        await transaction.query(queryText, [email, username]);
+        }
+        catch(e) {
+          return false;
+        }
+        return true;
+    }
+
+    async modifyPassword(password, username) {
+        const queryText = 'UPDATE public.user SET user_passwd = $1 WHERE public.user.username = $2;';
+        try {
+            await transaction.query(queryText, [password, username]);
+        }
+        catch(e) {
+          return false;
+        }
+        return true;
+    }
+   
+   async modifybirthDate(birthDate, username) {
+        const queryText = 'UPDATE public.user SET birth = $1 WHERE public.user.username = $2;';
+        try {
+        await transaction.query(queryText, [birthDate, username]);
+        }
+        catch(e) {
+            console.log(e);
+            return false;
+        
+        }
+        return true;
+   } 
+
+   async modifyUserPhoto(userPhoto, username) {
+        const queryText = 'UPDATE public.user SET photo = $1 WHERE public.user.username = $2;';
+        const photoPath = 'data/users/' + username + '/user' + (userPhoto.type == 'image/jpeg' ? '.jpg' : (userPhoto.type == 'image/png' ? '.png' :'.svg')); 
+        try {
+            await transaction.query(queryText, [photoPath, username]);
+            if (fs.existsSync(photoPath)) {
+                fs.unlinkSync(photoPath);
+            }
+            let oldPath = userPhoto.path;
+            fs.renameSync(oldPath, photoPath);
+        }
+        catch(e) {
+            return false;
+        }
+        return true;
+   }
+
+    async modifyUserDatas(firstName, lastName, email, username, newUsername, password, birthDate, userPhoto) {
+      
+        try {
+            let restartSession = false;
+            let changedUsername = false;
+            await transaction.query('BEGIN');
+            console.log('======================================================');
+            console.log(typeof(newUsername));
+            console.log('======================================================');
+            if(newUsername != undefined) {
+                console.log('INCERCAM SA SCHIMBAM USERNAME _UL');
+                if(await this.modifyUsername(newUsername, username)) {
+                    restartSession = true;
+                    changedUsername = true;
+                }
+                else {
+                    await transaction.query('ROLLBACK');
+                    return 'username';
+                }
+            }
+            if(firstName != undefined) {
+                if(await this.modifyFirstName(firstName, changedUsername ? newUsername : username)) {
+                    restartSession = true;
+                    console.log('DONE => FIRSTNAME');
+                }
+                else {
+                    await transaction.query('ROLLBACK'); 
+                    return 'firstname';
+                }
+            }
+            if(lastName != undefined) {
+                if(await this.modifyLastName(lastName, changedUsername ? newUsername : username))
+                    restartSession = true;
+                else {
+                    await transaction.query('ROLLBACK');
+                    return 'lastname';
+                }
+            }
+            if(email != undefined) {
+                if(await this.modifyEmail(email, changedUsername ? newUsername : username))
+                    restartSession = true;
+                else {
+                    await transaction.query('ROLLBACK');
+                    return 'email'; 
+                }
+            }
+            if(password != undefined) {
+                if(await !this.modifyPassword(password, changedUsername ? newUsername : username)) {
+                    await transaction.query('ROLLBACK');
+                    return 'password'; 
+                }
+            }
+            if(birthDate != undefined) {
+                if(await this.modifybirthDate(birthDate, changedUsername ? newUsername : username))
+                    restartSession = true;
+                else {
+                    await transaction.query('ROLLBACK');
+                    return 'birthdate'; 
+                }
+            }
+            if(userPhoto != undefined) {
+                if(await !this.modifyUserPhoto(userPhoto, changedUsername ? newUsername : username)) {
+                    await transaction.query('ROLLBACK');
+                    return 'photo'; 
+                }
+            }
+            await transaction.query('COMMIT');
+            
+            return 'success';
+        } catch (e) {
+            await transaction.query('ROLLBACK');
+            return 'error';
+        }
+    }  
   
     async insertUserIntoDatabase(firstName, lastName, email, username, password, birthDate) {
 
@@ -37,6 +209,8 @@ module.exports = class user {
         return Promise.resolve(false);
       };
     } 
+
+
     async validateUserCredentials(username, SSID) {
       let pgQuery = { 
         name: 'Getusername_DB',
@@ -164,6 +338,27 @@ module.exports = class user {
           console.log(e1);
           return Promise.resolve(null);
         };
+    }
+
+    async getUserTypeByUsername(username) {
+      let pgQuery = { 
+          name: 'GetUserTypeByUsername',
+          text: 'SELECT type FROM public.user WHERE public.user.username = $1',
+          values: [username],  
+      };
+      try {
+          let answer = await client.query(pgQuery);
+          if(answer != null) {
+              let userType = answer.rows[0].type;
+              return Promise.resolve(userType);
+          }
+          else 
+              return Promise.resolve(null);
+      }
+      catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
     }
 
     verifyUserCredentials(username, password, response) {
