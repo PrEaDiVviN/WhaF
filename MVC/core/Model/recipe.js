@@ -15,8 +15,9 @@ client.connect();
 
 module.exports = class recipe {
     async insertRecipeIntoDatabase(userID, recipeName, recipePhotoPath,  category, nrIngredients, prepTime, finalTime, nrInstructions, difficulty) {
-        let pgQuery = 'INSERT INTO public.recipe (user_id, recipe_name, photo, category, nr_ingredients, prep_time, final_time, nr_instructions, difficulty) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);';
-        let values = [userID, recipeName, recipePhotoPath, category ,nrIngredients, prepTime, finalTime, nrInstructions, difficulty];
+        let score = 0;
+        let pgQuery = 'INSERT INTO public.recipe (user_id, recipe_name, photo, category, nr_ingredients, prep_time, final_time, nr_instructions, difficulty, score) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);';
+        let values = [userID, recipeName, recipePhotoPath, category ,nrIngredients, prepTime, finalTime, nrInstructions, difficulty, score];
         
         try {
             let result = await client.query(pgQuery, values); 
@@ -45,6 +46,92 @@ module.exports = class recipe {
             if (answer != null && answer.rows[0] != undefined) {
                 let recipeID = answer.rows[0].recipe_id;
                 return Promise.resolve(recipeID);
+            }
+            else 
+                return Promise.resolve(null);
+        } catch(e1) {
+          console.log(e1);
+          return Promise.resolve(null);
+        };
+    }
+
+    async getRecipeNameById(recipeID) {
+        let pgQuery = { 
+            name: 'GetRecipeNameById',
+            text: 'SELECT recipe_name FROM public.recipe WHERE recipe_id = $1',
+            values: [recipeID],  
+        };
+
+        try {
+            let answer = await client.query(pgQuery);
+
+            if (answer != null && answer.rows[0] != undefined) {
+                let recipeName = answer.rows[0].recipe_name;
+                return Promise.resolve(recipeName);
+            }
+            else 
+                return Promise.resolve(null);
+        } catch(e1) {
+          console.log(e1);
+          return Promise.resolve(null);
+        };
+    }
+
+    async getNrRecipes() {
+        let pgQuery = { 
+            name: 'CountRecipes',
+            text: 'SELECT COUNT(*) AS nr FROM public.recipe;', 
+        };
+
+        try {
+            let answer = await client.query(pgQuery);
+
+            if (answer != null && answer.rows[0] != undefined) {
+                let count = answer.rows[0].nr;
+                return Promise.resolve(count);
+            }
+            else 
+                return Promise.resolve(null);
+        } catch(e1) {
+          console.log(e1);
+          return Promise.resolve(null);
+        };
+    }
+
+    async getCategory(category) {
+        let pgQuery = { 
+            name: 'GetCategory',
+            text: 'SELECT recipe_name FROM public.recipe WHERE category = $1;', 
+            values: [category],
+        };
+
+        try {
+            let answer = await client.query(pgQuery);
+
+            if (answer != null && answer.rows[0] != undefined) {
+                return Promise.resolve(answer.rows);
+            }
+            else if (answer.rows == undefined)
+                return Promise.resolve('no rows');
+            else 
+                return Promise.resolve(null);
+        } catch(e1) {
+          console.log(e1);
+          return Promise.resolve(null);
+        };
+    }
+
+    async getPopularRecipes() {
+        let pgQuery = { 
+            name: 'GetPopularRecipes',
+            text: 'SELECT recipe_name, category, first_name, last_name FROM public.recipe r JOIN public.user u ON r.user_id = u.user_id ORDER BY score DESC;', 
+        };
+
+        try {
+            let answer = await client.query(pgQuery);
+
+            if (answer != null && answer.rows.length > 0) {
+                return Promise.resolve(answer.rows);
             }
             else 
                 return Promise.resolve(null);

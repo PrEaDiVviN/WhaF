@@ -10,6 +10,7 @@ const registerLoginController = require('./Controller/registerLoginController.js
 const addRecipeController = require('./Controller/addRecipePageController.js');
 const recipePageController = require('./Controller/recipePageController.js');
 const settingsController = require('./Controller/settingsController.js');
+const feedController = require('./Controller/feedPageController.js');
 
 module.exports = (request, response) => {
         const method = request.method;
@@ -20,18 +21,6 @@ module.exports = (request, response) => {
                 switch (currentUrl) {
                     case "/":
                         landingController(request , response);
-                    break;
-                    case "/feedPage.html":
-                        fs.stat("core/View/feedPage.html", (err, stats) => {
-                            response.statusCode = 200;
-                            response.setHeader('Content-Type', 'text/html');
-                              if(stats) {
-                                  fs.createReadStream("core/View/feedPage.html").pipe(response);
-                              } else {
-                                  response.statusCode = 404;
-                                  response.end('Sorry, page not found!');
-                              }
-                          }); 
                     break;
                     case "/termsPolicy.html":
                         fs.stat("core/View/termsPolicy.html", (err, stats) => {
@@ -53,6 +42,9 @@ module.exports = (request, response) => {
                     break;
                     case "/settingsPage.html":
                         settingsController.GET(request,response);
+                    break;
+                    case "/feedPage.html":
+                        feedController.GET(request,response);
                     break;
                     default:    
                         if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
@@ -128,6 +120,9 @@ module.exports = (request, response) => {
                     break;
                     case "/settingsPage.html":
                         settingsController.POST(request, response);
+                    break;
+                    case "/feedPage.html":
+                        feedController.POST(request, response);
                     break;
                 }
                 break;

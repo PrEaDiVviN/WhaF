@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html>
 <head>
     <title> Home Page </title>
@@ -35,36 +35,36 @@
                 <div class = "user-info">
                     <div class = "avatar-picture">
                         <a href = "/settingsPage.html">
-                            <img src = "/avatar-picture.png" alt = "Avatar">
+                            ${avatar}
                         </a>
                     </div>
 
                     <div class = "username">
-                        <p> Username </p>
+                        <p> ${username} </p>
                     </div>
 
                     <div class = "user-settings">
-                        <button class = "my-page" onclick = "logout()"> Logout </button>
+                        ${logout}
                     </div>
                 </div>
             </div> 
         </div>
         
         <div class = "menu">
-            <div class = "categories">
-                <button class = "grid-button" onclick = "openPage('Categories')"> Categories </button>
+            <div class = "home">
+                <button class = "grid-button" onclick = "openFilter()"> Home </button>
             </div>
 
-            <div class = "rankings">
-                    <button class = "grid-button" onclick = "openPage('Rankings')"> Rankings </button>
+            <div class = "categories">
+                    <button class = "grid-button" onclick = "openPage('Categories')"> Categories </button>
             </div>
 
             <div class = "add-recipe">
                 <button onclick = "window.location.href = '/addrecipePage.html'" class = "grid-button"> Add Recipe </button>
             </div>
 
-            <div class = "filter">
-                <button class = "grid-button" onclick = "openFilter()"> Filtering </button>
+            <div class = "rankings">
+                <button class = "grid-button" onclick = "openPage('Rankings')"> Rankings </button>
             </div>
 
             <div class = "search">
@@ -78,65 +78,13 @@
             <div class = "default-wrapper"> 
                 <div class = "default-format">
                     <div class = "wrapper">
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe15.jpg" alt = "R15" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe14.jpg" alt = "R14" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe13.jpg" alt = "R13" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe20.jpg" alt = "R20" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe21.jpg" alt = "R21" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe22.jpg" alt = "R22" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe12.jpg" alt = "R12" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe11.jpg" alt = "R11" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe10.jpg" alt = "R10" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe17.jpg" alt = "R17" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe18.jpg" alt = "R18" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe19.jpg" alt = "R19" class = "item">
-                        </a>
-                        
+                        ${defaultRecipes}
+                        <!--
                         <div class = "split-previous"> 
                             <div class = "previous">
-                                <button class = "default-buttons"> &laquo; Previous </button>
+                                <button class = "default-buttons" onclick = "previous()"> &laquo; Previous </button>
                             </div> 
-                        </div>
-
-                        <div class = "split-next"> 
-                            <div class = "next">
-                                <button class = "default-buttons"> Next  &raquo; </button>
-                            </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -146,41 +94,41 @@
             <div class = "format-wrapper"> 
                 <div class = "format">
                     <div class = "categories-wrapper">
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Breakfast </button>
+                        <button class = "categories-button" onclick = "openPage('Breakfast')"> Breakfast </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Brunch </button>
+                        <button class = "categories-button" onclick = "openPage('Brunch')"> Brunch </button>
                         
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Lunch </button>
+                        <button class = "categories-button" onclick = "openPage('Lunch')"> Lunch </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Snacks </button>
+                        <button class = "categories-button" onclick = "openPage('Snacks')"> Snacks </button>
                         
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Dinner </button>
+                        <button class = "categories-button" onclick = "openPage('Dinner')"> Dinner </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Soups </button>
+                        <button class = "categories-button" onclick = "openPage('Soups')"> Soups </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Salads </button>
+                        <button class = "categories-button" onclick = "openPage('Salads')"> Salads </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Main Dishes </button>
+                        <button class = "categories-button" onclick = "openPage('Main')"> Main Dishes </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Pasta </button>
+                        <button class = "categories-button" onclick = "openPage('Pasta')"> Pasta </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Seafood </button>
+                        <button class = "categories-button" onclick = "openPage('Seafood')"> Seafood </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Pizza </button>
+                        <button class = "categories-button" onclick = "openPage('Pizza')"> Pizza </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Burgers </button>
+                        <button class = "categories-button" onclick = "openPage('Burgers')"> Burgers </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Vegetarian </button>
+                        <button class = "categories-button" onclick = "openPage('Vegetarian')"> Vegetarian </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Vegan </button>
+                        <button class = "categories-button" onclick = "openPage('Vegan')"> Vegan </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Sides </button>
+                        <button class = "categories-button" onclick = "openPage('Sides')"> Sides </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Sauces </button>
+                        <button class = "categories-button" onclick = "openPage('Sauces')"> Sauces </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Desserts </button>
+                        <button class = "categories-button" onclick = "openPage('Desserts')"> Desserts </button>
 
-                        <button class = "categories-button" onclick = "openPage('Recipes')"> Drinks </button>
+                        <button class = "categories-button" onclick = "openPage('Drinks')"> Drinks </button>
                     </div> 
                 </div> 
             </div>
@@ -195,6 +143,186 @@
                         <button class = "ranking-button" onclick = "openPage('PopularI')"> Most Popular Ingredients </button>
 
                         <button class = "ranking-button" onclick = "openPage('AvoidedI')"> Most Avoided Ingredients </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Breakfast" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${breakfast}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Brunch" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${brunch}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Lunch" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${lunch}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Snacks" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${snacks}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Dinner" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${dinner}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Soups" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${soups}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Salads" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${salads}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Main" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${main}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Pasta" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${pasta}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Seafood" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${seafood}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Pizza" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${pizza}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Burgers" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${burgers}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Vegetarian" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${vegetarian}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Vegan" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${vegan}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Sides" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${sides}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Sauces" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${sauces}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Desserts" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${desserts}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Drinks" class = "content">
+            <div class = "format2-wrapper"> 
+                <div class = "format2">
+                    <div class = "search-wrapper">
+                        ${drinks}
                     </div>
                 </div>
             </div>
@@ -217,127 +345,23 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td> 1 </td>
-
-                                <td> 
-                                    <a href = "#"> Name1 </a>
-                                </td>
-
-                                <td> Category1 </td>
-
-                                <td> Author1 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 2 </td>
-
-                                <td> 
-                                    <a href = "#"> Name2 </a>
-                                </td>
-
-                                <td> Category2 </td>
-
-                                <td> Author2 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 3 </td>
-
-                                <td> 
-                                    <a href = "#"> Name3 </a>
-                                </td>
-
-                                <td> Category3 </td>
-
-                                <td> Author3 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 4 </td>
-
-                                <td> 
-                                    <a href = "#"> Name4 </a>
-                                </td>
-
-                                <td> Category4 </td>
-
-                                <td> Author4 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 5 </td>
-
-                                <td> 
-                                    <a href = "#"> Name5 </a>
-                                </td>
-
-                                <td> Category5 </td>
-
-                                <td> Author5 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 6 </td>
-
-                                <td> 
-                                    <a href = "#"> Name6 </a>
-                                </td>
-
-                                <td> Category6 </td>
-
-                                <td> Author6 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 7 </td>
-
-                                <td> 
-                                    <a href = "#"> Name7 </a>
-                                </td>
-
-                                <td> Category7 </td>
-
-                                <td> Author7 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 8 </td>
-
-                                <td> 
-                                    <a href = "#"> Name8 </a>
-                                </td>
-
-                                <td> Category8 </td>
-
-                                <td> Author8 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 9 </td>
-
-                                <td> 
-                                    <a href = "#"> Name9 </a>
-                                </td>
-
-                                <td> Category9 </td>
-
-                                <td> Author9 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 10 </td>
-
-                                <td> 
-                                    <a href = "#"> Name10 </a>
-                                </td>
-
-                                <td> Category10 </td>
-
-                                <td> Author10 </td>
-                            </tr>
+                            ${popularR}
                         </tbody>
                     </table>
+
+                    <div class = "export"> 
+                        <div class = "export-csv">
+                            <div class = "split-csv">
+                                <button class = "default-buttons" onclick = "exportCSV('popularRecipes.csv')"> Export CSV </button>
+                            </div>
+                        </div> 
+
+                        <div class = "export-json">
+                            <div class = "split-json">
+                                <button class = "default-buttons" onclick = "exportJSON('popularRecipes.json', '#PopularR')"> Export JSON </button>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -650,18 +674,6 @@
                 </div>
             </div>
         </div>
-
-        <div id = "MyPage" class = "page-content">
-            <div class = "page-wrapper"> 
-                <div class = "page-format">
-                    <div class = "page-format-wrapper">
-                        <button class = "page-button" onclick = "openRecipes('Added')"> Added Recipes </button> 
-                    
-                        <button class = "page-button" onclick = "openRecipes('Tried')"> Tried Recipes </button> 
-                    </div>
-                </div>
-            </div>
-        </div>
         
         <div id = "Added" class = "recipes-content">
             <div class = "recipes-wrapper">
@@ -776,4 +788,4 @@
 
     <script src = "feedPage.js"></script>
 </body>
-</html>
+</html>`

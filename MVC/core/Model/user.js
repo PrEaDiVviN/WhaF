@@ -16,8 +16,10 @@ client.connect();
  
 module.exports = class user {
     async insertUserIntoDatabase(firstName, lastName, email, username, password, birthDate) {
-        let pgQuery = 'INSERT INTO public.user (first_name, last_name, email, username, user_passwd, birth) VALUES ($1, $2, $3, $4, $5, $6);';
-        let values = [firstName, lastName, email, username, password, birthDate];
+        var status = 0; 
+        
+        let pgQuery = 'INSERT INTO public.user (first_name, last_name, email, username, user_passwd, birth, status) VALUES ($1, $2, $3, $4, $5, $6, $7);';
+        let values = [firstName, lastName, email, username, password, birthDate, status];
         try {
           let result = await client.query(pgQuery, values); 
           console.log("@SEE");
@@ -30,7 +32,7 @@ module.exports = class user {
 
           console.log('returning null');
           return Promise.resolve(null);
-        } catch(ex) {
+        } catch(err) {
           console.log(err);
           return Promise.resolve(false);
         };
