@@ -16,7 +16,7 @@ CREATE TABLE public.user
 	user_passwd VARCHAR(25) NOT NULL,
 	birth DATE NOT NULL,
 	photo VARCHAR(100),
-	status integer NOT NULL /* 0 not an admin, 1 admin */ 
+	status integer NOT NULL
 )
 
 CREATE TABLE public.recipe
@@ -30,7 +30,7 @@ CREATE TABLE public.recipe
 	prep_time integer NOT NULL,
 	final_time integer NOT NULL,
 	nr_instructions integer NOT NULL,
-	score integer, /*number of times a recipe has been tried */
+	score integer NOT NULL,
 	difficulty VARCHAR(25) NOT NULL /* easy, medium, hard */
 )
 
@@ -46,7 +46,9 @@ CREATE TABLE public.ingredient
 (
 	ingredient_id SERIAL PRIMARY KEY,
 	recipe_id integer NOT NULL REFERENCES public.recipe(recipe_id),
-	ingredient_name VARCHAR(30) NOT NULL
+	ingredient_name VARCHAR(30) NOT NULL,
+	score integer NOT NULL, 
+	search_score integer NOT NULL
 )
 
 CREATE TABLE public.search 
@@ -127,10 +129,26 @@ SELECT username, difficulty FROM public.search s
 	
 SELECT * FROM public.user;
 
-SELECT * FROM public.recipe;
+SELECT * FROM public.recipe ORDER BY recipe_id ASC;
+
+SELECT * FROM public.ingredient;
 
 SELECT * FROM public.tried;
 
-DELETE FROM public.user WHERE user_id = 6;
+SELECT COUNT(*) AS nr FROM public.recipe;
+
+DELETE FROM public.recipe WHERE recipe_id = 1;
 
 UPDATE public.user SET username = 'mariabrinzila' WHERE user_id = 1;
+
+SELECT recipe_name, score, category, first_name, last_name FROM public.recipe r
+	JOIN public.user u ON r.user_id = u.user_id
+	ORDER BY score DESC;
+	
+SELECT ingredient_name, score FROM public.ingredient ORDER BY score DESC;
+	
+INSERT INTO public.ingredient (recipe_id, ingredient_name, score, search_score) 
+	VALUES (4, 'I2', 0, 0);
+	
+SELECT ingredient_id, score FROM public.ingredient WHERE ingredient_name = 'I9' 
+	ORDER BY ingredient_id ASC;
