@@ -1,11 +1,12 @@
 const fs = require('fs');
 const user = require('../Model/user.js');
 const recipe = require('../Model/recipe.js');
-const Tokenizer = require('../../utility/tokenizer.js');
+const settings = require('../Model/settings.js');
 const formidable = require('formidable');
 
 const userModel = new user();
 const recipeModel = new recipe();
+const settingsModel = new settings();
 
 module.exports = class adminPageController {
     static async GET(request, response) {
@@ -25,12 +26,13 @@ module.exports = class adminPageController {
                 let existsNext = await recipeModel.getNamePhotoCategoryFromAllRecipes(25,1);
                 let cards = '';
                 for(let i = 0; i < info.recipeName.length; i++) {
+                    let recipeUrl = '/recipe/' + info.recipeName[i].replaceAll('%20', ' ') + '.html';
                     cards = cards + `<div class="card" id="card` + i + `" > 
                                         <img src="/deleteButton.png" id="delete` + i + `" alt="delete" class="deleteButton" onclick="deleteRecipe(this)">
-                                        <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick="alert('EDITING ITEM')"></img>`;
+                                        <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick="changeLocation('` + recipeUrl + `')""></img>`;
                     cards = cards + '<img src="/' + info.recipePhoto[i] + `" alt="recipePhoto" class="imageCard">
                                                                             <div class="container">`;
-                    cards = cards + '<h4><b id="recipe' + i + '" >' + info.recipeName[i].replace('%20', ' ') + '</b></h4>';
+                    cards = cards + '<h4><b id="recipe' + i + '" >' + info.recipeName[i].replaceAll('%20', ' ') + '</b></h4>';
                     cards = cards + '<p>' + info.categorie[i] + `</p>
                                                             </div>
                                                         </div> `;                                                  
@@ -63,6 +65,46 @@ module.exports = class adminPageController {
                             </div>
                         </div>
                     </div>`;
+                //------------------------------------------------------------------------------- AICI AI RAMAS
+                 let infouser = await userModel.getNamePhotoTypeFromAllUsers(0,25);
+                 let existsNextUser = await userModel.getNamePhotoTypeFromAllUsers(25,1);
+                //------------------------------------------------------------------------------- AICI AI RAMAS
+                let usersCards = '';
+                for(let i = 0; i < infouser.usernames.length; i++) {
+                    usersCards = usersCards +    
+                    `<div class="card" id="carduser` + i + `">
+                            <img "deleteusr` + i + `" src="/deleteButtonUser.png" alt="delete" class="deleteButton" onclick="deleteUser(this)">
+                            <img src="/settingsButtonUser.png" alt="settings" class="settingsButton" onclick="changeLocation('/` + infouser.usernames[i].replaceAll('%20', ' ')  + `.tfl')">
+                            <img src="`+ (infouser.userPhotos[i] == null ? '/user.png' : infouser.userPhotos[i]) + `" alt="Avatar">
+                            <div class="container">
+                                <h4><b  id="user` + i + `" >` + infouser.usernames[i] + `</b></h4>
+                                <p>` + infouser.userTypes[i] +  `</p>
+                            </div>
+                    </div> `;   
+                }    
+
+                if(existsNextUser !== null)
+                usersCards = usersCards +
+                `<div class="pagination">
+                    <div class = "split-previous" style="visibility: hidden;"> 
+                        <div class = "previous">
+                            <button class = "default-buttons" onclick="updateMinusPageUser()"> &laquo; Previous </button>
+                        </div> 
+                    </div>
+
+                    <div class = "split-next"> 
+                        <div class = "next">
+                            <button class = "default-buttons" onclick="updatePlusPageUser()"> Next  &raquo; </button>
+                        </div>
+                    </div>
+                </div>`;
+
+                let ingrediente = '';
+                let instructiuni = '';
+
+                ingrediente = await settingsModel.getNrIngrediente();
+                instructiuni = await settingsModel.getNrInstructiuni();
+
                 fs.readFile('core/View/adminPage.html', (err, buffer) => {
                     const username = cookie.substr(0,cookie.search("="));
                     let data = eval(buffer.toString());
@@ -81,6 +123,59 @@ module.exports = class adminPageController {
             response.writeHead(404, { 'Content-Type' : 'text/plain'});
             response.write('Page not found!');
             response.end();
+        }
+    }
+
+    static async GET_USER_SETTINGS(request, response) {
+            //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        if(cookie != undefined) {
+            let username = cookie.substr(0,cookie.search("="));
+            let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+            let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+            let userType = await userModel.getUserTypeByUsername(username);
+            if(connected === true && userType === 'admin') {
+                //obtinem numele userului
+                fs.readFile('core/View/userPage.html', async (err, buffer) => {
+                    let username = request.url.substr(1, request.url.length-5).replaceAll('%20', ' ');
+                    let password = await userModel.getPassword(username);
+                    let userPhoto = await userModel.getUserPhoto(username);
+                    if(userPhoto != null)
+                      userPhoto = userPhoto.substr(4,userPhoto.length);
+                    console.log('*********************************************');
+                    console.log(userPhoto);
+                    console.log('*********************************************');
+                    if(userPhoto == null)
+                        userPhoto = '/user.png';
+                    let status = await userModel.getUserStatus(username);
+                    if(password != null && status != null) {
+                        let data = eval(buffer.toString());
+                        response.writeHead(200,{'Content-type': 'text/html'});
+                        response.write(data);
+                        response.end();
+                    }
+                    else {
+                        response.statusCode = 400;
+                        response.end();
+                        return ;
+                    }
+                });
+            } 
+            if(connected === true && userType !== 'admin') {
+                response.statusCode = 403;
+                response.end();
+                return ;
+            }
+            if(connected === false) {
+                response.statusCode = 404;
+                response.end();
+                return ;
+            }
+        }
+        else {
+            response.statusCode = 404;
+            response.end();
+            return ;
         }
     }
 
@@ -108,12 +203,13 @@ module.exports = class adminPageController {
 
             let responseString = '';
             for(let i = 0; i < answer.recipeName.length; i++) {
-                responseString = responseString + `<div class="card">
+                let recipeUrl = '/recipe/' + answer.recipeName[i].replaceAll('%20', ' ') + '.html';
+                responseString = responseString + `<div class="card"  id="card` + i + `">
                                     <img src="/deleteButton.png" id="delete` + i + `" alt="delete" class="deleteButton" onclick="deleteRecipe(this)">
-                                    <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick=""></img>`;
+                                    <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick="changeLocation('` + recipeUrl + `')"></img>`;
                 responseString = responseString + '<img src="/' + answer.recipePhoto[i] + `" alt="recipePhoto" class="imageCard">
                                                                         <div class="container">`;
-                responseString = responseString + '<h4><b id="recipe' + i +  '" >' + answer.recipeName[i].replace('%20', ' ') + '</b></h4>';
+                responseString = responseString + '<h4><b id="recipe' + i +  '" >' + answer.recipeName[i].replaceAll('%20', ' ') + '</b></h4>';
                 responseString = responseString + '<p>' + answer.categorie[i] + `</p>
                                                         </div>
                                                     </div> `;     
@@ -122,7 +218,7 @@ module.exports = class adminPageController {
                for(let j = answer.recipeName.length; j <= 15; j++) {
                 responseString = responseString + `<div class="card" style="visibility: hidden;"> 
                 <img src="/deleteButton.png" alt="delete" class="deleteButton" onclick="deleteRecipe(this)">
-                <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick="alert('EDITING ITEM')"></img>`;
+                <img src="/settingsButton.png" alt="settings" class="settingsButton" onclick="alert('_____')"></img>`;
                 responseString = responseString + '<img src="/' + answer.recipePhoto[0] + `" alt="recipePhoto" class="imageCard">
                                                                     <div class="container">`;
                 responseString = responseString + '<h4><b>' + answer.recipeName[0].replace('%20', ' ') + '</b></h4>';
@@ -180,6 +276,106 @@ module.exports = class adminPageController {
         });
     }
 
+
+    static async GET_USERS(request, response) {
+        var body = '';
+        request.on('data', chunk => {
+            body += chunk;
+        }); 
+        request.on('end', async () => { 
+            var skip = parseInt(JSON.parse(body).skip);
+            var count = parseInt(JSON.parse(body).count);
+            var direction = JSON.parse(body).direction;
+        
+            var answer = await userModel.getNamePhotoTypeFromAllUsers(skip,count);
+            var verify;
+            if(direction == 'up')
+                verify = await userModel.getNamePhotoTypeFromAllUsers(skip+25,count);
+            else if(skip == 0)
+                verify = null;
+            if(answer === null) {
+                response.statusCode = 404;
+                response.end('Internal Server Error! Please try again and if problem persists, contact the administrator!');
+                return ;
+            }
+
+            let responseString = '';
+            for(let i = 0; i < answer.usernames.length; i++) {
+                responseString = responseString +    
+                `<div class="card"  id="carduser` + i + `">
+                        <img id="deleteusr` + i + `" src="/deleteButtonUser.png" alt="delete" class="deleteButton" onclick="deleteUser(this)">
+                        <img src="/settingsButtonUser.png" alt="settings" class="settingsButton" onclick="changeLocation('/` + answer.usernames[i].replaceAll('%20', ' ')  + `.tfl')">
+                        <img src="`+ (answer.userPhotos[i] == null ? '/user.png' : answer.userPhotos[i]) + `" alt="Avatar">
+                        <div class="container">
+                            <h4><b  id="user` + i + `">` + answer.usernames[i] + `</b></h4>
+                            <p>` + answer.userTypes[i] +  `</p>
+                        </div>
+                </div> `;        
+            }
+            if(answer.usernames.length < 15) 
+               for(let j = answer.usernames.length; j <= 15; j++) {
+                responseString = responseString +    
+                `<div class="card" style="visibility: hidden;">
+                        <img src="/deleteButtonUser.png" alt="delete" class="deleteButton" onclick="alert('DELETING ITEM')">
+                        <img src="/settingsButtonUser.png" alt="settings" class="settingsButton" onclick="alert('EDITING ITEM')">
+                        <img src="`+ (answer.userPhotos[0] == null ? '/user.png' : answer.userPhotos[0]) + `" alt="Avatar">
+                        <div class="container">
+                            <h4><b id="user` + j + `" >` + answer.usernames[0] + `</b></h4>
+                            <p>` + answer.userTypes[0] +  `</p>
+                        </div>
+                </div> `;     
+               }
+            if(verify != null && skip != 0)
+            responseString += `
+                <div class="pagination">
+                    <div class = "split-previous"> 
+                        <div class = "previous">
+                            <button class = "default-buttons" onclick="updateMinusPageUser()"> &laquo; Previous </button>
+                        </div> 
+                    </div>  
+                    <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons" onclick="updatePlusPageUser()"> Next  &raquo; </button>
+                            </div>
+                    </div>
+                </div>`; 
+            else if(direction == 'up')
+                responseString += `
+                <div class="pagination">
+                    <div class = "split-previous"> 
+                        <div class = "previous">
+                            <button class = "default-buttons" onclick="updateMinusPageUser()"> &laquo; Previous </button>
+                        </div> 
+                    </div>  
+                    <div class = "split-next" style="visibility: hidden;"> 
+                            <div class = "next">
+                                <button class = "default-buttons" onclick="updatePlusPageUser()"> Next  &raquo; </button>
+                            </div>
+                    </div>
+                </div>`;   
+     
+            else  
+                responseString += `  
+                <div class="pagination">
+                    <div class = "split-previous"> 
+                        <div class = "previous" style="visibility: hidden;">
+                            <button class = "default-buttons" onclick="updateMinusPageUser()"> &laquo; Previous </button>
+                        </div> 
+                    </div>  
+                    <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons" onclick="updatePlusPageUser()"> Next  &raquo; </button>
+                            </div>
+                    </div>
+                </div>`;        
+            response.statusCode = 200;
+            response.setHeader('Content-Type','text/html');
+            response.write(responseString);
+            response.end();
+        });
+    }
+
+
     
     static async DELETE_RECIPE(request, response) {
         //verificam daca datele credentialele userului sunt bune
@@ -201,6 +397,90 @@ module.exports = class adminPageController {
                 var recipeId = await recipeModel.getRecipeIdByName(recipeName);
                 var answer = await recipeModel.deleteRecipe(recipeName, recipeId);
                 if(answer == true) {
+                    response.statusCode = 202;
+                    response.end();
+                    return ;
+                }
+                response.statusCode = 500;
+                response.end();
+                return ;
+            });
+        }
+        if(connected === true && userType !== 'admin') {
+            response.statusCode = 403;
+            response.end();
+            return ;
+        }
+        if(connected === false) {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+    static async DELETE_USER(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        let username = cookie.substr(0,cookie.search("="));
+        let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        let userType = await userModel.getUserTypeByUsername(username);
+        if(connected === true && userType === 'admin') {
+            //obtinem numele userului
+
+            var body = '';
+            await request.on('data', chunk => {
+                body += chunk;
+            }); 
+            await request.on('end', async () => { 
+                var username = JSON.parse(body).username;
+                //stergem reteta din baza de date si folderul corespunzator ei
+                console.log('#########################################################');
+                console.log(username);
+                console.log('#########################################################');
+                var userId = await userModel.getUserIdByUsername(username);
+                if(userId != null) {
+                    var answer = await userModel.deleteUser(username, userId);
+                    if(answer == true) {
+                        response.statusCode = 202;
+                        response.end();
+                        return ;
+                    }
+                }
+                response.statusCode = 500;
+                response.end();
+                return ;
+            });
+        }
+        if(connected === true && userType !== 'admin') {
+            response.statusCode = 403;
+            response.end();
+            return ;
+        }
+        if(connected === false) {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+    static async DELETE_SESSION_USER(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        let username = cookie.substr(0,cookie.search("="));
+        let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        let userType = await userModel.getUserTypeByUsername(username);
+        if(connected === true && userType === 'admin') {
+            //obtinem numele userului
+
+            var body = '';
+            await request.on('data', chunk => {
+                body += chunk;
+            }); 
+            await request.on('end', async () => { 
+                var answer = await settingsModel.deleteSessions();
+                if(answer != null) {
                     response.statusCode = 202;
                     response.end();
                     return ;
@@ -283,7 +563,7 @@ module.exports = class adminPageController {
                 var newRecipeName = JSON.parse(body).newRecipeName;
                 //modificam numele retetei
                 let answer = await recipeModel.modifyRecipeNameByName(recipeName, newRecipeName); 
-                let answer1 = await recipeModel.modifyRecipePhotoByName(recipeName,'data/recipes/' + newRecipeName + "/recipePhoto.jpg");
+                let answer1 = await recipeModel.modifyRecipePhotoByName(newRecipeName,'data/recipes/' + newRecipeName + "/recipePhoto.jpg");
                 if(answer1 === true && answer === true) {
                         response.statusCode = 202;
                         response.end('recipeName:' + newRecipeName);
@@ -305,6 +585,149 @@ module.exports = class adminPageController {
             return ;
         }
     }
+
+    static async PATCH_USERNAME(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        let username = cookie.substr(0,cookie.search("="));
+        let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        let userType = await userModel.getUserTypeByUsername(username);
+        if(connected === true && userType === 'admin') {
+            //obtinem numele retetei de la user
+
+            var body = '';
+            await request.on('data', chunk => {
+                body += chunk;
+            }); 
+            await request.on('end', async () => { 
+                var username = JSON.parse(body).username;
+                var newUsername = JSON.parse(body).newUsername;
+                //modificam numele retetei
+                let answer = await userModel.modifyUsernameByName(username, newUsername); 
+                let answerPhoto = await userModel.getUserPhoto(newUsername);
+                let answer1 = true;
+                if(answerPhoto != null && answerPhoto != undefined)
+                    answer1 = await userModel.modifyUserPhotoByName(newUsername,'data/users/' + newUsername.replaceAll('%20', ' ') + "/user.jpg");
+                if(answer1 === true && answer === true) {
+                        response.statusCode = 202;
+                        response.end('username:' + newUsername);
+                        return ;
+                }
+                response.statusCode = 406;
+                response.end();
+                return ;
+            });
+        }
+        if(connected === true && userType !== 'admin') {
+            response.statusCode = 403;
+            response.end();
+            return ;
+        }
+        if(connected === false) {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+    static async PATCH_PASSWORD(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        if(cookie != undefined) {
+            let username = cookie.substr(0,cookie.search("="));
+            let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+            let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+            let userType = await userModel.getUserTypeByUsername(username);
+            if(connected === true && userType === 'admin') {
+                //obtinem numele retetei de la user
+
+                var body = '';
+                await request.on('data', chunk => {
+                    body += chunk;
+                }); 
+                await request.on('end', async () => { 
+                    var username = JSON.parse(body).username;
+                    var password = JSON.parse(body).password;
+                    //modificam numele retetei
+                    let answer = await userModel.modifyPassword(password,username);
+                    if(answer === true) {
+                            response.statusCode = 202;
+                            response.end('password:' + password);
+                            return ;
+                    }
+                    response.statusCode = 406;
+                    response.end();
+                    return ;
+                });
+            }
+            if(connected === true && userType !== 'admin') {
+                response.statusCode = 403;
+                response.end();
+                return ;
+            }
+            if(connected === false) {
+                response.statusCode = 404;
+                response.end();
+                return ;
+            }
+        }
+        else {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+    static async PATCH_USER_TYPE(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        if(cookie != undefined) {
+            let username = cookie.substr(0,cookie.search("="));
+            let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+            let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+            let userType = await userModel.getUserTypeByUsername(username);
+            if(connected === true && userType === 'admin') {
+                //obtinem numele retetei de la user
+
+                var body = '';
+                await request.on('data', chunk => {
+                    body += chunk;
+                }); 
+                await request.on('end', async () => { 
+                    var username = JSON.parse(body).username;
+                    var type = JSON.parse(body).type;
+                    //modificam numele retetei
+                    let answer = await userModel.modifyUserType(username, type);
+                    if(answer === true) {
+                            response.statusCode = 202;
+                            response.end('type:' + type);
+                            return ;
+                    }
+                    response.statusCode = 406;
+                    response.end();
+                    return ;
+                });
+            }
+            if(connected === true && userType !== 'admin') {
+                response.statusCode = 403;
+                response.end();
+                return ;
+            }
+            if(connected === false) {
+                response.statusCode = 404;
+                response.end();
+                return ;
+            }
+        }
+        else {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+
 
     static async PATCH_RECIPE_PHOTO(request, response) {
         //verificam daca datele credentialele userului sunt bune
@@ -381,6 +804,92 @@ module.exports = class adminPageController {
         }
     }
 
+    static async PATCH_USER_PHOTO(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        if(cookie != undefined) {
+            let username = cookie.substr(0,cookie.search("="));
+            let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+            let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+            let userType = await userModel.getUserTypeByUsername(username);
+            if(connected === true && userType === 'admin') {
+                //obtinem numele retetei de la user
+                var form = new formidable.IncomingForm({ multiples: true});
+                form.parse(request, async function (err, fields, files) {
+                    if (err) {//Presupunem ca daca am intampinat o eroare in acest moment, este vina serverului si trimitem status 500
+                        console.log(err); 
+                        response.statusCode = 500;
+                        response.end('Internal server error!');
+                        return ;
+                    } 
+                    else {
+                        var username = fields.username;
+                    
+                        //obtinem toate pozele din FormData(files)
+                        var userPhoto = files.userPhoto;
+                        
+                        //verificam ca userul a trimis poze si nu alte lucruri
+                        if(userPhoto.type != 'image/jpeg' && userPhoto.type != 'image/png' && userPhoto.type != 'image/svg+xml') {
+                            response.statusCode = 406;
+                            response.end();
+                            return ;
+                        }
+    
+                        //salvam poza retetei
+                        var pathUser = "data/users/" + username;
+                        var typeUserPhoto;
+                        console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
+                        console.log(userPhoto.type);
+                        console.log('FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF');
+                        if(userPhoto.type == 'image/jpeg') 
+                            typeUserPhoto = 'jpg'
+                        else if(userPhoto.type == 'image/png') 
+                            typeUserPhoto = 'png';
+                        else if(userPhoto.type == 'image/svg+xml') 
+                            typeUserPhoto = 'svg';
+                        var newPath = pathUser + "/" + "user." + typeUserPhoto;
+                        var oldPath = userPhoto.path;
+                        try {
+                            fs.renameSync(oldPath, newPath);
+                        }
+                        catch(e) {
+                            console.log(e);
+                            response.statusCode = 500;
+                            response.end();
+                            return ;
+                        }
+                        //modificam in baza de date calea catre reteta
+                        let answer = await userModel.modifyUserPhoto1(newPath,username);
+                        if(answer === true) {
+                            response.statusCode = 202;
+                            response.end('userPhoto:/' + newPath.substr(5));
+                            return ;
+                        }
+                        response.statusCode = 500;
+                        response.end();
+                        return ;
+                    }
+                });
+            }
+            if(connected === true && userType !== 'admin') {
+                response.statusCode = 403;
+                response.end();
+                return ;
+            }
+            if(connected === false) {
+                response.statusCode = 404;
+                response.end();
+                return ;
+            }
+        }
+        else {
+            response.statusCode = 404;
+            response.end();
+            return ;
+        }
+    }
+
+
     static async PATCH_RECIPE_TIME(request, response) {
         //verificam daca datele credentialele userului sunt bune
         let cookie = request.headers.cookie;
@@ -407,6 +916,88 @@ module.exports = class adminPageController {
                             response.end('prepTime:' + newNumber);
                         else 
                             response.end('finTime:' + newNumber);
+                        return ;
+                }
+                response.statusCode = 406;
+                response.end();
+                return ;
+            });
+        }
+        if(connected === true && userType !== 'admin') {
+            response.statusCode = 403;
+            response.end();
+            return ;
+        }
+        if(connected === false) {
+            response.statusCode = 404;
+            response.write('Page not found!');
+            response.end();
+            return ;
+        }
+    }
+
+    static async PATCH_NR_INGREDIENTE(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        let username = cookie.substr(0,cookie.search("="));
+        let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        let userType = await userModel.getUserTypeByUsername(username);
+        if(connected === true && userType === 'admin') {
+            //obtinem numele retetei de la user
+
+            var body = '';
+            await request.on('data', chunk => {
+                body += chunk;
+            }); 
+            await request.on('end', async () => { 
+                var nringrediente = JSON.parse(body).nringrediente;
+                //modificam numele retetei
+                let answer = await settingsModel.modifyNumarIngrediente(nringrediente); 
+                if(answer === true) {
+                        response.statusCode = 202;
+                        response.end('nringrediente:' + nringrediente)
+                        return ;
+                }
+                response.statusCode = 406;
+                response.end();
+                return ;
+            });
+        }
+        if(connected === true && userType !== 'admin') {
+            response.statusCode = 403;
+            response.end();
+            return ;
+        }
+        if(connected === false) {
+            response.statusCode = 404;
+            response.write('Page not found!');
+            response.end();
+            return ;
+        }
+    }
+
+    static async PATCH_NR_INSTRUCTIUNI(request, response) {
+        //verificam daca datele credentialele userului sunt bune
+        let cookie = request.headers.cookie;
+        let username = cookie.substr(0,cookie.search("="));
+        let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
+        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        let userType = await userModel.getUserTypeByUsername(username);
+        if(connected === true && userType === 'admin') {
+            //obtinem numele retetei de la user
+
+            var body = '';
+            await request.on('data', chunk => {
+                body += chunk;
+            }); 
+            await request.on('end', async () => { 
+                var nrinstructiuni = JSON.parse(body).nrinstructiuni;
+                //modificam numele retetei
+                let answer = await settingsModel.modifyNumarInstructiuni(nrinstructiuni); 
+                if(answer === true) {
+                        response.statusCode = 202;
+                        response.end('nrinstructiuni:' + nrinstructiuni);
                         return ;
                 }
                 response.statusCode = 406;

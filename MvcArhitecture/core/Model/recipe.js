@@ -80,6 +80,7 @@ module.exports = class recipe {
         };
     }
 
+
     async updateNumberIngredients(recipeName, number) {
         let pgQuery = 'UPDATE public.recipe SET nr_ingredients = $1 WHERE public.recipe.recipe_name = $2';
         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
@@ -197,6 +198,7 @@ module.exports = class recipe {
         }
         return Promise.resolve(null);
     } 
+
 
     async getAllInfoAboutRecipe(recipeName) {
         let pgQuery = 'SELECT * FROM public.recipe WHERE public.recipe.recipe_name = $1;';
@@ -324,6 +326,8 @@ module.exports = class recipe {
         }
         return Promise.resolve(true);
     }
+
+
 
     async modifyRecipePrepTimeByName(recipeName, newNumber, type) {
         let pgQuery;

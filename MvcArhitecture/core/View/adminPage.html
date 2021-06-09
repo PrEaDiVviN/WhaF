@@ -47,18 +47,37 @@
 
                 </div>
                 <div class="viewUsers">
-                    <div class="card">
-                        <img src="/deleteButtonUser.png" alt="delete" class="deleteButton" onclick="alert('DELETING ITEM')">
-                        <img src="/settingsButtonUser.png" alt="settings" class="settingsButton" onclick="alert('EDITING ITEM')">
-                        <img src="/user.png" alt="Avatar">
-                        <div class="container">
-                        <h4><b>John Doe</b></h4>
-                        <p>Architect & Engineer</p>
-                        </div>
-                    </div> 
+                    ${usersCards}
                 </div>
-                <div class="viewPanelRecipes">Panel recipes</div>
-                <div class="viewPanelUsers">Panel users</div>
+                <div class="viewPanelRecipes">
+                    <h1 style="font-size: 4vw;">Panel control recipes</h1>
+                    <p id = "nringredients"><strong>Numarul ingredientelor maxim este: </strong>${ingrediente}</p>
+                    <form>
+                        <input id="inputChangeNrIngrediente" type="number" placeholder="Numar nou de ingrediente">
+                        <button type="button" id="changeNrIngrediente" onclick="modifyNrIngrediente()">Change number ingredients</button>
+                    </form>
+
+                    <p id = "nrinstructions"><strong>Numarul instructiunilor maxim este: </strong>${instructiuni}</p>
+                    <form>
+                        <input id="inputChangeNrInstructiuni" type="number" placeholder="Numar nou de instructiuni">
+                        <button type="button" id="changeNrInstructiuni" onclick="modifyNrInstructiuni()">Change number instructions</button>
+                    </form>
+
+                </div>
+                <div class="viewPanelUsers">
+                    <h1 style="font-size: 4vw;">Panel control users</h1>
+                    <p id = "nringredients" style="visibility: hidden;"><strong>Numarul ingredientelor maxim este: </strong>${ingrediente}</p>
+                    <form>
+                        <input style="visibility: hidden;" id="inputChangeNrIngrediente" type="number" placeholder="Numar nou de ingrediente">
+                        <button type="button" id="changeNrIngrediente" onclick="deleteSessionTable()">Disconnect all normal users</button>
+                    </form>
+
+                    <p id = "nrinstructions" style="visibility: hidden;"><strong>Numarul instructiunilor maxim este: </strong>${instructiuni}</p>
+                    <form style="visibility: hidden;">
+                        <input id="inputChangeNrInstructiuni" type="number" placeholder="Numar nou de instructiuni">
+                        <button type="button" id="changeNrInstructiuni" onclick="modifyNrInstructiuni()">Change number instructions</button>
+                    </form>
+                </div>
             </div>
             <div class = "footer"> 
                 <div class="center">

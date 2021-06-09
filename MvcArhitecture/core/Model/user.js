@@ -75,13 +75,24 @@ module.exports = class user {
     async modifyPassword(password, username) {
         const queryText = 'UPDATE public.user SET user_passwd = $1 WHERE public.user.username = $2;';
         try {
-            await transaction.query(queryText, [password, username]);
+            await client.query(queryText, [password, username]);
         }
         catch(e) {
-          return false;
+          return Promise.resolve(false);
         }
-        return true;
+        return Promise.resolve(true);
     }
+
+    async modifyUserType(username, type) {
+      const queryText = 'UPDATE public.user SET type = $1 WHERE public.user.username = $2;';
+      try {
+          await client.query(queryText, [type, username]);
+      }
+      catch(e) {
+        return Promise.resolve(false);
+      }
+      return Promise.resolve(true);
+  }
    
    async modifybirthDate(birthDate, username) {
         const queryText = 'UPDATE public.user SET birth = $1 WHERE public.user.username = $2;';
@@ -108,10 +119,22 @@ module.exports = class user {
             fs.renameSync(oldPath, photoPath);
         }
         catch(e) {
-            return false;
+            return Promise.resolve(false);
         }
-        return true;
+        return Promise.resolve(true);
    }
+   
+   async modifyUserPhoto1(userPhoto, username) {
+    const queryText = 'UPDATE public.user SET photo = $1 WHERE public.user.username = $2;';
+    try {
+        await client.query(queryText, [userPhoto, username]);
+    }
+    catch(e) {
+        return Promise.resolve(false);
+    }
+    return Promise.resolve(true);
+  }
+
 
     async modifyUserDatas(firstName, lastName, email, username, newUsername, password, birthDate, userPhoto) {
       
@@ -340,6 +363,139 @@ module.exports = class user {
         };
     }
 
+    async getPassword(username) {
+      let pgQuery = { 
+          name: 'GetUserPasswordByUsername',
+          text: 'SELECT user_passwd FROM public.user WHERE public.user.username = $1',
+          values: [username],  
+      };
+      console.log('ELENAELENAELENAELENAELENAELENAELENAELENAELENAELENAELENAELENA');
+      console.log(username);
+      console.log('ELENAELENAELENAELENAELENAELENAELENAELENAELENAELENAELENAELENA');
+      try {
+          let answer = await client.query(pgQuery);
+          if(answer != null && answer.rows != null) {
+              let password = answer.rows[0].user_passwd;
+              return Promise.resolve(password);
+          }
+          else 
+              return Promise.resolve(null);
+      }
+      catch(e1) {
+        console.log(e1);
+        return Promise.resolve(null);
+      };
+  }
+
+  async modifyUserPhotoByName(username, newPhoto) {
+    let pgQuery = 'UPDATE public.user SET photo = $1 WHERE username = $2';
+    let values = [newPhoto, username]; 
+    try {
+        await client.query(pgQuery,values);
+    }
+    catch(e) {
+        console.log(e);
+        return Promise.resolve(null);
+    }
+    return Promise.resolve(true);
+  }
+
+  async modifyUsernameByName(username, newUsername) {
+    let pgQuery = 'UPDATE public.user SET username = $1 WHERE username = $2';
+    let values = [newUsername, username]; 
+    try {
+        await client.query(pgQuery,values);
+        //modificam si numele folderului
+        let pathUser = 'data/users/' + username;
+        let newPathUser = 'data/users/' + newUsername;
+        try {
+           fs.renameSync(pathUser,newPathUser);
+        }
+        catch(e) {
+            console.log(e);
+            console.log('FOULDER NOT FOUND!');
+            let changeback = [username, newUsername];
+            await client.query(pgQuery, changeback);
+            return Promise.resolve(null);
+        }
+    }
+    catch(e) {
+        console.log(e);
+        return Promise.resolve(null);
+    }
+    return Promise.resolve(true);
+}
+
+
+  async getUserStatus(username) {
+    let pgQuery = { 
+        name: 'GetUserStatusByUsername',
+        text: 'SELECT type FROM public.user WHERE public.user.username = $1',
+        values: [username],  
+    };
+    try {
+        let answer = await client.query(pgQuery);
+        if(answer != null) {
+            let status = answer.rows[0].type;
+            return Promise.resolve(status);
+        }
+        else 
+            return Promise.resolve(null);
+    }
+    catch(e1) {
+      console.log(e1);
+      return Promise.resolve(null);
+    };
+  }
+
+  async getUserPhoto(username) {
+    let pgQuery = { 
+        name: 'GetUserPhotoByUsername',
+        text: 'SELECT photo FROM public.user WHERE public.user.username = $1',
+        values: [username],  
+    };
+    try {
+        let answer = await client.query(pgQuery);
+        if(answer != null && answer.rows != null && answer.rows[0] != undefined) {
+            let photo = answer.rows[0].photo;
+            return Promise.resolve(photo);
+        }
+        else 
+            return Promise.resolve(null);
+    }
+    catch(e1) {
+      console.log(e1);
+      return Promise.resolve(null);
+    };
+  }
+
+    
+    async deleteUser(username, userId) {
+      let pgQuery1 = 'UPDATE public.recipe SET user_id = 1 WHERE user_id = $1';
+      let pgQuery2 = 'DELETE FROM public.user WHERE username = $1';
+      let values1 = [userId];
+      let values2 = [username];
+      try {
+          await transaction.query('BEGIN');
+          await transaction.query(pgQuery1,values1);
+          await transaction.query(pgQuery2,values2);
+          let pathRecipe = 'data/users/' + username;
+          try {
+              fs.rmSync(pathRecipe, { recursive: true });
+          }
+          catch(e) {
+              console.log(e);
+              console.log('FOULDER NOT FOUND!');
+          }
+          await transaction.query('COMMIT');
+          return Promise.resolve(true);
+      } catch (e) {
+          console.log(e);
+          await transaction.query('ROLLBACK');
+          return Promise.resolve(null);
+      }
+  }
+
     async getUserTypeByUsername(username) {
       let pgQuery = { 
           name: 'GetUserTypeByUsername',
@@ -424,6 +580,30 @@ module.exports = class user {
             console.log(err);
         });
     }
+
+    async getNamePhotoTypeFromAllUsers(skip, count) {
+      let pgQuery = 'SELECT * FROM public.user LIMIT $1 OFFSET $2;';
+      let values = [count, skip];
+      let data = await client.query(pgQuery,values);
+
+      let usernames = [];
+      let userTypes = [];
+      let userPhotos = [];
+
+      if(data != null && data.rows[0] != undefined) {
+              for(let i = 0; i < data.rows.length; i++) {
+                  usernames.push(data.rows[i].username);
+                  if(data.rows[i].photo != null)
+                    userPhotos.push(data.rows[i].photo.substr(5).replaceAll('%20', ' '));
+                  else
+                    userPhotos.push(null);
+                  userTypes.push(data.rows[i].type);
+          }
+          return Promise.resolve({usernames: usernames, userPhotos: userPhotos, userTypes: userTypes});
+      }
+      return Promise.resolve(null);
+  }
+
     
 }
 

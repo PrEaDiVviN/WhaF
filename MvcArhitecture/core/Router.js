@@ -57,7 +57,7 @@ module.exports = (request, response) => {
                     break;
                     case "/adminPage.html":
                         adminPageController.GET(request,response);
-                    break;    
+                    break;
                     default:    
                         if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
                             ||request.url.includes('.jpg') || request.url.includes('.png') || request.url.includes('.svg'))) {//daca suntem pe recipe
@@ -65,11 +65,12 @@ module.exports = (request, response) => {
                             if(request.url.substr(request.url.length - 5) === '.html')//daca se termina in .html, atunci trebuie sa trimitem View-ul
                                 recipePageController.GET(request,response);
                             else {//altfel trebuie sa trimitem pozele viewului
+                                let reqUrl = request.url.replaceAll('%20', ' ');
                                 var photoPath;
                                 if(request.url.includes('?'))
-                                    photoPath = "data/" + request.url.replace('%20',' ').substr(0,request.url.replace('%20',' ').indexOf('?'));
+                                    photoPath = "data/" + reqUrl.substr(0,reqUrl.indexOf('?'));
                                 else
-                                    photoPath = "data/" + request.url.replace('%20',' ');
+                                    photoPath = "data/" + reqUrl;
                                 //TODO, tipuri fotografii  
                                 try {
                                     response.statusCode = 200;
@@ -83,18 +84,40 @@ module.exports = (request, response) => {
                             }
                         }
                         else if(request.url.substr(0,6) === '/users') {
-                            var filePath = 'data/' + request.url.replace('%20',' ');
-                            console.log(filePath);
-                            try {
-                                response.statusCode = 200;
-                                fs.createReadStream(filePath).pipe(response);
+                            if(request.url.includes('?') == false) {
+                                console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+                                console.log('AM intrat');
+                                console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
+                                var filePath = 'data/' + request.url.replaceAll('%20',' ');
+                                console.log(filePath);
+                                try {
+                                    response.statusCode = 200;
+                                    fs.createReadStream(filePath).pipe(response);
+                                }
+                                catch(e) {
+                                    console.log(e);
+                                    response.statusCode = 404;
+                                    response.end();
+                                }
                             }
-                            catch(e) {
-                                console.log(e);
-                                response.statusCode = 404;
-                                response.end();
+                            else {
+                                let reqUrl = request.url.replaceAll('%20', ' ');
+                                var photoPath;
+                                if(request.url.includes('?'))
+                                    photoPath = "data/" + reqUrl.substr(0,reqUrl.indexOf('?'));
+                                try {
+                                    response.statusCode = 200;
+                                    fs.createReadStream(photoPath).pipe(response);
+                                }
+                                catch(e) {
+                                    console.log(e);
+                                    response.statusCode = 404;
+                                    response.end();
+                                }
                             }
                         }
+                        else if(request.url.substr(request.url.length-4) === '.tfl')     
+                            adminPageController.GET_USER_SETTINGS(request, response);
                         else {
                             var splitRoute = request.url.split("/");
                             var file = splitRoute[splitRoute.length-1];
@@ -143,8 +166,12 @@ module.exports = (request, response) => {
                     case "/deleteRecipe":
                         adminPageController.DELETE_RECIPE(request, response);
                     break;
-                    //add default 400
-                        
+                    case "/userSkipAndCount":
+                        adminPageController.GET_USERS(request,response);
+                    break;
+                    default:
+                        response.statusCode = 404;
+                        response.end();
                 }
             break;
             case "DELETE": 
@@ -155,7 +182,15 @@ module.exports = (request, response) => {
                     case "/deleteIngredient":
                         adminPageController.DELETE_INGREDIENT(request,response);
                     break;
+                    case "/deleteUser":
+                        adminPageController.DELETE_USER(request,response); 
+                    break;
+                    case "/deleteSessionTable":
+                        adminPageController.DELETE_SESSION_USER(request,response);
+                    break;
                     default:
+                        response.statusCode = 404;
+                        response.end();
                 }
             break; 
             case "PATCH": 
@@ -178,7 +213,27 @@ module.exports = (request, response) => {
                     case "/modifyRecipe/addInstructions":
                         adminPageController.PATCH_RECIPE_INSTRUCTIONS(request, response);
                     break;
+                    case "/modifyUser/userName":
+                        adminPageController.PATCH_USERNAME(request,response);
+                    break;
+                    case "/modifyUser/userPhoto":
+                        adminPageController.PATCH_USER_PHOTO(request,response);
+                    break;
+                    case "/modifyUser/password":
+                        adminPageController.PATCH_PASSWORD(request,response);
+                    break;
+                    case "/modifyUser/Type":
+                        adminPageController.PATCH_USER_TYPE(request,response);
+                    break;
+                    case "/modifyPanelRecipe/nringrediente": 
+                        adminPageController.PATCH_NR_INGREDIENTE(request,response);
+                    break;
+                    case "/modifyPanelRecipe/nrInstructiuni":
+                        adminPageController.PATCH_NR_INSTRUCTIUNI(request,response);
+                    break;
                     default:
+                        response.statusCode = 404;
+                        response.end();
                 }
             break;
             case "OPTIONS": 
@@ -193,70 +248,6 @@ module.exports = (request, response) => {
             default: 
                 console.log("Not a valid request!");
         }
-    }
-// module.exports.Router = Router;
-
-function getPhoto(response, path) {
-   fs.readFile(path, function(err, data) {
-      if (err) throw err;
-      response.writeHead(200, {'Content-Type': 'image/png'});
-      response.end(data); 
-    });
-}
-
-function getCSS(response, path) {
-   fs.readFile(path, function(err, data) {
-      if (err) throw err;
-      response.writeHead(200, {'Content-Type': 'text/css'});
-      response.end(data); 
-    });
-}
-
-function getJS(response, path) {
-   fs.readFile(path, function(err, data) {
-      if (err) throw err;
-      response.writeHead(200, {'Content-Type': 'text/javascript'});
-      response.end(data); 
-    });
-}
-
-function getFormDataLogin(request,response) {
  
-    const FORM_URLENCODED = 'application/x-www-form-urlencoded';
-    const JSON_URL = 'application/json';
-    var body = '';
- 
-    if (request.headers['content-type'] === FORM_URLENCODED) {
-            request.on('data', chunk => {
-            body += chunk;
-        }); 
-    
-        request.on('end', () => {
-            //folosim querystring.parse() pentru a le separa
-            var username = querystring.parse(body).username;
-            var password = querystring.parse(body).password;
-            console.log(username);
-            user = new User();
-            user.verifyUserCredentials(username,password, response);
 
-    });
-    
-    }
-    else if(request.headers['content-type'] === JSON_URL) {
-        request.on('data', chunk => {
-            body += chunk;
-        }); 
-        request.on('end', () => {
-            
-            //folosim querystring.parse() pentru a le separa
-            var username = JSON.parse(body).username;
-            var password = JSON.parse(body).password;
-            console.log(username);
-            console.log(password);
-            console.log('############################################################################');
-            ruser = new User();
-            ruser.verifyUserCredentials(username,password, response);
-
-        });
-    }
 }

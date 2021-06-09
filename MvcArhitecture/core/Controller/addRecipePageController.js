@@ -1,11 +1,12 @@
 const fs = require('fs');
 const user = require('../Model/user.js');
 const recipe = require('../Model/recipe.js');
-const Tokenizer = require('../../utility/tokenizer.js');
+const settings = require('../Model/settings.js');
 const formidable = require('formidable');
 
 const userModel = new user();
 const recipeModel = new recipe();
+const settingsModel = new settings();
 
 module.exports = class addRecipePageController {
     static async GET(request, response) {
@@ -19,8 +20,26 @@ module.exports = class addRecipePageController {
             let SESSION_ID = cookie.substr(cookie.search("=") + 1,cookie.length);
             let connected = await userModel.validateUserCredentials(username,SESSION_ID);
             if(connected === true) {
-                fs.readFile('core/View/addRecipePage.html', (err, buffer) => {
-                    const username = cookie.substr(0,cookie.search("="));
+                fs.readFile('core/View/addRecipePage.html', async (err, buffer) => {
+                    let nringredients = `<select id="nringrediente" name="nringrediente" onchange="addIngredient()">
+                    <option value="none">Niciunul</option>
+                    <option value="1" selected>1</option>`;
+                    let nrIng = await settingsModel.getNrIngrediente();
+                    for (let i = 1; i < nrIng; i++) {
+                        nringredients = nringredients + '<option value="' + (i + 1) + '">'+ (i+1) + '</option>';
+                    }
+                    nringredients = nringredients + '</select>';
+                  
+
+                    let nrIns = await settingsModel.getNrInstructiuni();
+                    let nrinstructions = `<select id="nrinstructiuni" name="nrinstructiuni" onchange="addInstruction()">
+                    <option value="none" >Niciuna</option>
+                    <option value="1" selected>1</option>`;
+                    for(let i = 1; i < nrIns; i++) {
+                        nrinstructions = nrinstructions + '<option value="' + (i + 1) + '">'+ (i+1) + '</option>';
+                    }
+                    nrinstructions = nrinstructions + `</select>`;
+
                     let data = eval(buffer.toString());
                     response.writeHead(200,{'Content-type': 'text/html'});
                     response.write(data);

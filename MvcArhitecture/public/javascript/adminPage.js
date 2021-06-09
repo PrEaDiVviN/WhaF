@@ -128,6 +128,54 @@ function updateMinusPageRecipe() {
     xhr.send(JSON.stringify({direction: 'down', skip: skip, count: count}));
 }
 
+
+function updatePlusPageUser() {
+    pageUsers += 25;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/userSkipAndCount", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let viewUsers = document.getElementsByClassName('viewUsers')[0];
+            viewUsers.innerHTML = '';
+            viewUsers.innerHTML = this.responseText;
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            //alert('There are no more files to load!');
+            pageUsers -= 25;
+        }
+    }
+
+    let skip = new String(pageUsers);
+    let count = new String(25);
+    xhr.send(JSON.stringify({direction: 'up', skip: skip, count: count}));
+}
+
+function updateMinusPageUser() {
+    pageUsers -= 25;
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/userSkipAndCount", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let viewRecipes = document.getElementsByClassName('viewUsers')[0];
+            viewRecipes.innerHTML = '';
+            viewRecipes.innerHTML = this.responseText;
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            //alert('There are no more files to load!');
+            pageUsers += 25;
+        }
+    }
+
+    let skip = new String(pageUsers);
+    let count = new String(25);
+    xhr.send(JSON.stringify({direction: 'down', skip: skip, count: count}));
+}
+
+
 function deleteRecipe(deleteBtn) {
     let id = deleteBtn.id;
     let nr = 0;
@@ -162,7 +210,63 @@ function deleteRecipe(deleteBtn) {
     xhr.send(JSON.stringify({recipeName: recipeName}));
 }
 
-function modifyRecipeName() {
+function deleteSessionTable() {
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/deleteSessionTable", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+            alert('All normal users will be discconnected soon!');
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            alert('Page not found! Seems, that the page does not exist!');
+        }
+        else if(this.readyState === XMLDocument.DONE && this.status === 403) {
+            alert('Forbidden! You are not allow to access this page! If you are an admin, request control from the owner!');
+        }
+        else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+            alert('Internal server error!');
+        }
+    }
+    xhr.send(JSON.stringify({}));
+}
+
+function deleteUser(deleteBtn) {
+    let id = deleteBtn.id;
+    let nr = 0;
+    let i = id.length - 1;
+    let pow = 1;
+    while(id.charAt(i) >= '0' && id.charAt(i) < '9') {
+        nr = nr + parseInt(id.charAt(i)) * pow;
+        pow = pow * 10;
+        i--;
+    }
+    let item = document.getElementById('user' + nr);
+    let username = item.innerText;
+    var xhr = new XMLHttpRequest();
+    xhr.open("DELETE", "/deleteUser", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+            let user = document.getElementById('carduser' + nr);
+            user.remove();
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            alert('Page not found! Seems, that the page does not exist!');
+        }
+        else if(this.readyState === XMLDocument.DONE && this.status === 403) {
+            alert('Forbidden! You are not allow to access this page! If you are an admin, request control from the owner!');
+        }
+        else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+            alert('Internal server error!');
+        }
+    }
+    xhr.send(JSON.stringify({username: username}));
+}
+
+function modifyRecipeName(tour) {
     let input = document.getElementById('inputChangeName');
     let text = input.value;
     if(text === '') 
@@ -176,6 +280,9 @@ function modifyRecipeName() {
             if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
                 let recipe = document.getElementById('pageName');
                 recipe.innerText = this.responseText.substr(this.responseText.search(':') + 1);
+                //window.history.pushState({ 'stat': 1 },'','/recipe/' + recipeName + '.html');
+                window.history.replaceState({ 'stat': 1 }, "WhatF - Cele mai bune retete existente!", '/recipe/' + text + '.html');
+                //window.location =  '/recipe/' + recipeName + '.html';
             } 
             else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
                 alert('The current recipe name already exists! Please, try another name!');
@@ -187,8 +294,117 @@ function modifyRecipeName() {
         let recipeName = document.getElementById('pageName').innerText;
         xhr.send(JSON.stringify({recipeName: recipeName, newRecipeName: text}));
     }
-
 }
+
+function modifyNrIngrediente() {
+    let input = document.getElementById('inputChangeNrIngrediente');
+    let text = input.value;
+    if(text == '' || text == null || text == undefined || (text < 0 || text > 9999) ) 
+        alert('Va rugam sa introduceti un alt numar valid inainte de a incerca sa schimbati numarul de ingrediente a unei retete!');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyPanelRecipe/nringrediente", true);
+        xhr.setRequestHeader("Content-Type","application/json");
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let ingredients = document.getElementById('nringredients');
+                ingredients.innerHTML = `<strong>Numarul ingredientelor maxim este: </strong>` + this.responseText.substr(this.responseText.search(':') + 1);
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The current number is invalid!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        xhr.send(JSON.stringify({nringrediente: text}));
+    }
+}
+
+function modifyNrInstructiuni() {
+    let input = document.getElementById('inputChangeNrInstructiuni');
+    let text = input.value;
+    if(text == '' || text == null || text == undefined || (text < 0 || text > 9999) ) 
+        alert('Va rugam sa introduceti un alt numar valid inainte de a incerca sa schimbati numarul de ingrediente a retetelor!');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyPanelRecipe/nrInstructiuni", true);
+        xhr.setRequestHeader("Content-Type","application/json");
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let instructions = document.getElementById('nrinstructions');
+                instructions.innerHTML = `<strong>Numarul instructiunilor maxim este: </strong>` + this.responseText.substr(this.responseText.search(':') + 1);
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The current number is invalid!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        xhr.send(JSON.stringify({nrinstructiuni: text}));
+    }
+}
+
+function modifyUserName() {
+    let input = document.getElementById('inputChangeName');
+    let text = input.value;
+    if(text === '') 
+        alert('Va rugam sa introduceti un alt nume inainte de a incerca sa schimbati numele userului');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyUser/userName", true);
+        xhr.setRequestHeader("Content-Type","application/json");
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let username = document.getElementById('pageName');
+                username.innerText = this.responseText.substr(this.responseText.search(':') + 1);
+                window.history.replaceState({ 'stat': 1 }, "WhatF - Cele mai bune retete existente!", '/' + text + '.tfl');
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The current username already exists! Please, try another name!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        let username = document.getElementById('pageName').innerText;
+        xhr.send(JSON.stringify({username: username, newUsername: text}));
+    }
+}
+
+//<strong>Parola userului: </strong>marius1
+
+function modifyPassword() {
+    let input = document.getElementById('inputChangePassword');
+    let text = input.value;
+    if(text === '') 
+        alert('Va rugam sa introduceti un alta parola inainte de a incerca sa schimbati parola userului');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyUser/password", true);
+        xhr.setRequestHeader("Content-Type","application/json");
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let password = document.getElementById('password');
+                password.innerHTML = '<strong>Parola userului: </strong> ' + this.responseText.substr(this.responseText.search(':') + 1);
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The current username already exists! Please, try another name!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        let username = document.getElementById('pageName').innerText;
+        xhr.send(JSON.stringify({username: username, password: text}));
+    }
+}
+
 
 function changeRecipePhoto1() {
     let image = document.getElementById('inputChangeRecipePhoto').files[0];
@@ -224,6 +440,45 @@ function changeRecipePhoto1() {
         let recipeName = document.getElementById('pageName').innerText;
         formData.append("recipeName", recipeName);
         formData.append("recipePhoto", image);
+
+        xhr.send(formData);
+    }
+}
+
+function changeUserPhoto1() {
+    let image = document.getElementById('inputChangeUserPhoto').files[0];
+    if(image === undefined) 
+        alert('Va rugam sa introduceti o poza a userului inainte de a incerca sa schimbati poza userului!');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyUser/userPhoto", true);
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let mainPicture = document.getElementsByClassName('mainpicture')[0];
+                //mainPicture.src = this.responseText.substr(this.responseText.search(':') + 1);
+                //<img class="mainpicture" src="${recipePhoto}.jpg" alt="ceva">
+                var image = document.createElement("img");
+                image.setAttribute("class","mainpicture");
+                image.setAttribute("alt", "ceva");
+                image.setAttribute("src", this.responseText.substr(this.responseText.search(':') + 1) + '?' + new Date().getTime());
+                console.log(this.responseText);
+                let wrapper = document.getElementsByClassName('content')[0];
+                wrapper.insertBefore(image, wrapper.children[2]);
+                mainPicture.remove();
+                let newPicture = document.getElementsByClassName('mainpicture')[0];
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The file introduced is not a photo!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        var formData = new FormData();
+        let username = document.getElementById('pageName').innerText;
+        formData.append("username", username);
+        formData.append("userPhoto", image);
 
         xhr.send(formData);
     }
@@ -300,6 +555,36 @@ function changeSelect(type) {
         xhr.send(JSON.stringify({recipeName: recipeName, value : value, type: type}));
     }
 }
+
+function changeSelectStatus() {
+    let input = document.getElementById('status');
+    let value = input.value;
+    if(value === undefined || value === null || value === '') 
+        alert('Va rugam sa introduceti o valoare valida pentru tip cand schimbati tipul userului!');
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("PATCH", "/modifyUser/Type", true);
+        xhr.setRequestHeader("Content-Type","application/json");
+    
+        xhr.onreadystatechange = function() {
+            if(this.readyState === XMLHttpRequest.DONE && this.status === 202) {
+                let elem = document.getElementById('statusText');
+                //<p id = "statusText"><strong>Statusul userului: </strong>${status}</p> 
+                elem.innerHTML = '';
+                elem.innerHTML = '<strong>Statusul userului: </strong>' +  this.responseText.substr(this.responseText.search(':') + 1) ; 
+            } 
+            else if(this.readyState === XMLHttpRequest.DONE && this.status === 406) {
+                alert('The current introduced value is not a valid category/type!');
+            }
+            else if(this.readyState === XMLDocument.DONE && this.status === 500) {
+                alert('Internal server error!');
+            }
+        }
+        let username = document.getElementById('pageName').innerText;
+        xhr.send(JSON.stringify({username: username, type : value}));
+    }
+}
+
 
 function addIngredient() 
 {
@@ -505,4 +790,8 @@ function deleteIngredient(id) {
         }
     }
     xhr.send(JSON.stringify({recipeName: recipeName, instructionText: instructionText}));
+}
+
+function changeLocation(url) {
+    window.location = url;
 }

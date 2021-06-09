@@ -22,8 +22,16 @@ module.exports = class registerLoginController {
                 response.end();
             } 
             else {
-                response.writeHead(200);
-                response.end();
+                fs.stat("core/View/sign-in-sign-up.html", (err, stats) => {
+                    response.statusCode = 200;
+                    response.setHeader('Content-Type', 'text/html');
+                    if(stats) {
+                        fs.createReadStream("core/View/sign-in-sign-up.html").pipe(response);
+                    } else {
+                        response.statusCode = 404;
+                        response.end('Sorry, page not found!');
+                    }
+                }); 
             }
         } 
         else {
@@ -91,6 +99,11 @@ module.exports = class registerLoginController {
                     response.end('Internal Server Error! Please try again and if problem persists, contact the administrator!');
                 }
                 else if(answer === true) {
+                    var pathRecipe = "data/users/" + username;
+                    if (!fs.existsSync(pathRecipe)){
+                        fs.mkdirSync(pathRecipe);
+                    }
+
                     response.statusCode = 201;
                     response.end();        
                 }
