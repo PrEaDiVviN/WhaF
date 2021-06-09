@@ -1,0 +1,71 @@
+`<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<title>What food ? - Toate retele pe care le doresti!</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"> 
+		<link rel="stylesheet" type="text/css" href="/recipePage.css">
+	</head>
+	<body>
+		<div class="viewgrid">
+			<div class="logoimg">
+				<a href="/feedPage.html"><img src="/Logo-final2.png" alt="logo picture"></a>
+			</div>
+			<div class="content">
+				<div class="title">
+					<h1 id="pageName">${username}</h1>
+				</div>
+				<form>
+					<input id="inputChangeName" type="text" placeholder="new name">
+					<button type="button" id="changeName" onclick="modifyUserName()">Change user name</button>
+				</form>
+
+
+				<img class="mainpicture" src="${userPhoto}" alt="ceva">
+				<form>
+					<input id="inputChangeUserPhoto" type="file">
+					<button type="button" id="changeUserPhoto" onclick="changeUserPhoto1()">Change userPhoto</button>
+				</form>
+
+                
+
+				<div class="info">
+                    <p id = "password"><strong>Parola userului: </strong>${password}</p>
+                    <form>
+                        <input id="inputChangePassword" type="text" placeholder="new password">
+                        <button type="button" id="changePassword" onclick="modifyPassword()">Change user name</button>
+                    </form>
+
+					<p id = "statusText"><strong>Statusul userului: </strong>${status}</p> 
+					<form>
+						<select id="status" name="status">
+							<option value="1">Admin</option>
+							<option value="0">User</option>
+						</select>
+						<button type="button" id="changeStatus" onclick="changeSelectStatus()">Change user status</button>
+					</form>  
+				</div>
+
+
+
+				<div class = "footer"> 
+		    		<div class="center">
+						<a href = "https://www.facebook.com/What-The-Food-104673701720853" class = "fa fa-facebook"></a>
+		        		<a href = "https://twitter.com/WhatTheFood13" class = "fa fa-twitter"></a>
+		        		<a href = "https://www.instagram.com/instawhatthefood/" class = "fa fa-instagram"></a>
+		    		</div>
+		    		<div class="right-side">
+		    			<p class="copyright"> © 2021 WhaF. No rights reserved. </p>
+		    			<a class="termeni_si_conditii" href="/termsPolicy.html">Terms and conditions.</a>
+		    		</div>
+		    	</div>
+			</div>
+
+    	</div>
+		<script src = "/recipePage.js"></script>
+		<script src = "/adminPage.js"></script>
+	</body>
+</html>`

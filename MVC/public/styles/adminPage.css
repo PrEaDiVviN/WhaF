@@ -1,0 +1,689 @@
+.viewgrid .footer {
+    height: 70px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+    left: 0;
+    bottom: 0;
+    background-color: rgb(212, 160, 160);
+    color: white;
+    text-align: center;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+  
+  .viewgrid .footer div.center {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .viewgrid .footer div.right-side {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .viewgrid .termeni_si_conditii {
+    margin-right: 15px;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .viewgrid .termeni_si_conditii:hover {
+    color: #921ccd;
+  }
+  
+  .viewgrid .copyright {
+    margin-right: 15px;
+  }
+  
+  .viewgrid .footer div.center .fa {
+    padding: 1vh;
+    font-size: 3vh;
+    width: 3vh;
+    text-align: center;
+    text-decoration: none;
+    margin: 1vh;
+    border-radius: 50%;
+  }
+  
+  .viewgrid .footer div.center .fa:hover {
+    opacity: 0.7;
+  }
+  
+  .viewgrid .footer div.center .fa-facebook {
+    color: white;
+  }
+  
+  .viewgrid .footer div.center .fa-twitter {
+    color: white;
+  }
+  
+  .viewgrid .footer div.center .fa-instagram {
+    color: white;
+  }
+  
+  .viewgrid .navbar {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(212, 160, 160);
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 0.5fr;
+    grid-template-rows: 1fr;
+    grid-gap: 10px;
+  }
+  
+  .viewgrid .navbar .navbar-left {
+    box-sizing: border-box;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .viewgrid .navbar .navbar-left a {
+    margin-left: 30px;
+    display: block;
+    max-width: calc(50% + 15px);
+    max-height: calc(90% + 30px);
+  }
+  
+  .viewgrid .navbar .navbar-left a img {
+    max-width: calc(100% + 15px);
+    max-height: calc(100% + 15px);
+  }
+  
+  .viewgrid .navbar .navbar-right {
+    box-sizing: border-box;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info {
+    width: 95%;
+    height: 75%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr;
+    grid-gap: 2%;
+    padding: 1%;
+    justify-content: center;
+    align-content: center;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .avatar-picture {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .avatar-picture img {
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    padding: 0px;
+    margin: 0px;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .username {
+    box-sizing: border-box;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .username p {
+    object-fit: contain;
+    padding: 0px;
+    margin: 0px;
+    font-family: "Dela Gothic One", cursive;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1vw;
+    color: white;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .redirect {
+    box-sizing: border-box;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #bd5d5d;
+  }
+  
+  .viewgrid .navbar .navbar-right .user-info .redirect a {
+    font-family: "Dela Gothic One", cursive;
+    font-size: 1vw;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    color: white;
+  }
+  
+  .viewgrid .navbar-center {
+    box-sizing: border-box;
+  }
+  
+  body {
+    background-color: rgb(255, 224, 224);
+  } 
+  
+  * {
+    padding: 0px;
+    margin: 0px;                  
+  }
+  
+  .viewgrid {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 0.75fr 9.25fr;
+    overflow-y: auto;
+  }
+  
+  .viewgrid .main-content {
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    padding-left: 7%;
+  }
+  
+  .viewgrid .main-content .viewRecipes {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .viewgrid .main-content .viewRecipes .imageCard {
+    width: 100%;
+    height: 70%;
+    display: block;
+    object-fit: fill;
+  }
+  
+  .viewgrid .main-content .viewUsers {
+    display: none;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .viewgrid .main-content .viewUsers .imageCard {
+    width: 100%;
+    height: 70%;
+    display: block;
+    object-fit: fill;
+  }
+  
+  .viewgrid .main-content .viewPanelRecipes {
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .viewgrid .main-content .viewPanelUsers {
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  form {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  input {
+    display: block;
+    width: 70%;
+    padding: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    border: 1px solid darkgray;
+    font-size: 16px;
+  }
+  
+  button {
+    display: block;
+    width: 30%;
+    padding: 15px;
+    margin-top: 35px;
+    border-radius: 10px;
+    box-shadow: none;
+    border: 1px solid white;
+    background-color: rgb(212, 160, 160);
+    font-size: 20px;
+    color: white;
+  }
+  
+  button:hover {
+    cursor: pointer;
+  }
+  
+  p#nringredients,
+  p#nrinstructions {
+    font-size: 2vw;
+  }
+  
+  .viewgrid .main-content .mySidenav {
+    position: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 100%;
+    width: 7%;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .viewgrid .main-content .mySidenav a {
+    position: relative;
+    left: -100%;
+    transition: 0.3s;
+    padding: 15px;
+    width: 100%;
+    height: 5%;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+  }
+  
+  .viewgrid .main-content .viewRecipes .pagination {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .viewgrid .main-content .viewUsers .pagination {
+    position: relative;
+    bottom: 0px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+  .split-previous {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+  }
+  
+  .previous {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+  
+  .split-next {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+  }
+  
+  .next {
+    grid-column-start: 2;
+    grid-column-end: 3;
+  }
+  
+  .default-buttons {
+    font-family: "Dela Gothic One", cursive;
+    font-size: 1vw;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+    color: white;
+    background-color: #bd5d5d;
+    border: none;
+    width: 10vw;
+    height: 7vh;
+  }
+  
+  .default-buttons:hover {
+    background-color: rgb(212, 160, 160);
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .viewgrid .main-content .mySidenav #pink_background {
+    background-color: rgb(212, 160, 160);
+  }
+  
+  .viewgrid .main-content .mySidenav a:hover {
+    left: 0%;
+  }
+  
+  .viewgrid .main-content .mySidenav .recipes {
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center; /* Horizontal center alignment */
+    background-color: #555;
+  }
+  
+  .viewgrid .main-content .mySidenav .recipes:hover {
+    cursor: pointer;
+  }
+  
+  .viewgrid .main-content .mySidenav .users {
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center; /* Horizontal center alignment */
+    background-color: #555;
+  }
+  
+  .viewgrid .main-content .mySidenav .users:hover {
+    cursor: pointer;
+  }
+  
+  .viewgrid .main-content .mySidenav .panel-recipes {
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center; /* Horizontal center alignment */
+    background-color: #555;
+  }
+  
+  .viewgrid .main-content .mySidenav .panel-recipes:hover {
+    cursor: pointer;
+  }
+  
+  .viewgrid .main-content .mySidenav .panel-users {
+    display: flex;
+    align-items: center; /* Vertical center alignment */
+    justify-content: center; /* Horizontal center alignment */
+    background-color: #555;
+  }
+  
+  .viewgrid .main-content .mySidenav .panel-users:hover {
+    cursor: pointer;
+  }
+  
+  .viewgrid .main-content .card {
+    position: relative;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 15%;
+    height: 27%;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+    margin-bottom: 0px;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .viewgrid .main-content .card {
+      width: 25%;
+      height: 40%;
+    }
+  
+    .default-buttons {
+      width: 20vw;
+      height: 7vh;
+    }
+  }
+  
+  @media screen and (max-width: 700px) {
+    .viewgrid .main-content .card {
+      width: 51%;
+      height: 70%;
+    }
+  
+    .default-buttons {
+      width: 30vw;
+      height: 7vh;
+    }
+  }
+  
+  .viewgrid .main-content .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  }
+  
+  .viewgrid .main-content .card .deleteButton {
+    position: absolute;
+    width: 15%;
+    height: 15%;
+    left: 0px;
+    top: 0px;
+    background-color: #ff4d4d;
+    z-index: 1;
+  }
+  
+  .viewgrid .main-content .card .deleteButton:hover {
+    cursor: pointer;
+    background-color: #ff1a1a;
+  }
+  
+  .viewgrid .main-content .card .settingsButton {
+    position: absolute;
+    width: 15%;
+    height: 15%;
+    right: 0px;
+    top: 0px;
+    background-color: #66ff33;
+    z-index: 1;
+  }
+  
+  .viewgrid .main-content .card .settingsButton:hover {
+    cursor: pointer;
+    background-color: #40ff00;
+  }
+  
+  .viewgrid .main-content .card img {
+    width: 100%;
+    height: 70%;
+    top: 0px;
+    position: relative;
+  }
+  
+  .viewgrid .main-content .container {
+    height: 30%;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    z-index: 1;
+  }
+  
+  @media screen and (max-width: 1100px) and (min-width: 801px) {
+    .viewgrid .navbar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr;
+    }
+    .viewgrid .navbar .navbar-right .user-info .username p {
+      font-size: 2vw;
+    }
+    .viewgrid .navbar .navbar-right .user-info .redirect a {
+      font-size: 2vw;
+    }
+  }
+  
+  @media screen and (max-width: 800px) {
+    .viewgrid {
+      grid-template-columns: 1fr;
+      grid-template-rows: 0.75fr 9.25fr;
+      overflow-y: auto;
+    }
+  
+    .viewgrid .navbar {
+      display: grid;
+      grid-template-columns: 1fr 0fr 1fr;
+      grid-template-rows: 1fr;
+      grid-gap: 0px;
+    }
+  
+    .viewgrid .navbar .navbar-right .user-info .username p {
+      font-size: 4vw;
+    }
+    .viewgrid .navbar .navbar-right .user-info .redirect a {
+      font-size: 3vw;
+      width: 100%;
+      height: 100%;
+      vertical-align: middle;
+      padding-top: 7px;
+    }
+  
+    .viewgrid .navbar .navbar-left a {
+      margin-left: 0px;
+      display: block;
+      width: 80%;
+      height: 80%;
+      max-width: 100%;
+      max-height: 100%;
+    }
+  
+    .viewgrid .navbar .navbar-left a img {
+      width: 100%;
+      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+  
+    .viewgrid .main-content .footer div.right-side {
+      width: 100%;
+      height: 100%;
+      margin-right: 0px;
+      padding: 0px;
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: 2;
+      display: flex;
+      justify-content: space-around;
+      align-content: center;
+      flex-direction: column;
+      margin-top: 10px;
+    }
+  
+    .viewgrid .main-content .footer div.center {
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .viewgrid .main-content .footer {
+      width: 100%;
+      height: 120px;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 2fr 1fr;
+      background-color: rgb(212, 160, 160);
+      grid-gap: 0px;
+      color: white;
+      text-align: center;
+      padding: 0px;
+      position: static;
+      margin: 0;
+    }
+  
+    .viewgrid .main-content .footer .termeni_si_conditii:hover {
+      color: #921ccd;
+    }
+  
+    .viewgrid .main-content .footer div.right-side p {
+      width: 100%;
+    }
+  
+    .viewgrid .main-content .footer div.right-side .termeni_si_conditii {
+      display: block;
+      width: auto;
+      margin: 0px;
+      text-decoration: none;
+      color: white;
+    }
+    .viewgrid .main-content .footer div.right-side .termeni_si_conditii:hover {
+      color: #921ccd;
+    }
+  
+    .viewgrid .main-content .footer div.right-side .copyright {
+      display: block;
+      width: 100%;
+      margin: 0px;
+    }
+  }
+  
