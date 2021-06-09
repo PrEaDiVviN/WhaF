@@ -1,5 +1,6 @@
 DROP TABLE public.instruction
 DROP TABLE public.search
+DROP TABLE public.searchR
 DROP TABLE public.ingredient
 DROP TABLE public.recipe
 DROP TABLE public.tried
@@ -48,16 +49,27 @@ CREATE TABLE public.ingredient
 	recipe_id integer NOT NULL REFERENCES public.recipe(recipe_id),
 	ingredient_name VARCHAR(30) NOT NULL,
 	score integer NOT NULL, 
-	search_score integer NOT NULL
+	search_score integer NOT NULL /*when an ingredient is search in the unwanted category */
 )
 
 CREATE TABLE public.search 
 (
 	search_id SERIAL PRIMARY KEY,
-	user_id integer NOT NULL REFERENCES public.user(user_id),
-	recipe_id integer REFERENCES public.recipe(recipe_id),
-	ingredient_id integer REFERENCES public.ingredient(ingredient_id),
-	difficulty VARCHAR(25)
+	user_id integer REFERENCES public.user(user_id),
+	recipe_name VARCHAR(50),
+	wanted VARCHAR(30),
+	unwanted VARCHAR(30),
+	difficulty VARCHAR(25),
+	prep integer,
+	total integer, 
+	category VARCHAR(50)
+)
+
+CREATE TABLE public.searchR 
+(
+	search_id SERIAL PRIMARY KEY,
+	user_id integer REFERENCES public.user(user_id),
+	recipe_name VARCHAR(50)
 )
 
 CREATE TABLE public.tried
@@ -131,7 +143,11 @@ SELECT * FROM public.user;
 
 SELECT * FROM public.recipe ORDER BY recipe_id ASC;
 
-SELECT * FROM public.ingredient;
+SELECT ingredient_id, ingredient_name, search_score FROM public.ingredient WHERE score > 0 ORDER BY search_score DESC;
+
+SELECT ingredient_id, ingredient_name FROM public.ingredient ORDER BY search_score DESC;
+
+update public.ingredient set search_score = 0 WHERE ingredient_id = 18;
 
 SELECT * FROM public.tried;
 
@@ -150,5 +166,111 @@ SELECT ingredient_name, score FROM public.ingredient ORDER BY score DESC;
 INSERT INTO public.ingredient (recipe_id, ingredient_name, score, search_score) 
 	VALUES (4, 'I2', 0, 0);
 	
-SELECT ingredient_id, score FROM public.ingredient WHERE ingredient_name = 'I9' 
+SELECT ingredient_name, score FROM public.ingredient  
 	ORDER BY ingredient_id ASC;
+	
+SELECT recipe_id, recipe_name FROM public.recipe WHERE recipe_name LIKE '%R5%';
+
+SELECT * FROM public.search;
+	
+SELECT ingredient_name, recipe_id FROM public.ingredient 
+	WHERE ingredient_name = 'I1' OR ingredient_name = 'I2' ORDER BY recipe_id;
+
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I4'
+INTERSECT 
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I5';
+	
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+EXCEPT /* echivalent cu MINUS din sql */
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I5';
+
+SELECT recipe_name FROM public.recipe r 
+	JOIN public.ingredient i ON r.recipe_id = i.ingredient_id
+EXCEPT (
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I4'
+UNION 
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I5'
+UNION 
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I1'
+UNION 
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I2'
+UNION 
+SELECT recipe_name FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I3');
+	
+SELECT recipe_name FROM public.recipe ORDER BY recipe_name ASC;
+SELECT recipe_name FROM public.recipe ORDER BY recipe_id DESC;
+
+SELECT * FROM public.recipe ORDER BY recipe_id ASC LIMIT 9 OFFSET 0;
+
+(SELECT recipe_name FROM public.recipe r
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+		WHERE ingredient_name = 'I4')
+	EXCEPT 
+	(SELECT recipe_name FROM public.recipe r
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+		WHERE ingredient_name = 'I5'
+	UNION 
+	SELECT recipe_name FROM public.recipe r
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+		WHERE ingredient_name = 'I10');		
+
+SELECT * FROM (
+SELECT recipe_name, category FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I4'
+INTERSECT 
+SELECT recipe_name, category FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I5') r1 WHERE category = 'Breakfast';
+		
+SELECT * FROM (
+SELECT recipe_name, category FROM public.recipe r
+	JOIN public.ingredient i ON r.recipe_id = i.recipe_id
+	WHERE ingredient_name = 'I4') r1 WHERE category = 'Breakfast';
+	
+
+SELECT recipe_name FROM public.recipe r 
+ JOIN public.ingredient i ON r.recipe_id = i.ingredient_id 
+EXCEPT (SELECT recipe_name FROM public.recipe r 
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id WHERE ingredient_name = 'I4'
+		union 
+		SELECT recipe_name FROM public.recipe r 
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id WHERE ingredient_name = 'I5'
+		union
+		SELECT recipe_name FROM public.recipe r 
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id WHERE ingredient_name = 'I2'
+		union
+		SELECT recipe_name FROM public.recipe r 
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id WHERE ingredient_name = 'I3'
+		union
+		SELECT recipe_name FROM public.recipe r 
+		JOIN public.ingredient i ON r.recipe_id = i.recipe_id WHERE ingredient_name = 'I1');
+		
+SELECT recipe_name FROM public.user u 
+	JOIN public.recipe r on u.user_id = r.user_id
+	WHERE username = 'mariabrinzila' ORDER BY recipe_id ASC;
+	
+SELECT recipe_name FROM public.user u 
+	JOIN public.tried t on u.user_id = t.id_user
+	WHERE username = 'mariabrinzila' ORDER BY id_try ASC;
+	
+SELECT recipe_name FROM public.user u 
+	JOIN public.searchR t on u.user_id = t.user_id
+	WHERE username = 'mariabrinzila' ORDER BY search_id ASC;
