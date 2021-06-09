@@ -11,6 +11,7 @@ const addRecipeController = require('./Controller/addRecipePageController.js');
 const recipePageController = require('./Controller/recipePageController.js');
 const settingsController = require('./Controller/settingsController.js');
 const feedController = require('./Controller/feedPageController.js');
+const termsController = require('./Controller/termsController.js');
 
 module.exports = (request, response) => {
         const method = request.method;
@@ -22,6 +23,7 @@ module.exports = (request, response) => {
                     case "/":
                         landingController(request , response);
                     break;
+                    /*
                     case "/termsPolicy.html":
                         fs.stat("core/View/termsPolicy.html", (err, stats) => {
                             response.statusCode = 200;
@@ -33,7 +35,7 @@ module.exports = (request, response) => {
                                   response.end('Sorry, page not found!');
                               }
                           });  
-                    break;     
+                    break;  */   
                     case "/loginRegister.html":
                         registerLoginController.GET(request,response);
                     break;
@@ -45,6 +47,9 @@ module.exports = (request, response) => {
                     break;
                     case "/feedPage.html":
                         feedController.GET(request,response);
+                    break;
+                    case "/termsPolicy.html":
+                        termsController.GET(request,response);
                     break;
                     default:    
                         if(request.url.substr(0,7) === '/recipe' && ((request.url.substr(request.url.length - 5) === '.html')
@@ -123,6 +128,9 @@ module.exports = (request, response) => {
                     break;
                     case "/feedPage.html":
                         feedController.POST(request, response);
+                    break;
+                    case "/termsPolicy.html":
+                        termsController.POST(request,response);
                     break;
                 }
                 break;

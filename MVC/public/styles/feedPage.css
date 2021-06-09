@@ -606,7 +606,7 @@ td a
 .content .format2-wrapper
 {
     display: grid;
-    grid-template-columns: 0.5fr 1fr 0.10fr;
+    grid-template-columns: 0.01fr 1fr 0.10fr;
     grid-template-rows: 0.64fr 4fr 2fr;
 }
 
@@ -646,6 +646,11 @@ td a
     grid-row-end: 3;
     grid-column-start: 2;
     grid-column-end: 3;
+}
+
+#SearchR
+{
+    display: none;
 }
 
 .search-form

@@ -77,7 +77,7 @@
         <div id = "Default" class = "default-recipes">
             <div class = "default-wrapper"> 
                 <div class = "default-format">
-                    <div class = "wrapper">
+                    <div id = "Def" class = "wrapper">
                         ${defaultRecipes}
                         <!--
                         <div class = "split-previous"> 
@@ -352,7 +352,7 @@
                     <div class = "export"> 
                         <div class = "export-csv">
                             <div class = "split-csv">
-                                <button class = "default-buttons" onclick = "exportCSV('popularRecipes.csv')"> Export CSV </button>
+                                <button class = "default-buttons" onclick = "exportCSV('popularRecipes.csv', '#PopularR')"> Export CSV </button>
                             </div>
                         </div> 
 
@@ -381,87 +381,23 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td> 1 </td>
-
-                                <td> Name1 </td>
-
-                                <td> Number1 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 2 </td>
-
-                                <td> Name2 </td>
-                                
-                                <td> Number2 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 3 </td>
-
-                                <td> Name3 </td>
-                                
-                                <td> Number3 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 4 </td>
-
-                                <td> Name4 </td>
-                                
-                                <td> Number4 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 5 </td>
-
-                                <td> Name5 </td>
-                                
-                                <td> Number5 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 6 </td>
-
-                                <td> Name6 </td>
-                                
-                                <td> Number6 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 7 </td>
-
-                                <td> Name7 </td>
-                                
-                                <td> Number7 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 8 </td>
-
-                                <td> Name8 </td>
-                                
-                                <td> Number8 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 9 </td>
-
-                                <td> Name9 </td>
-                                
-                                <td> Number9 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 10 </td>
-
-                                <td> Name10 </td>
-                                
-                                <td> Number10 </td>
-                            </tr>
+                            ${popularI}
                         </tbody>
                     </table>
+
+                    <div class = "export"> 
+                        <div class = "export-csv">
+                            <div class = "split-csv">
+                                <button class = "default-buttons" onclick = "exportCSV('popularIngredients.csv', '#PopularI')"> Export CSV </button>
+                            </div>
+                        </div> 
+
+                        <div class = "export-json">
+                            <div class = "split-json">
+                                <button class = "default-buttons" onclick = "exportJSON('popularIngredients.json', '#PopularI')"> Export JSON </button>
+                            </div>
+                        </div> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -479,66 +415,22 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td> 1 </td>
-
-                                <td> Name1 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 2 </td>
-                                
-                                <td> Name2 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 3 </td>
-                                
-                                <td> Name3 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 4 </td>
-                                
-                                <td> Name4 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 5 </td>
-                                
-                                <td> Name5 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 6 </td>
-                                
-                                <td> Name6 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 7 </td>
-                                
-                                <td> Name7 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 8 </td>
-                                
-                                <td> Name8 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 9 </td>
-                                
-                                <td> Name9 </td>
-                            </tr>
-
-                            <tr>
-                                <td> 10 </td>
-                                
-                                <td> Name10 </td>
-                            </tr>
+                            ${unwantedI}
                         </tbody>
+
+                        <div class = "export"> 
+                            <div class = "export-csv">
+                                <div class = "split-csv">
+                                    <button class = "default-buttons" onclick = "exportCSV('unwantedIngredients.csv', '#AvoidedI')"> Export CSV </button>
+                                </div>
+                            </div> 
+    
+                            <div class = "export-json">
+                                <div class = "split-json">
+                                    <button class = "default-buttons" onclick = "exportJSON('unwantedIngredients.json', '#AvoidedI')"> Export JSON </button>
+                                </div>
+                            </div> 
+                        </div>
                     </table>
                 </div>
             </div>
@@ -547,23 +439,98 @@
         <div id = "Filter" class = "content-filter">
             <div class = "filtering-wrapper"> 
                 <div class = "filter-format">
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> Popularity </button>
+                    <button class = "filter-button" onclick = "openPopularity('Popularity')"> Popularity </button>
                     <br>
 
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> Prepping Time </button>
+                    <button class = "filter-button" onclick = "openPrepping('Prepping')"> Prepping Time </button>
                     <br>
                     
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> Total Time </button>
+                    <button class = "filter-button" onclick = "openFinal('Final')"> Total Time </button>
                     <br>
 
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> Difficulty </button>
+                    <button class = "filter-button" onclick = "openDiff('Diff')"> Difficulty </button>
                     <br>
 
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> Most recent </button>
+                    <button class = "filter-button" onclick = "openDefault('Default')"> Most recent </button>
                     <br>
 
-                    <button class = "filter-button" onclick = "openPage('Recipes')"> A - Z </button>
+                    <button class = "filter-button" onclick = "openAZ('Alphabetic')"> A - Z </button>
                     <br>
+                </div>
+            </div>
+        </div>
+
+        <!--
+        <div id = "FilterSearch" class = "content-filter">
+            <div class = "filtering-wrapper"> 
+                <div class = "filter-format">
+                    <button class = "filter-button" onclick = "popularity('Popularity')"> Popularity </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "prepping('Prepping')"> Prepping Time </button>
+                    <br>
+                    
+                    <button class = "filter-button" onclick = "final('Final')"> Total Time </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "diff('Diff')"> Difficulty </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "Default('Default')"> Most recent </button>
+                    <br>
+
+                    <button class = "filter-button" onclick = "AZ('Alphabetic')"> A - Z </button>
+                    <br>
+                </div>
+            </div>
+        </div> -->
+
+        <div id = "Popularity" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div id = "Pop" class = "wrapper">
+                        ${popularity}
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div id = "Prepping" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div id = "Prepp" class = "wrapper">
+                        ${prepping}
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div id = "Final" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div id = "Fi" class = "wrapper">
+                        ${final}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id = "Diff" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div id = "Df" class = "wrapper">
+                        ${diff}
+                    </div>
+                </div>
+            </div>
+        </div> 
+
+        <div id = "Alphabetic" class = "default-recipes">
+            <div class = "default-wrapper"> 
+                <div class = "default-format">
+                    <div id = "AZ" class = "wrapper">
+                        ${alphabetic}
+                    </div>
                 </div>
             </div>
         </div>
@@ -572,7 +539,7 @@
             <div class = "format3-wrapper"> 
                 <div class = "format3">
                     <div class = "search-wrapper">
-                        <form class = "search-form">
+                        <form method = "POST" id = "searchRecipes" enctype = "multipart/form-data" class = "search-form">
                             <br>
                             <h1> <strong> Search </strong> </h1> <br>
     
@@ -608,160 +575,18 @@
                             <input type = "text" placeholder = "Enter Recipe Category" id = "category" name = "category">
                             <br><br> 
 
-                            <input onclick = "openPage('Recipes')" type = "submit" value = "Search">
+                            <input onclick = "searchRecipes('SearchR')" type = "submit" value = "Search" id = "searchR">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div id = "Recipes" class = "content">
+        <div id = "SearchR" class = "content">
             <div class = "format2-wrapper"> 
                 <div class = "format2">
-                    <div class = "search-wrapper">
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe1.jpg" alt = "R1" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe2.jpg" alt = "R2" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe3.jpg" alt = "R3" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe4.jpg" alt = "R4" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe5.jpg" alt = "R5" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe6.jpg" alt = "R6" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe7.jpg" alt = "R7" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe8.jpg" alt = "R8" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe9.jpg" alt = "R9" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe10.jpg" alt = "R10" class = "item">
-                        </a>
-
-                        <div class = "split-previous"> 
-                            <div class = "previous">
-                                <button class = "default-buttons"> &laquo; Previous </button>
-                            </div> 
-                        </div>
-
-                        <div class = "split-next"> 
-                            <div class = "next">
-                                <button class = "default-buttons"> Next  &raquo; </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div id = "Added" class = "recipes-content">
-            <div class = "recipes-wrapper">
-                <div class = "recipes-format">
-                    <div class = "page-recipes">
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe20.jpg" alt = "R20" class = "item">
-                        </a>
-    
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe19.jpg" alt = "R19" class = "item">
-                        </a>
-    
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe1.jpg" alt = "R1" class = "item">
-                        </a>
-    
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe2.jpg" alt = "R2" class = "item">
-                        </a>
-    
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe3.jpg" alt = "R3" class = "item">
-                        </a>
-    
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe18.jpg" alt = "R18" class = "item">
-                        </a>
-
-                        <div class = "split-previous"> 
-                            <div class = "previous">
-                                <button class = "default-buttons"> &laquo; Previous </button>
-                            </div> 
-                        </div>
-
-                        <div class = "split-next"> 
-                            <div class = "next">
-                                <button class = "default-buttons"> Next  &raquo; </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id = "Tried" class = "recipes-content">
-            <div class = "recipes-wrapper">
-                <div class = "recipes-format">
-                    <div class = "page-recipes">
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe17.jpg" alt = "R17" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe15.jpg" alt = "R15" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe14.jpg" alt = "R14" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe4.jpg" alt = "R4" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe5.jpg" alt = "R5" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe6.jpg" alt = "R6" class = "item">
-                        </a>
-
-                        <a href = "/recipePage.html">
-                            <img src = "/Recipe7.jpg" alt = "R7" class = "item">
-                        </a>
-
-                        <div class = "split-previous"> 
-                            <div class = "previous">
-                                <button class = "default-buttons"> &laquo; Previous </button>
-                            </div> 
-                        </div>
-
-                        <div class = "split-next"> 
-                            <div class = "next">
-                                <button class = "default-buttons"> Next  &raquo; </button>
-                            </div>
-                        </div>
+                    <div id = "RecipesS" class = "search-wrapper">
+                        ${searched}
                     </div>
                 </div>
             </div>

@@ -87,7 +87,7 @@ function sendRecipeToDatabase() {
 
     xhr.onreadystatechange = function() {
         if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-           alert('Recipe was successfully added!');
+            window.location.href = "/addrecipePage.html";
         } 
         
         else if(this.readyState === XMLHttpRequest.DONE && this.status === 500) {

@@ -580,6 +580,7 @@ form input:hover {
   }
   .viewgrid .content img.mainpicture {
     width: 90%;
+    object-fit: cover;
   }
   .viewgrid .content .title {
     font-size: 7vw;
@@ -599,6 +600,7 @@ form input:hover {
   .viewgrid .content ul li img {
     width: 14%;
     height: 10%;
+    object-fit: cover;
   }
   .viewgrid .content ul li div {
     display: inline-block;

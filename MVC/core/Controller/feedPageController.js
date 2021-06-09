@@ -12,39 +12,42 @@ module.exports = class settingsController {
     static async GET(request, response) {
         //Daca cookie-ul este setat, si este corect, atunci permitem userului sa acceseze pagina
         //                         , si este gresit, atunci redirectionam userul userul spre /loginRegister.html
-        //Daca cookie-ul nu este setat, atunci redirectionam userul userul spre /loginRegister.html
+        //Daca cookie-ul nu este setat, atunci nu afisam username-ul, avatarul si butonul de logout
         let cookie = request.headers.cookie;
         var nr;
         var recipeName;
-        var defaultRecipes = '';
 
         var count = await recipeModel.getNrRecipes();
         var next = false;
 
-        if (count == null) {
+        var defaultRecipes = '';
+        var recipes = await recipeModel.sortDefault();
+
+        if (recipes == null) {
             response.statusCode = 500;
             response.end('Internal server error!');
         }
-        else if (count > 9) {
-            next = true;
-        }
-
-        for (nr = 1; nr <= 9; nr++) {
-            recipeName = await recipeModel.getRecipeNameById(nr);
-
-            if (recipeName == null) {
-                response.statusCode = 500;
-                response.end('Internal server error!');
+        else {
+            var lg = recipes.length;
+            var i;
+            var next = false;
+            var name;
+            
+            if (lg > 9) {
+                next = true;
+                lg = 9;
             }
-            else {
-                defaultRecipes = defaultRecipes + '<a href = "/recipe/' + recipeName + '.html">' + '<img src = "/recipes/' + recipeName + '/recipePhoto.jpg" alt = "' + recipeName + '" class = "item"></a>';
-            }
-        }
 
-        if (next === true) {
-            defaultRecipes = defaultRecipes + '<div class = "split-next">';
-            defaultRecipes = defaultRecipes + '<div class = "next">';
-            defaultRecipes = defaultRecipes + ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+            for (i = 0; i < lg; i++) {
+                name = recipes[i].recipe_name;
+                defaultRecipes += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+            }
+
+            if (next === true) {
+                defaultRecipes += '<div class = "split-next">';
+                defaultRecipes += '<div class = "next">';
+                defaultRecipes += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+            }
         }
 
         var breakfast = '';
@@ -596,6 +599,63 @@ module.exports = class settingsController {
             }
         }
 
+        var popularI = '';
+
+        var ingredients = await recipeModel.getPopularIngredients();
+
+        if (ingredients == null) {
+            response.statusCode = 500;
+            response.end('Internal server error!');
+        }
+        else {
+            var L1 = ingredients.length;
+            var nr1 = 10;
+
+            if (L1 < 10)
+                nr1 = L1;
+            
+            for (i = 0; i < nr1; i++) {
+                var score = ingredients[i].score;
+                var name = ingredients[i].ingredient_name;
+
+                popularI += '<tr> <td> ' + (i + 1) + '</td>';
+                popularI += '<td>' + name + '</td>';
+                popularI += '<td>' + score + '</td> </tr>';
+            }
+        }
+
+        var unwantedI = '';
+
+        ingredients = await recipeModel.getUnwantedIngredients();
+
+        if (ingredients == null) {
+            response.statusCode = 500;
+            response.end('Internal server error!');
+        }
+        else {
+            var L1 = ingredients.length;
+            var nr1 = 10;
+
+            if (L1 < 10)
+                nr1 = L1;
+            
+            for (i = 0; i < nr1; i++) {
+                var name = ingredients[i].ingredient_name;
+
+                unwantedI += '<tr> <td> ' + (i + 1) + '</td>';
+                unwantedI += '<td>' + name + '</td>';
+            }
+        }
+        
+        var searched = '';
+
+        var popularity = '';
+
+        var prepping = '';
+        var final = '';
+        var diff = '';
+        var alphabetic = '';
+
         if (cookie != undefined) {
             let username = cookie.substr(0, cookie.search("="));
             let SESSION_ID = cookie.substr(cookie.search("=") + 1, cookie.length);
@@ -627,7 +687,7 @@ module.exports = class settingsController {
                 const logout = '';
                 let data = eval(buffer.toString());
 
-                response.writeHead(200,{'Content-type': 'text/html'});
+                response.writeHead(200, {'Content-type': 'text/html'});
                 response.write(data);
                 response.end();
             });
@@ -637,11 +697,20 @@ module.exports = class settingsController {
     static async POST(request, response) {
         //verificam daca datele credentiale ale userului sunt corecte
         let cookie = request.headers.cookie;
-        let username = cookie.substr(0, cookie.search("=")); 
-        let SESSION_ID = cookie.substr(cookie.search("=") + 1, cookie.length);
-        let connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        var username, SESSION_ID, connected;
 
-        if (connected === true) {
+        if (cookie != undefined) {
+            username = cookie.substr(0, cookie.search("="));
+            SESSION_ID = cookie.substr(cookie.search("=") + 1, cookie.length); 
+            connected = await userModel.validateUserCredentials(username,SESSION_ID);
+        }
+        else {
+            username = '';
+            SESSION_ID = '';
+            connected = null;
+        }
+
+        //if (connected === true) {
             var form = new formidable.IncomingForm({ multiples: true});
 
             form.parse(request, async function (err, fields, files) {
@@ -670,12 +739,882 @@ module.exports = class settingsController {
                             response.end();
                         }  
                     }
+                    else if (fields.type === 'Search') {
+                        //obtinem toate informatiile din FormData(fields)
+                        var recipe = fields.recipe;
+                        var wanted = fields.wanted;
+                        var undesired = fields.undesired;
+                        var difficulty = fields.difficulty;
+                        var prep = fields.prep;
+                        var total = fields.total;
+                        var category = fields.category;
+                        var userID;
+                        var searched = '';
+                        var found = false;
+                        var r = false, w = false, u = false, d = false, p = false;
+                        var t = false, c = false;
+
+                        if (username != '') {
+                            //obtinem id-ul userului
+                            userID = await userModel.getUserIdByUsername(username);
+
+                            if (userID == null) {
+                                response.statusCode = 500;
+                                response.end();
+                            }
+                        }
+                        else {
+                            userID = null;
+                        }
+
+                        if (recipe == "") {
+                            recipe = null; 
+                            r = true;
+                        }
+                        
+                        if (wanted == "") {
+                            wanted = null;
+                            w = true;
+                        }
+
+                        if (undesired == "") {
+                            undesired = null;
+                            u = true;
+                        }
+
+                        if (difficulty == "") {
+                            difficulty = null;
+                            d = true;
+                        }
+
+                        if (prep == "") {
+                            prep = null;
+                            p = true;
+                        }
+
+                        if (total == "") {
+                            total = null;
+                            t = true;
+                        }
+
+                        if (category == "") {
+                            category = null;
+                            c = true;
+                        }
+                        
+                        if (r === false) {
+                            var searchBy = await recipeModel.searchName(recipe);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    id = searchBy[i].recipe_id;
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false && u === false) {
+                            var searchBy = await recipeModel.searchWU(wanted, undesired);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false && d === false) {
+                            var searchBy = await recipeModel.searchWD(wanted, difficulty);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false && p === false) {
+                            var searchBy = await recipeModel.searchWP(wanted, prep);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false && t === false) {
+                            var searchBy = await recipeModel.searchWT(wanted, total);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false && c === false) {
+                            var searchBy = await recipeModel.searchWC(wanted, category);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (w === false) {
+                            var searchBy = await recipeModel.searchWanted(wanted);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        } 
+                        else if (u === false) {
+                            var searchBy = await recipeModel.searchUnwanted(undesired);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (d === false) {
+                            var searchBy = await recipeModel.searchDifficulty(difficulty);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    id = searchBy[i].recipe_id;
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (p === false) {
+                            var searchBy = await recipeModel.searchPrep(prep);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    id = searchBy[i].recipe_id;
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (t === false) {
+                            var searchBy = await recipeModel.searchTotal(total);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    id = searchBy[i].recipe_id;
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        else if (c === false) {
+                            var searchBy = await recipeModel.searchCategory(category);
+
+                            if (searchBy == null) {
+                                response.statusCode = 500;
+                                response.end('Internal server error!');
+                            }
+                            else if (searchBy == 'no rows') {
+                                found = false;
+                            }
+                            else {
+                                var lg = searchBy.length;
+                                var i, nameR, id;
+                                var next;
+                                found = true;
+
+                                if (lg > 9) {
+                                    lg = 9; 
+                                    next = true;
+                                }
+                                    
+                                for (i = 0; i < lg; i++) {
+                                    id = searchBy[i].recipe_id;
+                                    nameR = searchBy[i].recipe_name;
+                                    searched += '<a href = "/recipe/' + nameR + '.html">' + '<img src = "/recipes/' + nameR + '/recipePhoto.jpg" alt = "' + nameR + '" class = "item"></a>';
+                                
+                                    try {
+                                        var answer = await recipeModel.insertSearchR(userID, nameR);
+            
+                                        if (answer == null) {
+                                            response.statusCode = 500;
+                                            response.end();
+                                        }
+                                    } catch(e) {
+                                        console.log(e);
+                                        response.statusCode = 500;
+                                        response.end();
+                                    }
+                                }
+
+                                if (next === true) {
+                                    searched += '<div class = "split-next">';
+                                    searched += '<div class = "next">';
+                                    searched += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                                }
+                            }
+                        }
+                        
+                        if (found == false) {
+                            response.statusCode = 205;
+                            response.end();
+                        }
+                        else try {
+                            var answer = await recipeModel.insertSearch(userID, recipe, wanted, undesired, difficulty, prep, total, category);
+
+                            if (answer == null) {
+                                response.statusCode = 500;
+                                response.end();
+                            }
+                            else {
+                                response.statusCode = 201;
+                                response.end(searched);                               
+                            }
+                        } catch(e) {
+                            console.log(e);
+                            response.statusCode = 500;
+                            response.end();
+                        }
+                    }
+                    else if (fields.type === 'Popular') {
+                        var popularity = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortPopularity();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                popularity += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                popularity += '<div class = "split-next">';
+                                popularity += '<div class = "next">';
+                                popularity += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(popularity);
+                        }
+                    }
+                    else if (fields.type === 'Prepping') {
+                        var prepping = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortPrep();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                prepping += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                prepping += '<div class = "split-next">';
+                                prepping += '<div class = "next">';
+                                prepping += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(prepping);
+                        }
+                    }
+                    else if (fields.type === 'Final') {
+                        var final = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortFinal();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                final += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                final += '<div class = "split-next">';
+                                final += '<div class = "next">';
+                                final += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(final);
+                        }
+                    }
+                    else if (fields.type === 'Diff') {
+                        var diff = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortDiff();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                diff += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                diff += '<div class = "split-next">';
+                                diff += '<div class = "next">';
+                                diff += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(diff);
+                        }
+                    }
+                    else if (fields.type === 'Default') {
+                        var defaultRecipes = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortDefault();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                defaultRecipes += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                defaultRecipes += '<div class = "split-next">';
+                                defaultRecipes += '<div class = "next">';
+                                defaultRecipes += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(defaultRecipes);
+                        }
+                    }
+                    else if (fields.type === 'Alph') {
+                        var alphabetic = '';
+                        var ok = true;
+                        var recipes = await recipeModel.sortAZ();
+
+                        if (recipes == null) {
+                            response.statusCode = 500;
+                            response.end();
+                            ok = false;
+                        }
+                        else {
+                            var lg = recipes.length;
+                            var i;
+                            var next = false;
+                            var name;
+            
+                            if (lg > 9) {
+                                next = true;
+                                lg = 9;
+                            }
+
+                            for (i = 0; i < lg; i++) {
+                                name = recipes[i].recipe_name;
+                                alphabetic += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+                            }
+
+                            if (next === true) {
+                                alphabetic += '<div class = "split-next">';
+                                alphabetic += '<div class = "next">';
+                                alphabetic += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                            }
+                        }
+
+                        if (ok === true) {
+                            response.statusCode = 201;
+                            response.end(alphabetic);
+                        }
+                    }
                 }
             });
-        }
-        else {
+        //}
+        /*else {
             response.writeHead(403);
             response.end();
-        }
+        }*/
     }
 }

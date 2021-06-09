@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+`<!DOCTYPE html>
 <html>
 <head>
     <title> Terms & Policy Page </title>
@@ -29,16 +29,16 @@
                 <div class = "user-info">
                     <div class = "avatar-picture">
                         <a href = "/settingsPage.html">
-                            <img src = "/avatar-picture.png" alt = "Avatar">
+                            ${avatar}
                         </a>
                     </div>
 
                     <div class = "username">
-                        <p> Username </p>
+                        <p> ${username} </p>
                     </div>
 
                     <div class = "user-settings">
-                        <button onclick = "window.location.href = '/feedPage.html'" class = "home"> Home </button>
+                        ${logout}
                     </div>
                 </div>
             </div> 
@@ -246,4 +246,4 @@
 
   <script src = "termsPolicy.js"></script>
 </body>
-</html>
+</html>`

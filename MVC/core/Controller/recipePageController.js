@@ -126,6 +126,12 @@ module.exports = class recipePageController {
                 //luam tipul pozei
                 let type = (files.recipePhoto.type === 'image/jpeg') ? '.jpg' : (files.recipePhoto.type === 'image/png' ? '.png' : '.svg');
                 
+                //cream un folder cu numele utilizatorului in data de forma data/users/username
+                var pathUser = "data/users/" + username;
+                if (!fs.existsSync(pathUser)) {
+                    fs.mkdir(pathUser, {recursive: true}, err => {});
+                }
+
                 //obtinem calea catre poza userului
                 let newPath = 'data/users/' + username + '/' + recipeName + type;
                 

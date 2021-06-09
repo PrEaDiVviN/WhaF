@@ -18,10 +18,9 @@ function openPage(pageName)
 
     document.getElementById("Default").style.display = "none";
 
-    if (pageName == 'Recipes' || pageName == 'Breakfast')
-        document.getElementById("Filter").style.display = "block";
-    else 
-        document.getElementById("Filter").style.display = "none";
+    document.getElementById("SearchR").style.display = "none";
+
+    document.getElementById("Filter").style.display = "none";
 }
 
 function openFilter() 
@@ -85,6 +84,20 @@ function openFilter()
     document.getElementById("Drinks").style.display = "none";
 
     document.getElementById("Rankings").style.display = "none";
+
+    document.getElementById("SearchR").style.display = "none";
+
+    document.getElementById("Prepping").style.display = "none";
+
+    document.getElementById("Final").style.display = "none";
+
+    document.getElementById("Diff").style.display = "none";
+
+    document.getElementById("Search").style.display = "none"; 
+
+    document.getElementById("Alphabetic").style.display = "none";
+
+    document.getElementById("Popularity").style.display = "none";
 }
 
 function logout() {
@@ -106,12 +119,12 @@ function logout() {
     xhr.send(formData);
 }
 
-function exportCSV(filename) {
+function exportCSV(filename, id) {
     var csv = [];
     var i;
 
     //luam elementele cu id-ul PopularR, care au ca parinte table si tr
-    var rows = document.querySelectorAll("#PopularR table tr");
+    var rows = document.querySelectorAll(id + " table tr");
     
     for (i = 0; i < rows.length; i++) {
         var row = [], cols = rows[i].querySelectorAll("td, th");
@@ -200,4 +213,385 @@ function downloadJSON(json, filename) {
 
     //dam click pe link  
     downloadLink.click();
+}
+
+function searchRecipes(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Search").style.display = "none";
+
+            document.getElementById("Filter").style.display = "none";
+
+            //stergem ce era initial
+            document.getElementById("RecipesS").innerHTML = '';
+
+            document.getElementById("RecipesS").innerHTML = this.responseText;
+        }
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 205) {
+            alert('No results for your search!');
+        }
+    }
+    
+    let recipe = document.getElementById("recipe").value;
+    let wanted = document.getElementById("wanted").value;
+    let undesired = document.getElementById("undesired").value;
+    let difficulty = document.getElementById("difficulty").value;
+    let prep = document.getElementById("prep").value;
+    let total = document.getElementById("total").value;
+    let category = document.getElementById("category").value; 
+
+    var formData = new FormData();
+
+    formData.append("type", 'Search');
+    formData.append("recipe", recipe);
+    formData.append("wanted", wanted);
+    formData.append("undesired", undesired);
+    formData.append("difficulty", difficulty);
+    formData.append("prep", prep);
+    formData.append("total", total);
+    formData.append("category", category);
+
+    xhr.send(formData);
+}
+
+function openPopularity(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Prepping").style.display = "none";
+
+            document.getElementById("Final").style.display = "none";
+
+            document.getElementById("Diff").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Alphabetic").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("Pop").innerHTML = '';
+
+            document.getElementById("Pop").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Popular');
+
+    xhr.send(formData);
+}
+
+function openPrepping(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Popularity").style.display = "none";
+
+            document.getElementById("Final").style.display = "none";
+
+            document.getElementById("Diff").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Alphabetic").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("Prepp").innerHTML = '';
+
+            document.getElementById("Prepp").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Prepping');
+
+    xhr.send(formData);
+}
+
+function openFinal(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Popularity").style.display = "none";
+
+            document.getElementById("Prepping").style.display = "none";
+
+            document.getElementById("Diff").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Alphabetic").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("Fi").innerHTML = '';
+
+            document.getElementById("Fi").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Final');
+
+    xhr.send(formData);
+}
+
+function openDiff(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Popularity").style.display = "none";
+
+            document.getElementById("Prepping").style.display = "none";
+
+            document.getElementById("Final").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Alphabetic").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("Df").innerHTML = '';
+
+            document.getElementById("Df").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Diff');
+
+    xhr.send(formData);
+}
+
+function openDefault(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Diff").style.display = "none";
+
+            document.getElementById("Popularity").style.display = "none";
+
+            document.getElementById("Prepping").style.display = "none";
+
+            document.getElementById("Final").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Alphabetic").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("Def").innerHTML = '';
+
+            document.getElementById("Def").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Default');
+
+    xhr.send(formData);
+}
+
+function openAZ(pageName) 
+{
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/feedPage.html", true);
+
+    xhr.onreadystatechange = function() {
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 500) {
+            alert('Unexpected server error! Please try again! If the problem persists, please contact us.');
+        }
+        else if (this.readyState === XMLHttpRequest.DONE && this.status === 201) { 
+            var i, content, nav;
+
+            content = document.getElementsByClassName("content");
+            for (i = 0; i < content.length; i++) 
+            {
+                content[i].style.display = "none";
+            }
+
+            nav = document.getElementsByClassName("grid-button");
+            for (i = 0; i < nav.length; i++) {
+                nav[i].style.backgroundColor = "";
+            }
+
+            document.getElementById(pageName).style.display = "block";
+
+            document.getElementById("Diff").style.display = "none";
+
+            document.getElementById("Popularity").style.display = "none";
+
+            document.getElementById("Prepping").style.display = "none";
+
+            document.getElementById("Final").style.display = "none";
+
+            document.getElementById("Search").style.display = "none"; 
+
+            document.getElementById("Default").style.display = "none";
+
+            document.getElementById("Filter").style.display = "block";
+
+            //stergem ce era initial
+            document.getElementById("AZ").innerHTML = '';
+
+            document.getElementById("AZ").innerHTML = this.responseText;
+        }
+    }
+
+    var formData = new FormData();
+
+    formData.append("type", 'Alph');
+
+    xhr.send(formData);
 }

@@ -1,10 +1,14 @@
 const fs = require('fs');
 const user = require('../Model/user.js');
+const recipe = require('../Model/recipe.js');
+const tried = require('../Model/tried.js');
 const Tokenizer = require('../../utility/tokenizer.js');
 const formidable = require('formidable');
 const mv = require('mv');
 
 const userModel = new user();
+const recipeModel = new recipe();
+const triedModel = new tried();
 
 module.exports = class settingsController {
     static async GET(request, response) {
@@ -12,6 +16,113 @@ module.exports = class settingsController {
         //                         , si este gresit, atunci redirectionam userul userul spre /loginRegister.html
         //Daca cookie-ul nu este setat, atunci redirectionam userul userul spre /loginRegister.html
         let cookie = request.headers.cookie;
+        var username = '';
+
+        if (cookie != undefined)
+            username = cookie.substr(0, cookie.search("="));
+
+        var added = '';
+        var recipes = await recipeModel.addedR(username);
+
+        if (recipes == null) {
+            response.statusCode = 500;
+            response.end('Internal server error!');
+        }
+        else if (recipes == '0') 
+            added = '';
+        else {
+            var lg = recipes.length;
+            var i;
+            var next = false;
+            var name;
+            
+            if (lg > 6) {
+                next = true;
+                lg = 6;
+            }
+
+            for (i = 0; i < lg; i++) {
+                name = recipes[i].recipe_name;
+                added += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+            }
+
+            if (next === true) {
+                added += '<div class = "recipes-next">';
+                added += '<div class = "button-next">';
+                added += '<button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+            }
+
+            added += '<br>';
+        }
+
+        var tried = '';
+        recipes = await triedModel.triedR(username);
+
+        if (recipes == null) {
+            response.statusCode = 500;
+            response.end('Internal server error!');
+        }
+        else if (recipes == '0') 
+            tried = '';
+        else {
+            var lg = recipes.length;
+            var i;
+            var next = false;
+            var name;
+            
+            if (lg > 6) {
+                next = true;
+                lg = 6;
+            }
+
+            for (i = 0; i < lg; i++) {
+                name = recipes[i].recipe_name;
+                tried += '<a href = "/recipe/' + name + '.html">' + '<img src = "/recipes/' + name + '/recipePhoto.jpg" alt = "' + name + '" class = "item"></a>';
+            }
+
+            if (next === true) {
+                tried += '<div class = "recipes-next">';
+                tried += '<div class = "button-next">';
+                tried += '<button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+            }
+
+            tried += '<br>';
+        }
+
+        var history = '';
+        recipes = await recipeModel.getHistory(username);
+
+        if (recipes == null) {
+            response.statusCode = 500;
+            response.end('Internal server error!');
+        }
+        else if (recipes == '0') 
+            history = '';
+        else {
+            var lg = recipes.length;
+            var i;
+            var next = false;
+            var name;
+            
+            if (lg > 4) {
+                next = true;
+                lg = 4;
+            }
+
+            for (i = 0; i < lg; i++) {
+                name = recipes[i].recipe_name;
+                history += '<div class = "str"> <span> ' + name + ' </span> ';
+                history += '<a href = "/recipe/' + name + '.html"> Link </a> </div> ';
+            }
+
+            if (next === true) {
+                history += '<div class = "recipes-next">';
+                history += '<div class = "button-next">';
+                history += '<button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+            }
+
+            history += '<br>';
+        }
 
         if (cookie != undefined) {
             let username = cookie.substr(0, cookie.search("="));
