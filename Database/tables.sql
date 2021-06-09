@@ -5,6 +5,7 @@ DROP TABLE public.ingredient
 DROP TABLE public.recipe
 DROP TABLE public.tried
 DROP TABLE public.user
+DROP TABLE setari
 
 CREATE TABLE public.user
 (
@@ -68,8 +69,13 @@ CREATE TABLE public.search
 CREATE TABLE public.searchR 
 (
 	search_id SERIAL PRIMARY KEY,
+	searchid integer,
 	user_id integer REFERENCES public.user(user_id),
-	recipe_name VARCHAR(50)
+	recipe_name VARCHAR(50) NOT NULL,
+	score integer NOT NULL,
+	prep integer NOT NULL, 
+	total integer NOT NULL, 
+	difficulty VARCHAR(25) NOT NULL
 )
 
 CREATE TABLE public.tried
@@ -79,6 +85,16 @@ CREATE TABLE public.tried
     recipe_name VARCHAR(100) NOT NULL, 
     photo VARCHAR(100) NOT NULL
 )
+
+CREATE TABLE setari 
+(
+	nrinstructiuni int,
+	nringrediente int
+)
+
+INSERT INTO setari (nrinstructiuni, nringrediente) VALUES (10, 10);
+
+SELECT * FROM setari;
 
 /* user table */
 INSERT INTO public.user (first_name, last_name, email, username, user_passwd, 
@@ -274,3 +290,15 @@ SELECT recipe_name FROM public.user u
 SELECT recipe_name FROM public.user u 
 	JOIN public.searchR t on u.user_id = t.user_id
 	WHERE username = 'mariabrinzila' ORDER BY search_id ASC;
+
+select * from public.searchR WHERE searchid = 7;
+
+SELECT recipe_name FROM public.searchR WHERE user_id = 1 AND searchid = 7 ORDER BY difficulty ASC;
+
+select count(*) from public.recipe;
+
+select * from public.recipe order by recipe_id desc;
+
+update public.user set status = 1 where user_id = 1;
+
+select * from public.user;
