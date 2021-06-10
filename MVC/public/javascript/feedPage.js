@@ -14,13 +14,65 @@ function openPage(pageName)
         nav[i].style.backgroundColor = "";
     }
 
-    document.getElementById(pageName).style.display = "block";
-
     document.getElementById("Default").style.display = "none";
+
+    document.getElementById("Filter").style.display = "none";
+
+    document.getElementById("Search").style.display = "none";
+
+    document.getElementById("Categories").style.display = "none";
+
+    document.getElementById("Breakfast").style.display = "none";
+
+    document.getElementById("Brunch").style.display = "none";
+
+    document.getElementById("Lunch").style.display = "none";
+
+    document.getElementById("Snacks").style.display = "none";
+
+    document.getElementById("Dinner").style.display = "none";
+
+    document.getElementById("Soups").style.display = "none";
+
+    document.getElementById("Salads").style.display = "none";
+
+    document.getElementById("Main").style.display = "none";
+
+    document.getElementById("Pasta").style.display = "none";
+
+    document.getElementById("Seafood").style.display = "none";
+
+    document.getElementById("Pizza").style.display = "none";
+
+    document.getElementById("Burgers").style.display = "none";
+
+    document.getElementById("Vegetarian").style.display = "none";
+
+    document.getElementById("Vegan").style.display = "none";
+
+    document.getElementById("Sides").style.display = "none";
+
+    document.getElementById("Sauces").style.display = "none";
+
+    document.getElementById("Desserts").style.display = "none";
+
+    document.getElementById("Drinks").style.display = "none";
+
+    document.getElementById("Rankings").style.display = "none";
 
     document.getElementById("SearchR").style.display = "none";
 
-    document.getElementById("Filter").style.display = "none";
+    document.getElementById("Prepping").style.display = "none";
+
+    document.getElementById("Final").style.display = "none";
+
+    document.getElementById("Diff").style.display = "none";
+
+    document.getElementById("Search").style.display = "none"; 
+
+    document.getElementById("Alphabetic").style.display = "none";
+
+    document.getElementById("Popularity").style.display = "none";
 
     document.getElementById("SearchP").style.display = "none";
 
@@ -826,4 +878,52 @@ function diff(pageName)
     formData.append("type", 'DiffS');
 
     xhr.send(formData);
+}
+
+var pageRecipes = 0;
+
+function updatePlusPageRecipe() {
+    pageRecipes += 9;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/recipeDefault", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let viewRecipes = document.getElementById("Def");
+            viewRecipes.innerHTML = '';
+            viewRecipes.innerHTML = this.responseText;
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            console.log('Aici crapa');
+        }
+    }
+
+    let skip = new String(pageRecipes);
+    let count = new String(9);
+    xhr.send(JSON.stringify({direction: 'up', skip: skip, count: count}));
+}
+
+function updateMinusPageRecipe() {
+    pageRecipes -= 9;
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/recipeDefault", true);
+    xhr.setRequestHeader("Content-Type","application/json");
+
+    xhr.onreadystatechange = function() {
+        if(this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            let viewRecipes = document.getElementById("Def");
+            viewRecipes.innerHTML = '';
+            viewRecipes.innerHTML = this.responseText;
+        } 
+        else if(this.readyState === XMLHttpRequest.DONE && this.status === 404) {
+            console.log('Aici crapa');
+        }
+    }
+
+    let skip = new String(pageRecipes);
+    let count = new String(9);
+    xhr.send(JSON.stringify({direction: 'down', skip: skip, count: count}));
 }

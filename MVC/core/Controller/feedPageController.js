@@ -9,6 +9,75 @@ const userModel = new user();
 const recipeModel = new recipe();
 
 module.exports = class settingsController {
+    static async GET_DEFAULT_RECIPES(request, response) {
+        var body = '';
+
+        request.on('data', chunk => {
+            body += chunk;
+        }); 
+
+        request.on('end', async () => { 
+            var skip = parseInt(JSON.parse(body).skip);
+            var count = parseInt(JSON.parse(body).count);
+            var direction = JSON.parse(body).direction;
+        
+            var answer = await recipeModel.getDefaultRecipes(skip,count);
+            var verify;
+
+            if (direction == 'up') {
+                verify = await recipeModel.getDefaultRecipes(skip + 9, count);
+                console.log('=====================');
+                console.log(verify);
+                console.log(typeof(verify));
+                console.log('=====================');
+            }
+
+            if (answer === null) {
+                response.statusCode = 404;
+                response.end('Internal Server Error! Please try again and if problem persists, contact the administrator!');
+                return ;
+            }
+
+            var defaultRecipes = '';
+
+            for (let i = 0; i < answer.recipeName.length; i++) {
+                defaultRecipes += '<a href = "/recipe/' + answer.recipeName[i].replace('%20', ' ').replace('%20', ' ') + '.html">' + '<img src = "/recipes/' + answer.recipeName[i].replace('%20', ' ').replace('%20', ' ') + '/recipePhoto.jpg" alt = "' + answer.recipeName[i].replace('%20', ' ').replace('%20', ' ') + '" class = "item"></a>';
+            }
+
+            if (skip != 0)
+                defaultRecipes += `
+                    <div class = "split-previous"> 
+                        <div class = "previous">
+                            <button class = "default-buttons" onclick = "updateMinusPageRecipe()"> &laquo; Previous </button>
+                        </div> 
+                    </div> 
+                    <div class = "split-next"> 
+                        <div class = "next">
+                            <button class = "default-buttons" onclick = "updatePlusPageRecipe()"> Next  &raquo; </button>
+                        </div>
+                    </div>`; 
+            else if (direction == 'up')
+                defaultRecipes += `
+                    <div class = "split-previous"> 
+                        <div class = "previous">
+                            <button class = "default-buttons" onclick = "updateMinusPageRecipe()"> &laquo; Previous </button>
+                        </div> 
+                    </div>`;   
+            else 
+                defaultRecipes += `  
+                    <div class = "split-next"> 
+                            <div class = "next">
+                                <button class = "default-buttons" onclick = "updatePlusPageRecipe()"> Next  &raquo; </button>
+                            </div>
+                    </div>`;     
+
+            response.statusCode = 200;
+            response.setHeader('Content-Type','text/html');
+            response.write(defaultRecipes);
+            response.end();
+        });
+    }
+
     static async GET(request, response) {
         //Daca cookie-ul este setat, si este corect, atunci permitem userului sa acceseze pagina
         //                         , si este gresit, atunci redirectionam userul userul spre /loginRegister.html
@@ -47,7 +116,7 @@ module.exports = class settingsController {
             if (next === true) {
                 defaultRecipes += '<div class = "split-next">';
                 defaultRecipes += '<div class = "next">';
-                defaultRecipes += ' <button class = "default-buttons"> Next  &raquo; </button> </div> </div>';
+                defaultRecipes += ' <button class = "default-buttons" onclick = "updatePlusPageRecipe()"> Next  &raquo; </button> </div> </div>';
             }
         }
 

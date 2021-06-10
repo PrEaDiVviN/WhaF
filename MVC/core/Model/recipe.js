@@ -1212,6 +1212,24 @@ module.exports = class recipe {
         }
         return Promise.resolve(null);
     }
+
+    async getDefaultRecipes(skip, count) {
+        let pgQuery = 'SELECT recipe_name FROM public.recipe ORDER BY recipe_id DESC LIMIT $1 OFFSET $2;';
+        let values = [count, skip];
+        let data = await client.query(pgQuery, values);
+
+        let recipeName = [];
+
+        if (data != null && data.rows[0] != undefined) {
+            for (let i = 0; i < data.rows.length; i++) {
+                recipeName.push(data.rows[i].recipe_name);
+            }
+
+            return Promise.resolve({recipeName: recipeName});
+        }
+
+        return Promise.resolve(null);
+    }
     
     async deleteRecipe(recipeName, recipeId) {
         let pgQuery = 'DELETE FROM public.instruction WHERE recipe_id = $1';

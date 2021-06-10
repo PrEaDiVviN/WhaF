@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset = "utf-8">
+    <meta charset = "UTF-8">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0">
+    <meta name = "subject" content = "What Food">
+    <meta name = "description" content = "What food - All the recipes you could ever want!">
+    <meta name = "keywords" content = "recipes, add recipe, admin, login register, settings, project, infoiasi, web" />
+    <meta name = "author" content = " Hutu Alexandru Dumitru, Brinzila Maria">
+    <title> Scholarly HTML </title>
+    <link rel = "stylesheet" href = "style_scholarly.css">
+  
+</head>
+
+<body prefix = "schema: http://schema.org" itemscope = "" itemtype = "http://schema.org/WebPage">
+    <h1 itemprop="name"> What Food </h1>
+
+    <ol>
+        <li>
+            <a href = "#authors"> 
+                <span>1 </span> Authors </a>
+        </li>
+        <li>
+            <a href = "#introduction"> 
+                <span>2 </span>Introduction</a>
+            <ol>
+                <li><a href="#scope"> <span>2.1 </span>Scope</a></li>
+                <li><a href="#conventions"> <span>2.2</span> Conventions</a></li>
+                <li><a href="#productScope"><span>2.3</span> Product role</a></li>
+                <li><a href="#references"><span>2.4</span> References</a></li>
+            </ol>
+        </li>
+        <li>
+            <a href="#generalDescription"><span>3.</span> General Description</a>
+            <ol>
+                <li><a href="#productPerspective"><span>3.1</span> Product Perspective</a></li>
+                <li><a href="#productFunctions"><span>3.2</span> Functionalities</a></li>
+                <li><a href="#classesAndCharacteristics"><span>3.3</span> User Categories</a></li>
+                <li><a href="#operationEnvironment"><span>3.4</span> Operation Environment</a></li>
+                <li><a href="#designConstrains"><span>3.5</span> Design Constrains</a></li>
+                <li><a href="#userDocumentation"><span>3.6</span> User Documentation</a></li>
+            </ol>
+        </li>
+        <li>
+            <a href="#externalRequirements"><span>4.</span> External Requirements</a>
+            <ol>
+                <li><a href="#userInterface"><span>4.1</span> User Interface</a></li>
+                <li><a href="#softwareInterface"><span>4.2</span> Software Interface</a></li>
+                <li><a href="#communicationInterface"><span>4.3</span> Communication Interface</a></li>
+            </ol>
+        </li>
+        <li>
+            <a href="#functionalRequirements"><span>5.</span>Functional Requirements</a>
+            <ol>
+                <li><a href="#register"><span>5.1 </span>Register</a></li>
+                <li><a href="#login"><span>5.2 </span>Login and logout</a></li>
+                <li><a href="#addRecipe"><span>5.3 </span>Add Recipe</a></li>
+                <li><a href="#recipes"><span>5.4 </span>Recipes</a></li>
+                <li><a href="#settings"><span>5.5 </span>Settings</a></li>
+                <li><a href="#feed"><span>5.6 </span>Feed</a></li>
+                <li><a href="#terms"><span>5.7 </span>Terms</a></li>
+                <li><a href="#admin"><span>5.8 </span>Admin</a></li>           
+            </ol>
+        </li>
+        <li>
+            <a href="#nonfunctionalRequirements"><span>6. </span>Nonfunctional Requirements</a>
+            <ol>
+                <li><a href="#safety"><span>6.1 </span>Safety</a></li>
+                <li><a href="#security"><span>6.2 </span>Security</a></li>
+            </ol>
+        </li>
+        <li>
+            <a href="#bibliography"><span>7. </span>Bibliography</a>
+        </li>
+    </ol>
+
+
+    <article id = "article" typeof = "schema:ScholarlyArticle" resource = "#"> 
+        <section id="authors"  typeof="sa:AuthorsList"> 
+                <h2><span>1. </span>Authors</h2>
+                <ol> 
+                    <li property = "schema:author" typeof="sa:ContributorRole"> 
+                        <a property = "schema:author" href="#" typeof="schema:Person"> 
+                                <span property= "schema:giveName" >Alex Dumitru</span>
+                                <span property= "schema:familyName" >Hutu</span>
+                        </a>
+                        <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+                            <a property="schema:email" href="mailto:alexandru.hutu1@gmail.com" title="corresponding author">&#9993;</a>
+                        </sup>
+                    </li>
+
+                    <li property = "schema:author" typeof="sa:ContributorRole"> 
+                        <a property = "schema:author" href="#" typeof="schema:Person"> 
+                                <span property= "schema:giveName" >Maria</span>
+                                <span property= "schema:familyName" >Brinzila</span>
+                        </a>
+                        <sup property="sa:roleContactPoint" typeof="schema:ContactPoint">
+                            <a property="schema:email" href="mailto:maria.brinzila2000@gmail.com" title="corresponding author">&#9993;</a>
+                        </sup>
+                    </li>
+                </ol>
+        </section>
+
+
+        <section typeof="sa:ScholarlyArticle" role="doc-introduction" >
+                <h2 id="introduction"> <span>2. </span>Introduction</h2>
+                <p> 
+                    What Food is a Web application where you can find new recipes that belong to a variety 
+                    of categories and where you can add your own recipes. The application offers all these
+                    recipes to both users that have an account and users that don't (visitors). However,
+                    only users that have an account can add new recipes.
+                </p>
+                
+                <h3 id="scope"><span>2.1 </span>Scope</h3>
+                <p>  
+                    What Food is easy to use and accessible. This application is here to help those who are 
+                    in need of cooking inspiration and to give a platform to people who love to cook and 
+                    make new recipes. In order to use the application, all you have to do is access its 
+                    link and either browse recipes or add new ones.
+                </p>
+                
+                <h3 id="conventions"><span>2.2 </span>Conventions</h3>
+                <p>
+                    When it comes to adding a new recipe, a connected user only has to go to the feed page,
+                    click the Add Recipe button which will then redirect them to the add recipe page where
+                    they must put all the characteristics of the recipe they want to add. After that, they
+                    only have to click on the Submit Recipe button. When the user clicks on the logo of
+                    every page, they will be redirected either to the feed page or the settings page, 
+                    depending on the page that they are currently on. The same thing happens for connected 
+                    users whenever they click on their avatar photo at the top of the navbar. All our social 
+                    media links (FaceBook, Instagram, Twitter), as well as the link to our terms and policy 
+                    can be found in the footer of every page on the application.
+                </p>
+
+                <h3 id="productScope"><span>2.3 </span>Product role</h3>
+                <p>
+                    The purpose of this website is to help people find and share new recipes. Users can either
+                    make an account and be able to access some extra features (such as posting a recipe, show 
+                    the fact that the user has tried a certain recipe by posting a photo of the final product and
+                    access to a user page where the user can see the recipes that they posted and the ones that 
+                    they tried) or use the website without having to register (they will only be able to find
+                    new recipes).
+                </p>
+
+                <h3 id="references"><span>2.4 </span>References</h3>           
+                <p>
+                    In order to make the application's user interface as accessible as possible, we 
+                    documented a few important and helpful websites that helped us in the web development
+                    process. 
+                </p>
+                <ol>
+                    <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input">https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input<a></li>
+                    <li><a href="https://www.w3schools.com/css/">https://www.w3schools.com/css/<a></li>
+                    <li><a href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap">https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap<a></li>
+                    <li><a href = "https://fonts.googleapis.com/css2?family=Vollkorn&display=swap">https://fonts.googleapis.com/css2?family=Vollkorn&display=swap</a></li>
+                </ol>    
+        </section>
+
+        <section  typeof="sa:MaterialsAndMethods" role="doc-chapter" >
+            <h2 id="generalDescription"> <span>3. </span>General Description</h2>
+            
+
+            <h3 id= "productPerspective"> <span>3.1 </span>Product Perspective</h3>
+            <p>
+               This product offers a wider range of options and capabilities than other recipe Web applications 
+               (such as AllRecipes for example). Admin users can delete and modify all the other recipes and users. 
+               We have a wider variety of categories. The application offers the possiblity of filtering the default
+               recipes and the search results by a few specifications. Users have a big variety of search parameters.
+            </p> 
+
+            <h3 id= "productFunctions"> <span>3.2 </span>Functions</h3>
+            <p>  
+                The application has many functionalities. Users can make an account or navigate as a visitor. 
+                Connected users can add their own recipes, try existing recipes, see their search history, 
+                all the recipes they added and the ones they tried. Admin users have access to all recipes and 
+                users and can modify and delete users and recipes. Visitors can see the default recipes (by clicking
+                the home button on the feed page), they can do search and they can see the rankings.
+            </p>
+
+            <h3 id= "classesAndCharacteristics"> <span>3.3 </span>User Categories</h3>
+            <p>
+                What Food is the perfect Web application for people who love to cook and either need to 
+                find some new recipes to try or want to share their recipes with other people. However,
+                our product serves 3 types of clients/users: visitors, who are users that don't have an 
+                account and have limited privileges, normal users who have access to all the application's 
+                function other than the admin functionality and admin users who have the same privilege 
+                as normal user but they also have almost unlimited access to all the recipes and all the users 
+                in our database.
+            </p>
+         
+            <h3 id= "operationEnvironment"> <span>3.4 </span>Operation Environment </h3>
+            <p>              
+                As What Food is a Web application, it can be opened on any browser that supports HTML, CSS 
+                and JavaScript.
+            </p>
+
+            <h3 id= "designConstrains"> <span>3.5</span> Design Constrains </h3>
+            <p>              
+                Although our product has a wide range of functionalities, it also has some limitations. When 
+                it comes to searching, users can either search by one parameter or by 2 and one of them has to 
+                be the wanted ingredients. Rankings can only be exported as CSV or JSON. The instructions 
+                for a recipe must not extend a certain amount of characters (however that amount is a
+                fairly big one).
+            </p>
+
+            <h3 id= "userDocumentation"> <span>3.6 </span>User Documentation</h3>
+            <p>              
+                The terms and policy page is meant to help our clients get to know us, understand our 
+                mission, their responsibility as users and exactly what data we collect from them, if 
+                they register. The landing page is the page where the user decides what type of client they
+                want to be (if they want to register and then login or if they just want to be a visitor
+                on the application and navigate).
+            </p>
+
+        </section>
+
+        <section  typeof="sa:MaterialsAndMethods" role="doc-chapter">    
+
+            <h2 id="externalRequirements"><span>4. </span>External Requirements</h2>
+
+            <h3 id="userInterface"><span>4.1 </span>UserInterface</h3>
+            <h4>Landing Page:</h4>
+            <img src="ss1.png" alt="img1">
+          
+            <h4>Login: <h4>
+            <img src="ss2.png" alt="img2">
+
+            <h4>Register: </h4>
+            <img src="ss3.png" alt="img3">
+
+            <h4>Feed: </h4>   
+            <img src="ss4.png" alt="img4">
+
+            <h4>Settings: </h4>   
+            <img src="ss5.png" alt="img4">
+
+            <h4>Terms and policy: </h4>   
+            <img src="ss6.png" alt="img4">
+
+            <h4>Recipe: </h4>   
+            <img src="ss7.png" alt="img4">
+
+            <h4>Add recipe: </h4>   
+            <img src="ss8.png" alt="img4">
+
+            <h4>Admin: </h4>   
+            <img src="ss9.png" alt="img4">
+            
+
+            <h3 id="softwareInterface"><span>4.2 </span>Software Interface</h3>
+            <p>
+                The application uses a relational database (PostgreSQL) in order to facilitate the 
+                functions provided to the user.
+            </p>
+            
+            <h3 id="communicationInterface"><span>4.3 </span>Communication Interface</h3>
+            <p>
+                When it comes to the relation and communication between the client and the server, 
+                What Food uses the HTTP protocol.
+            </p>
+            
+
+        </section>
+   
+        <section  typeof="sa:MaterialsAndMethods" role="doc-chapter">   
+
+            <h2 id="functionalRequirements"><span>5. </span>Functional Requirements</h2>
+
+            <h3 id="register"><span>5.1 </span>Register</h3>
+            <p>
+                In order to register on this website, the user must provide some information: their first 
+                and last name (only containing letters), their email adrress that must be valid 
+                (something@something.com), their username (only containing letters), a password 
+                (that must contain at least one letter, one number and one special character such as 
+                _, -, ~, <, >) and their date of birth.
+            </p>
+
+            <h3 id="login"><span>5.2 </span>Login and logout</h3>
+            <p>
+                After making an account, the user can login onto the website with their
+                username and password. They must enter the correct username and password. When it comes to
+                the logout process, the session associated to the user is deleted from the database and 
+                the user is redirected to the login and register page where they can choose how to proceed.
+            </p>
+            
+            <h3  typeof="sa:MaterialsAndMethods" role="doc-chapter" id="addRecipe"><span>5.3 </span>Add Recipe</h3>
+            <p>
+                Connected users have the possibility of adding their own recipes. In order to do that, they 
+                must provide all the chracteristics that a recipe has on our website: recipe name, 
+                recipe photo, prepping and total time, category, difficulty, number of ingredients and a 
+                list of the ingredients and a number of instructions, a list of those instructions and 
+                photos relevant to every instruction (one photo per instruction).
+            </p>
+
+
+            <h3 id="recipes"><span>5.4 </span>Recipes</h3>
+            <p>
+                For every user that we have, every user (regardless if they have an account or not) can 
+                see the characteristics of that recipe: name, recipe photo, prepping and total time it 
+                takes to make it, its category, how difficult it is to make, the number of ingredients and 
+                instructions it contains and the list of ingredients and instructions (for every 
+                instruction, all users can also see a photo representing that particular instruction in 
+                the hopes of making the process of recreating the recipe easier). Other than that, 
+                users that have an account can try a recipe bu attaching a photo of the end result.
+            </p>
+
+            <h3 id="settings"><span>5.5 <span>Settings</h3>
+            <p>
+                On this page, a user that has an account can change their user information (first and last 
+                name, username, email address, password, avatar photo and their date of birth). 
+                They can change any number of user information. Besides this, the user can see their 
+                search history, meaning all the recipes that are the result of searches and they can see 
+                all the recipes that they tried. One last thing that is provided on this page is all the 
+                recipes that the user has added, the possibility to delete their account and to log out 
+                of their account.
+            </p>
+
+            <h3 id="feed"><span>5.6 </span>Feed</h3>
+            <p>
+                This page is open to all users, regardless if they have an account or are just a visitor 
+                on the website. However, users that have made an account have a few privileges. First of 
+                all, all users can see all the recipes that have been added and they can sort them based 
+                on popularity, prepping time, total time, most recent, difficulty and alphabetically. 
+                Other than that, all users can see all the recipe categories and all the recipes belonging 
+                to a category of their choosing. When it comes to adding a new recipe, only users that have 
+                an account can do this. All users can see 3 types of rankings: top 10 most popular recipes, 
+                top 10 most popular ingredients and top 10 most avoided ingredients. And not only can they 
+                see these rankings but they can also export them as CSVs and JSONs. Other than that, 
+                all users can search for a certain recipe, certain ingredients that they want, prepping 
+                time, total time, ingredients that they don't want, recipe difficulty and recipe category. 
+                Not only that but they can also sort the resulted recipes by popularity, prepping and 
+                total time and by difficulty. A few other things that are provided are log out for 
+                connected users, going to the settings page by clicking either on our logo or on the 
+                user's avatar (if they have an account) and going to the terms and policy page by 
+                clicking the link in the footer. 
+            </p>
+
+            <h3 id="terms"><span>5.7 </span>Terms</h3> 
+            <p>
+                On this page, all users (regardless if they have an account or not) can see some 
+                information about this website and about us. You can see how you can use this website, 
+                what you can and cannot do on it, what your responsilities as a user are and what 
+                data we collect from users.
+            </p>
+
+            <h3 id="admin"><span>5.8 </span>Admin</h3>
+            <p>
+                There are 3 types of users that can use our website, each with different privileges: 
+                visitors (users that don't have an account), admins and normal users.
+                Admins have a series of extra privileges from the normal users. They can see all the 
+                recipes ever added on the website, modify and delete them (even if 
+                they didn't add them), they can see all the users that have an account, modify their 
+                information and delete their accounts, they can disconnect (logout) all connected 
+                users, make other normal users admins and set the maximum number of ingredients and 
+                instructions that users can add to a recipe.
+            </p>
+
+        </section>
+        <section  typeof="sa:MaterialsAndMethods" role="doc-chapter">   
+
+            <h2 id="nonfunctionalRequirements"><span>6. </span>Nonfunctional Requirements</h3> 
+            <h3 id = "safety"> <span>6.1</span> Safety</h3>
+            <p>
+                What Food is a safe Web application. The only safety breach that could potentially happen 
+                the loss of the information in the database. However, the possibility of that happening 
+                are very small.
+            </p> 
+
+            <h3 id = "security"><span>6.2 </span>Security </h3>
+            <p>
+                The application is protected against SQL-Injection attacks as we don't execute any of the 
+                information provided by the user via forms and we validate all the information before 
+                introducing them into the database.
+            </p> 
+
+        </section>
+
+        <section typeof="sa:ReferenceList" id="referinte" role="doc-bibliography">   
+            <h2 id="bibliography"><span>7. </span>Bibliography</h3>
+                <ol>
+                    <li property="schema:citation" role="doc-biblioentry" typeof="schema:WebPage" id="Scholarly-html"
+                        resource="https://w3c.github.io/scholarly-html/">
+                        <cite property="schema:name">
+                            <a href="https://w3c.github.io/scholarly-html/">Scholarly HTML</a>
+                        </cite>, by
+                        <span property="schema:author" typeof="schema:Person">
+                                    <span property="schema:givenName">Tzviya</span>
+                                    <span property="schema:aditionalName">Wiley</span>
+                                    <span property="schema:familiyName">Siegman</span>
+        
+                        </span>&amp;
+                        <span property="schema:author" typeof="schema:Person">
+                            <span property="schema:givenName">Robin</span>
+                            <span property="schema:familiyName">Berjon</span>
+                        </span>
+                    </li>
+                    <li property="schema:citation" role="doc-biblioentry" typeof="schema:WebPage" id="Scholarly-html"
+                        resource="https://vivliostyle.github.io/vivliostyle_doc/samples/scholarly/index.html">
+                        <cite property="schema:name">
+                            <a href="https://vivliostyle.github.io/vivliostyle_doc/samples/scholarly/index.html">What is Scholarly HTML?</a>
+                        </cite>, by
+                        <span property="schema:author" typeof="schema:Person">
+                                    <span property="schema:givenName">Robin</span>
+                                    <span property="schema:familiyName">Berjon</span>
+        
+                        </span>&amp;
+                        <span property="schema:author" typeof="schema:Person">
+                            <span property="schema:givenName">Sebastien</span>
+                            <span property="schema:familiyName">Ballesteros</span>
+                        </span>
+                    </li>
+                    <li property="schema:citation" role="doc-biblioentry" typeof="schema:WebPage" id="busaco"
+                        resource="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html">
+                         <span property="schema:author" typeof="schema:Person">
+                                <span property="schema:givenName">Sabin</span>
+                                <span property="schema:aditionalName">Corneliu</span>
+                                <span property="schema:familiyName">Buraga</span>
+                         </span>,
+                        <cite property="schema:name">
+                            <a href="https://profs.info.uaic.ro/~busaco/teach/courses/web/web-film.html">
+                                "Tehnologii Web" website
+                            </a> part of
+                            <span typeof="schema:Organization"
+                                  resource="https://www.uaic.ro">
+                                    <a href="https://www.uaic.ro">
+                                     <span property="schema:name">UAIC</span>
+                                  </a>
+                            </span>
+                        </cite>
+                    </li>
+
+                    <li property="schema:citation" role="doc-biblioentry" typeof="schema:WebPage" id="busaco"
+                        resource="https://www.w3schools.com">
+                        <cite property="schema:name">
+                            <a href="https://www.w3schools.com">
+                                W3School
+                            </a> 
+                        </cite>
+                    </li>
+                </ol>               
+        </section>
+    </article>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

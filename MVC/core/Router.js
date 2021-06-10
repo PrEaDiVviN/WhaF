@@ -42,6 +42,48 @@ module.exports = (request, response) => {
                     case "/adminPage.html":
                         adminPageController.GET(request,response);
                     break;
+                    case "/scholarly.html":
+                        fs.stat("public/raports/scholarly.html", (err, stats) => {
+                            response.statusCode = 200;
+                            response.setHeader('Content-Type', 'text/html');
+                              if(stats) {
+                                  fs.createReadStream("public/raports/scholarly.html").pipe(response);
+                              } else {
+                                  response.statusCode = 404;
+                                  response.end('Sorry, page not found!');
+                              }
+                          }); 
+                    break;
+                    case '/style_scholarly.css':
+                        getCSS(response, 'public/raports/style_scholarly.css');
+                    break;
+                    case '/ss1.png':
+                        getPhoto(response, 'public/raports/ss1.png');
+                    break;
+                    case '/ss2.png':
+                        getPhoto(response, 'public/raports/ss2.png');
+                    break;
+                    case '/ss3.png':
+                        getPhoto(response, 'public/raports/ss3.png');
+                    break;
+                    case '/ss4.png':
+                        getPhoto(response, 'public/raports/ss4.png');
+                    break;
+                    case '/ss5.png':
+                        getPhoto(response, 'public/raports/ss5.png');
+                    break;
+                    case '/ss6.png':
+                        getPhoto(response, 'public/raports/ss6.png');
+                    break;
+                    case '/ss7.png':
+                        getPhoto(response, 'public/raports/ss7.png');
+                    break;
+                    case '/ss8.png':
+                        getPhoto(response, 'public/raports/ss8.png');
+                    break;
+                    case '/ss9.png':
+                        getPhoto(response, 'public/raports/ss9.png');
+                    break;
                     default: 
                             console.log('---------------------------');
                             console.log(request.url);   
@@ -162,6 +204,21 @@ module.exports = (request, response) => {
                     case "/userSkipAndCount":
                         adminPageController.GET_USERS(request,response);
                     break;
+                    case "/recipeDefault":
+                        feedController.GET_DEFAULT_RECIPES(request, response);
+                    break;
+                    case "/scholarly.html":
+                        fs.stat("public/raports/scholarly.html", (err, stats) => {
+                            response.statusCode = 200;
+                            response.setHeader('Content-Type', 'text/html');
+                              if(stats) {
+                                  fs.createReadStream("public/raports/scholarly.html").pipe(response);
+                              } else {
+                                  response.statusCode = 404;
+                                  response.end('Sorry, page not found!');
+                              }
+                          }); 
+                    break;
                     default:
                         response.statusCode = 404;
                         response.end();
@@ -242,3 +299,19 @@ module.exports = (request, response) => {
                 console.log("Not a valid request!");
         }
 }
+
+function getPhoto(res, path) {
+    fs.readFile(path, function(err, data) {
+       if (err) throw err;
+       res.writeHead(200, {'Content-Type': 'image/png'});
+       res.end(data); 
+     });
+ }
+ 
+ function getCSS(res, path) {
+    fs.readFile(path, function(err, data) {
+       if (err) throw err;
+       res.writeHead(200, {'Content-Type': 'text/css'});
+       res.end(data); 
+     });
+ }
